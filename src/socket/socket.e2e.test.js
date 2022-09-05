@@ -5,15 +5,14 @@ function sleep(time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-// function message(player, socket, eventName, eventPayload) {
-//   socket.on("text_response", (arg) => {
-//     resolve(arg);
-//   });
-
-//   return new Promise((resolve, reject) => {
-
-//   });
-// }
+function send(socket, eventname, payload) {
+  return new Promise((resolve) => {
+    socket.emit(eventname, payload, (arg) => {
+      // console.log(`response for ${eventname} : ${arg}`);
+      resolve(arg);
+    });
+  });
+}
 
 describe("test socket e2e", () => {
   const GAME_NAME = `tatle_${Math.floor(Math.random() * 999099)}`;
@@ -58,8 +57,22 @@ describe("test socket e2e", () => {
 
   test("mainPlayer creates the game", async (done) => {
     for (const player of players) {
+      // player.socket.on("error", (arg) => {
+      //   console.log(`${player.name} encountered and error`);
+      //   console.log(arg);
+      // });
+      // player.socket.on("create_game_reply", (arg) => {
+      //   console.log(`create game response for ${player.name}`);
+      //   console.log(arg);
+      //   createCount++;
+      // });
+      // player.socket.on("join_game_reply", (arg) => {
+      //   console.log(`join game response for ${player.name}`);
+      //   console.log(arg);
+      //   joinCount++;
+      // });
       player.socket.on("text_response", (arg) => {
-        // console.log({ [`${player.name}Arg`]: arg });
+        console.log({ [`${player.name}Arg`]: arg });
         // let handleTextResponse = dispatch(
         //   is("heartbeat", handleHeartBeat, arg),
         //   is("create_game", handleCreateGame, arg),
@@ -78,7 +91,6 @@ describe("test socket e2e", () => {
             arg.data &&
             arg.data.includes("Created game")
           ) {
-            createCount++;
             allMessages.push(`${player.name} created a game`);
           }
           if (
@@ -90,9 +102,14 @@ describe("test socket e2e", () => {
             console.log(allMessages);
           }
           if (arg && arg.data && arg.data.includes("Joined game")) {
-            joinCount++;
             allMessages.push(`${player.name} has joined the game`);
           }
+        }
+      });
+      player.socket.on("endgame", (arg) => {
+        console.log({ [`${player.name}_endgame`]: arg });
+        if (player.role === "owner_and_player") {
+          console.log(allMessages);
         }
       });
 
@@ -115,18 +132,34 @@ describe("test socket e2e", () => {
           }
           if (sendTo) {
             // send to someone
-            player.socket.emit("player_action", {
-              game: GAME_NAME,
-              player: player.name,
-              action: "action_pass_card",
-              kwargs: {
-                to: sendTo,
-                card_instance_id: currentCard.id_,
-              },
-            });
-            allMessages.push(
-              `${player.name} has passed card ${currentCard.id_} to ${sendTo}`
-            );
+            // roll a dice and decide to play the card or keep it
+            const diceThrow = Math.round(Math.random());
+            if (diceThrow) {
+              player.socket.emit("player_action", {
+                game: GAME_NAME,
+                player: player.name,
+                action: "action_pass_card",
+                kwargs: {
+                  to: sendTo,
+                  card_instance_id: currentCard.id_,
+                },
+              });
+              allMessages.push(
+                `after dice throw ${player.name} has passed card ${currentCard.id_} to ${sendTo}`
+              );
+            } else {
+              player.socket.emit("player_action", {
+                game: GAME_NAME,
+                player: player.name,
+                action: "action_keep_card",
+                kwargs: {
+                  card_instance_id: currentCard.id_,
+                },
+              });
+              allMessages.push(
+                `after dice throw ${player.name} has kept card ${currentCard.card.id_}`
+              );
+            }
           } else {
             // keep it
             player.socket.emit("player_action", {
@@ -148,16 +181,9 @@ describe("test socket e2e", () => {
       // player.socket.on("whos_turn", (arg) => {
       //   console.log({ [`${player.name}_whos_turn`]: arg });
       // });
-
-      player.socket.on("endgame", (arg) => {
-        console.log({ [`${player.name}_endgame`]: arg });
-        if (player.role === "owner_and_player") {
-          console.log(allMessages);
-        }
-      });
     }
 
-    players[0].socket.emit("create_game", {
+    await send(players[0].socket, "create_game", {
       game: GAME_NAME,
       password: GAME_PASSWORD,
       players: ["adhiraj", "aman", "krys", "farah"],
@@ -167,27 +193,15 @@ describe("test socket e2e", () => {
       cards_filepath: "config_jsons/example1/cards.json",
     });
 
-    await sleep(1000);
+    console.log("created game");
 
-    // all 4 players must join the game
     for (const player of players) {
-      player.socket.emit("join_game", {
+      await send(player.socket, "join_game", {
         game: GAME_NAME,
         player: player.name,
       });
     }
 
-    await sleep(2000);
-
-    expect(connectionCount).toBe(4);
-    expect(createCount).toBe(1);
-    expect(joinCount).toBe(4);
-    // expect(players.filter((player) => player.status === "current").length).toBe(
-    //   1
-    // );
-
-    // await sleep(7000);
-    // console.log(allMessages);
-    // done();
+    console.log("4 players have joined the game");
   });
 });
