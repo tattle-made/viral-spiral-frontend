@@ -1,4 +1,4 @@
-name: Gatsby Publish
+name: publish-to-gh
 
 on:
   push:
@@ -21,4 +21,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          publish_branch: gh-page
