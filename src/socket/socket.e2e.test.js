@@ -40,10 +40,14 @@ describe("test socket e2e", () => {
     for (const player of players) {
       player.socket = io("http://localhost:5000/");
       player.socket.on("connect", () => {
+        console.log("connected");
         connectionCount++;
         if (connectionCount == players.length) {
           done();
         }
+      });
+      player.socket.on("disconnect", (reason) => {
+        console.log(`disconnect : ${reason}`);
       });
     }
   });
