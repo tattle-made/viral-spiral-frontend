@@ -11,6 +11,9 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { GameManagerContext } from "../../App";
 
+// todo : remove later when we're not deploying to github pages anymore
+const BASE_URL = "/viral-spiral-frontend/";
+
 const Home = () => {
   const navigate = useNavigate();
   const manager = useContext(GameManagerContext);
@@ -24,7 +27,7 @@ const Home = () => {
   async function createRoom(value) {
     try {
       await manager.createRoom(value);
-      navigate("/room");
+      navigate(`${BASE_URL}room`);
     } catch (err) {
       console.log("error caught with create room");
     }
@@ -32,7 +35,7 @@ const Home = () => {
 
   function joinRoom(value) {
     // console.log(value);
-    navigate(`/room?name=${value.game}&me=${value.me}`);
+    navigate(`${BASE_URL}room?name=${value.game}&me=${value.me}`);
   }
 
   return (

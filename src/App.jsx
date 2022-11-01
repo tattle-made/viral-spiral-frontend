@@ -10,6 +10,9 @@ const { Home, Room, Test } = pages;
 
 export const GameManagerContext = createContext(null);
 
+// todo : remove later when we're not deploying to github pages anymore
+const BASE_URL = "/viral-spiral-frontend/";
+
 const App = () => {
   useEffect(() => {}, []);
 
@@ -20,9 +23,9 @@ const App = () => {
           <AppShell>
             <BrowserRouter>
               <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/room" element={<Room />} />
-                <Route path="/test" element={<Test />} />
+                <Route path={`${BASE_URL}`} element={<Home />} />
+                <Route path={`${BASE_URL}room`} element={<Room />} />
+                <Route path={`${BASE_URL}test`} element={<Test />} />
               </Routes>
             </BrowserRouter>
           </AppShell>
