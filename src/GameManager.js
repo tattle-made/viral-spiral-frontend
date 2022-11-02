@@ -132,16 +132,17 @@ class GameManager {
     }, 5000);
   }
 
-  async createRoom({ game, players, password }) {
+  async createRoom({ game, players, me, password }) {
     console.log("create room called");
-    const message = Messages.make.createGame(game, password, players);
+    let allPlayers = `${players},${me}`;
+    const message = Messages.make.createGame(game, password, allPlayers);
     console.log(message);
     await this.client.messageWithAck(message.name, message.payload);
     this.room.setRoom({
       id: "abc-def",
       name: game,
       password: password,
-      me: "adhiraj",
+      me,
       state: undefined,
     });
   }

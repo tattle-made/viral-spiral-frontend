@@ -76,6 +76,14 @@ const Home = () => {
 
                   <FormField>
                     <TextInput
+                      className="new-room-me"
+                      name="me"
+                      placeholder={"Your Username"}
+                    ></TextInput>
+                  </FormField>
+
+                  <FormField>
+                    <TextInput
                       className="new-room-players"
                       name="players"
                       placeholder={"Players"}
