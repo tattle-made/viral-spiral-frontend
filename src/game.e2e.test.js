@@ -20,7 +20,7 @@ function randomRoomNum() {
   await page.type(".new-room-me", "adhiraj");
   await page.type(".new-room-players", "aman,farah,krys");
   await page.click(".new-room-create");
-  await sleep(50);
+  await sleep(5000);
   // await page.click(".tab-game-stat");
 
   const browserB = await puppeteer.launch({ headless: false });
@@ -30,7 +30,7 @@ function randomRoomNum() {
   await pageB.type(".join-room-me", "aman");
   await pageB.click(".join-room-join");
   await sleep(50);
-  // await pageB.click(".tab-game-stat");
+  await pageB.click(".tab-game-stat");
 
   const browserC = await puppeteer.launch({ headless: false });
   const pageC = await browserC.newPage();

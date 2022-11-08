@@ -159,12 +159,12 @@ class GameManager {
       me: username,
       state: undefined,
     });
-    setInterval(async () => {
-      const message = Messages.make.aboutGame(room);
-      const ack = await client.messageWithAck(message.name, message.payload);
-      console.log("****");
-      console.log(ack);
-    }, 5000);
+    // setInterval(async () => {
+    //   const message = Messages.make.aboutGame(room);
+    //   const ack = await client.messageWithAck(message.name, message.payload);
+    //   console.log("****");
+    //   console.log(ack);
+    // }, 5000);
   }
 
   leaveRoom() {
