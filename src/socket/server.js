@@ -2,14 +2,14 @@ const ServerLocalConfig = {
   protocol: "http",
   host: "localhost",
   port: 5000,
-  url: "http://localhost:5000",
+  url: "http://api.viralspiral.net",
 };
 
 const ServerProdConfig = {
   PROTOCOL: "https://",
-  HOST: "viral-spiral-server.tattle.co.in",
+  HOST: "api.viralspiral.net",
   port: 443,
-  url: `https://viral-spiral-server.tattle.co.in`,
+  url: `http://api.viralspiral.net`,
 };
 
 class Server {
