@@ -102,7 +102,7 @@ const Home = () => {
           </Box>
         </Box>
         <Box justify="center">
-          <Text weight={400}>or</Text>
+          <Text weight={"400"}>or</Text>
         </Box>
         <Box width={"medium"} gap={"small"} justify="center">
           <Form onSubmit={({ value }) => joinRoom(value)}>
