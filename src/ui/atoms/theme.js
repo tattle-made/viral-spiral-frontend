@@ -1,4 +1,19 @@
-const Theme = {
+export const pallette = {
+  blue: {
+    dark: "#5fa8db",
+    light: "#a3ccea",
+  },
+  red: {
+    dark: "#ff7783",
+    light: "#ffb19b",
+  },
+  yellow: {
+    dark: "#ff9d00",
+    light: "#ffd082",
+  },
+};
+
+export const Theme = {
   global: {
     font: {
       family: "Raleway",
@@ -25,5 +40,3 @@ const Theme = {
     },
   },
 };
-
-export default Theme;
