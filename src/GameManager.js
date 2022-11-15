@@ -10,6 +10,8 @@ import {
   GameMessage,
   GameStatDefault,
 } from "./state";
+import adapt from "./socket/adapter-recoil";
+import _, { isEqual } from "underscore";
 
 class GameManager {
   constructor(client) {
@@ -18,6 +20,7 @@ class GameManager {
     this.state = {};
     this.room = {};
     this.played_cards = [];
+    this.pollID = undefined; // we keep this handy to stop the polling when the room is inactive
     // this.stats = new GameStats();
   }
 
@@ -78,6 +81,9 @@ class GameManager {
         "heartbeat",
         (() => {
           return (msg) => {
+            console.log("---HEARTBEAT--");
+            console.log(msg);
+            console.log("-----");
             this.addMessage(`❤️ ${msg.count}`);
           };
         })()
@@ -91,6 +97,7 @@ class GameManager {
 
   teardown() {
     try {
+      clearInterval(this.pollID);
       this.client.disconnect();
     } catch (err) {
       console.log("error tearing down manager");
@@ -159,12 +166,20 @@ class GameManager {
       me: username,
       state: undefined,
     });
-    // setInterval(async () => {
-    //   const message = Messages.make.aboutGame(room);
-    //   const ack = await client.messageWithAck(message.name, message.payload);
-    //   console.log("****");
-    //   console.log(ack);
-    // }, 5000);
+  }
+
+  pollRoom({ room }) {
+    this.pollID = setInterval(async () => {
+      const { name, payload } = Messages.make.aboutGame(room);
+      const { about } = await client.messageWithAck(name, payload);
+      const { players, current } = adapt("about_game", about);
+      if (
+        !_.isEqual(this.room.room.players, players) &&
+        !_.isEqual(this.room.room.current, current)
+      ) {
+        this.room.setRoom({ ...this.room.room, players, current });
+      }
+    }, 150);
   }
 
   leaveRoom() {
@@ -210,10 +225,6 @@ class GameManager {
 
   updateGameState(subState) {
     const { gameStat, setGameStat } = this.state;
-    console.log("----");
-    console.log({ gameStat, subState });
-    console.log("----");
-    console.log({ ...gameStat, ...subState });
     setGameStat({ ...gameStat, ...subState });
     this.played_cards.push();
   }

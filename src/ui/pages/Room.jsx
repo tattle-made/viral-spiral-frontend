@@ -18,7 +18,6 @@ function Room({ props }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // todo  : join room if you have an active room id, if not navigate to /
     (async function joinRoom() {
       manager.setup();
       let { name, password, me } = room;
@@ -32,11 +31,11 @@ function Room({ props }) {
       }
 
       await manager.joinGame({ room: name, username: me });
+      manager.pollRoom({ room: name });
     })();
 
     return () => {
       manager.teardown();
-      // add code to disconnect from socket
     };
   }, []);
 
@@ -46,7 +45,10 @@ function Room({ props }) {
   }
 
   return (
-    <Box fill alignContent={"center"} justify={"center"}>
+    <Box fill>
+      <Box fill justify="center" align="center" full>
+        <PlayingArea />
+      </Box>
       <Layer
         modal={false}
         background={{ opacity: "weak" }}
@@ -64,14 +66,7 @@ function Room({ props }) {
           </Box>
         </Box>
       </Layer>
-      <Layer
-        modal={false}
-        background={{ opacity: "weak" }}
-        position={"center"}
-        animation={false}
-      >
-        <PlayingArea />
-      </Layer>
+
       <Layer
         modal={false}
         background={{ opacity: "weak" }}
