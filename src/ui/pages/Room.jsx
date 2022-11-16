@@ -15,9 +15,7 @@ import { GameManagerContext } from "../../App";
 import { useEffect } from "react";
 import bgWorld1 from "../../assets/bg-world-1.jpg";
 
-function sleep(time) {
-  return new Promise((resolve) => setTimeout(resolve, time));
-}
+const BASE_URL = "/viral-spiral-frontend/";
 
 const { PlayingArea } = molecules;
 
@@ -51,7 +49,7 @@ function Room({ props }) {
 
   function actionLeaveRoom() {
     manager.leaveRoom();
-    navigate("/");
+    navigate(BASE_URL);
   }
 
   return (
