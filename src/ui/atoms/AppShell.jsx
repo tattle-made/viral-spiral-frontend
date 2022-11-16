@@ -9,7 +9,7 @@ import { GameManagerContext } from "../../App";
 export default function AppShell({ children }) {
   const manager = useContext(GameManagerContext);
   const { gameStat, room, gameMessage } = manager.useGameState();
-  const env = import.meta.env.ENVIRONMENT;
+  const env = import.meta.env.MODE;
   console.log({ env });
 
   return (
