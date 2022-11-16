@@ -9,7 +9,7 @@ const ServerProdConfig = {
   PROTOCOL: "https://",
   HOST: "api.viralspiral.net",
   port: 443,
-  url: `http://api.viralspiral.net`,
+  url: `https://api.viralspiral.net`,
 };
 
 class Server {
