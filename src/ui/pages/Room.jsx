@@ -14,6 +14,7 @@ import { molecules } from "../index";
 import { GameManagerContext } from "../../App";
 import { useEffect } from "react";
 import bgWorld1 from "../../assets/bg-world-1.jpg";
+import vsLogo from "../../assets/vs-logo.png";
 
 const BASE_URL = "/viral-spiral-frontend/";
 
@@ -67,7 +68,7 @@ function Room({ props }) {
         <Box width={"fit-content"}>
           <Box direction="row">
             <Box width={"xsmall"} height={"xsmall"}>
-              <Image src={"/vs-logo.png"} fit={"contain"} />
+              <Image src={vsLogo} fit={"contain"} />
             </Box>
             <Box pad={"small"}>
               <Heading level={3} margin={"none"}>
