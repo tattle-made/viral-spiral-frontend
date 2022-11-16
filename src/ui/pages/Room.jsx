@@ -1,5 +1,14 @@
 import { useContext, useState } from "react";
-import { Grommet, Layer, Box, Heading, Text, Paragraph, Button } from "grommet";
+import {
+  Grommet,
+  Layer,
+  Box,
+  Heading,
+  Text,
+  Paragraph,
+  Button,
+  Image,
+} from "grommet";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { molecules } from "../index";
 import { GameManagerContext } from "../../App";
@@ -56,18 +65,23 @@ function Room({ props }) {
         margin={"small"}
         animation={false}
       >
-        <Box width={"fit-content"} border round={"small"} pad={"small"}>
-          <Box>
-            <Heading level={3} margin={"none"}>
-              Score
-            </Heading>
-            <Text>Anti Blue : 12</Text>
-            <Text>Anti Red : 8</Text>
+        <Box width={"fit-content"}>
+          <Box direction="row">
+            <Box width={"xsmall"} height={"xsmall"}>
+              <Image src={"/vs-logo.png"} fit={"contain"} />
+            </Box>
+            <Box>
+              <Heading level={3} margin={"none"}>
+                Score
+              </Heading>
+              <Text>Anti Blue : 12</Text>
+              <Text>Anti Red : 8</Text>
+            </Box>
           </Box>
         </Box>
       </Layer>
 
-      <Layer
+      {/* <Layer
         modal={false}
         background={{ opacity: "weak" }}
         position={"bottom-right"}
@@ -83,7 +97,7 @@ function Room({ props }) {
             <Text>Cats : 3</Text>
           </Box>
         </Box>
-      </Layer>
+      </Layer> */}
       <Layer
         modal={false}
         background={{ opacity: "weak" }}

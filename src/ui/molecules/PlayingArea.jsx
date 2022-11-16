@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from "react";
-import { Heading, Box, Text, Image, Button } from "grommet";
+import { Heading, Box, Text, Image, Button, Stack } from "grommet";
 import { useDrag, useDrop } from "react-dnd";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -117,9 +117,13 @@ const PlayingArea = () => {
                   height={"xsmall"}
                   round={"xsmall"}
                   background={pallette[player.color].dark}
-                  pad={"small"}
                 >
-                  <Text>{player.name}</Text>
+                  <Stack>
+                    <Box fill>
+                      <Image src={`avatar-0${ix + 2}.png`} />
+                    </Box>
+                    <Text>{player.name}</Text>
+                  </Stack>
                 </Box>
               );
             })}
@@ -182,15 +186,19 @@ const PlayingArea = () => {
 
       <AbsoluteBox x={width / 2} y={(5 / 6) * height}>
         {me ? (
-          <Box alignSelf={"center"} background="red">
+          <Box alignSelf={"center"}>
             <Box
               width={"xsmall"}
               height={"xsmall"}
               round={"xsmall"}
               background={pallette[me.color].dark}
-              pad={"small"}
             >
-              <Text>{me.name}</Text>
+              <Stack>
+                <Box fill>
+                  <Image src={`avatar-01.png`} />
+                </Box>
+                <Text>{me.name}</Text>
+              </Stack>
             </Box>
           </Box>
         ) : null}
