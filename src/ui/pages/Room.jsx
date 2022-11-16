@@ -54,13 +54,13 @@ function Room({ props }) {
   }
 
   return (
-    <Box fill>
+    <Box fill background={"url(/bg-world.jpg)"}>
       <Box fill justify="center" align="center" full>
         <PlayingArea />
       </Box>
       <Layer
         modal={false}
-        background={{ opacity: "weak" }}
+        background={"#ffffffcc"}
         position={"top-left"}
         margin={"small"}
         animation={false}

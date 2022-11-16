@@ -178,6 +178,7 @@ class GameManager {
         !_.isEqual(this.room.room.current, current)
       ) {
         this.room.setRoom({ ...this.room.room, players, current });
+        this.addMessage(`🎴 its ${current.name}'s turn now`);
       }
     }, 150);
   }
@@ -220,7 +221,7 @@ class GameManager {
 
   addMessage(message) {
     const { gameMessage, setGameMessage } = this.gameMessage;
-    setGameMessage([message, ...gameMessage.slice(0, 10)]);
+    setGameMessage([message, ...gameMessage.slice(0, 50)]);
   }
 
   updateGameState(subState) {

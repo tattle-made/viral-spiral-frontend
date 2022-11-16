@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Grommet, Box, Tabs, Tab } from "grommet";
+import { Grommet, Box, Tabs, Tab, Stack } from "grommet";
 import { Theme } from "./theme";
 import molecules from "../molecules";
 const { GameState, GameIncomingMessage } = molecules;
@@ -14,7 +14,10 @@ export default function AppShell({ children }) {
     <Grommet theme={Theme} full>
       <Box fill direction="row">
         <Box flex>{children}</Box>
-        <Box width={"medium"} pad={"medium"} margin={"small"} border round>
+
+        {/* 
+          useful for debugging. do not delete
+          <Box width={"medium"} pad={"medium"} margin={"small"} border round>
           <Tabs alignSelf="start" alignControls="start">
             <Tab className="tab-game-stat" title="state">
               <GameState gameStat={gameStat} room={room} />
@@ -27,6 +30,11 @@ export default function AppShell({ children }) {
 
             <Tab title="temp">Add later</Tab>
           </Tabs>
+        </Box> */}
+        <Box width={"medium"} pad={"medium"} margin={"small"} border round>
+          <Box width={"100%"} fill={"vertical"} overflow={"scroll"}>
+            <GameIncomingMessage message={gameMessage} />
+          </Box>
         </Box>
       </Box>
     </Grommet>

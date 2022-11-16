@@ -3,7 +3,7 @@ import { Box, Text } from "grommet";
 
 const GameIncomingMessage = ({ message }) => {
   return (
-    <Box>
+    <Box fill>
       <Box height="2em"></Box>
       <Box flex="grow" overflow={"scroll"}>
         {message.map((item, ix) => (

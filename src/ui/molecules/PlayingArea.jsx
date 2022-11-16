@@ -64,7 +64,7 @@ const PlayingArea = () => {
       mainDeck: mainDeckPosition,
       discardPile: discardPilePosition,
     });
-    manager.addMessage(JSON.stringify({ width, height }));
+    // manager.addMessage(JSON.stringify({ width, height }));
   }, [width, height]);
 
   async function actionKeepCard() {
