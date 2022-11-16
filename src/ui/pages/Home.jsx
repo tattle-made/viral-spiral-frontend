@@ -12,6 +12,7 @@ import {
 } from "grommet";
 import { Link, useNavigate } from "react-router-dom";
 import { GameManagerContext } from "../../App";
+import vsLogo from "../../assets/vs-logo.png";
 
 // todo : remove later when we're not deploying to github pages anymore
 const BASE_URL = "/viral-spiral-frontend/";
@@ -45,7 +46,7 @@ const Home = () => {
       <Layer full animation={false}>
         <Box fill>
           <Box width={"small"} height={"small"}>
-            <Image src={"/vs-logo.png"} />
+            <Image src={vsLogo} />
           </Box>
           <Box fill align={"end"}>
             <Box
