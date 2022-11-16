@@ -51,7 +51,15 @@ class GameManager {
       client.addHandler("disconnect", Handlers.disconnectHandler);
       client.addHandler("connect_error", Handlers.errorHandler);
       client.addHandler("text_response", Handlers.textResponseMessageHandler);
-      client.addHandler("endgame", Handlers.endGameMessageHandler);
+      client.addHandler(
+        "endgame",
+        (() => {
+          return (msg) => {
+            console.log("received end game event");
+            this.addMessage(`🎴 Game has ended`);
+          };
+        })()
+      );
       client.addHandler(
         "play_card",
         (() => {
@@ -172,12 +180,18 @@ class GameManager {
     this.pollID = setInterval(async () => {
       const { name, payload } = Messages.make.aboutGame(room);
       const { about } = await client.messageWithAck(name, payload);
-      const { players, current } = adapt("about_game", about);
+      const { players, current, totalGlobalBias } = adapt("about_game", about);
       if (
         !_.isEqual(this.room.room.players, players) &&
-        !_.isEqual(this.room.room.current, current)
+        !_.isEqual(this.room.room.current, current) &&
+        totalGlobalBias === this.room.room.totalGlobalBias
       ) {
-        this.room.setRoom({ ...this.room.room, players, current });
+        this.room.setRoom({
+          ...this.room.room,
+          players,
+          current,
+          totalGlobalBias,
+        });
         this.addMessage(`🎴 its ${current.name}'s turn now`);
       }
     }, 150);
