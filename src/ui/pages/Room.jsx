@@ -72,10 +72,11 @@ function Room({ props }) {
             </Box>
             <Box pad={"small"}>
               <Heading level={3} margin={"none"}>
-                Score
+                Total Global Bias
               </Heading>
-              <Text>Anti Blue : 12</Text>
-              <Text>Anti Red : 8</Text>
+              {room && room.totalGlobalBias ? (
+                <Text>{room.totalGlobalBias}</Text>
+              ) : null}
             </Box>
           </Box>
         </Box>

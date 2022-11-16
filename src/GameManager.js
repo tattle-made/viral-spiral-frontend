@@ -181,6 +181,7 @@ class GameManager {
       const { name, payload } = Messages.make.aboutGame(room);
       const { about } = await client.messageWithAck(name, payload);
       const { players, current, totalGlobalBias } = adapt("about_game", about);
+      console.log(about);
       if (
         !_.isEqual(this.room.room.players, players) &&
         !_.isEqual(this.room.room.current, current) &&
@@ -194,7 +195,7 @@ class GameManager {
         });
         this.addMessage(`🎴 its ${current.name}'s turn now`);
       }
-    }, 150);
+    }, 2000);
   }
 
   leaveRoom() {

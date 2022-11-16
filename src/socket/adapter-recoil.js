@@ -4,9 +4,20 @@ function aboutGameMessage(message) {
     name: player.name,
     score: player.score,
     color: player.color.name,
-    bias: player.initial_bias,
-    affinity: player.initial_affinity,
+    bias: player.biases,
+    affinity: player.affinities,
+    colors,
   }));
+
+  let colors = {};
+  let affinities = {};
+
+  player.colors.map((color) => {
+    colors[color.id_] = color.name;
+  });
+  players.topics.map((topic) => {
+    affinities[topic.id_] = topic.name;
+  });
 
   return {
     players,
@@ -14,6 +25,7 @@ function aboutGameMessage(message) {
       id: message.current_drawing_player.id_,
       name: message.current_drawing_player.name,
     },
+    totalGlobalBias: message.total_global_bias,
   };
 }
 
