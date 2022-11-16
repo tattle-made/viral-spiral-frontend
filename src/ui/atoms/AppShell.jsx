@@ -23,7 +23,7 @@ export default function AppShell({ children }) {
                 <GameState gameStat={gameStat} room={room} />
               </Tab>
               <Tab title="messages">
-                <Box width={"100%"} height={"8em"} overflow={"scroll"}>
+                <Box width={"100%"} fill={"vertical"} overflow={"scroll"}>
                   <GameIncomingMessage message={gameMessage} />
                 </Box>
               </Tab>
