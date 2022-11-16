@@ -105,7 +105,7 @@ const PlayingArea = () => {
 
   return (
     <Box ref={playArea} fill>
-      <AbsoluteBox x={width / 2 - 200} y={height / 6}>
+      <AbsoluteBox x={width / 2 - 200} y={height / 3}>
         {them ? (
           <Box direction={"row"} gap={"xlarge"}>
             {them.map((player, ix) => {

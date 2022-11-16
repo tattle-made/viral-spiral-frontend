@@ -54,7 +54,7 @@ function Room({ props }) {
   }
 
   return (
-    <Box fill background={"url(/bg-world.jpg)"}>
+    <Box fill background={"url(/bg-world-1.jpg)"}>
       <Box fill justify="center" align="center" full>
         <PlayingArea />
       </Box>
