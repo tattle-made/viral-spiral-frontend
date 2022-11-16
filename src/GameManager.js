@@ -245,7 +245,7 @@ class GameManager {
   loadGameFromLocalStorage() {}
 }
 
-const server = new Server(import.meta.env.ENVIRONMENT);
+const server = new Server(import.meta.env.MODE);
 const client = new Client(server);
 const GameManagerInstance = new GameManager(client);
 
