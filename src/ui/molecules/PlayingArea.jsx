@@ -13,6 +13,25 @@ import { animated, useSpring } from "@react-spring/web";
 import useSize from "@react-hook/size";
 import CardDeck from "../atoms/CardDeck";
 import AbsoluteBox from "../atoms/AbsoluteBox";
+import avatar1Url from "../../assets/avatar-01.png";
+import avatar2Url from "../../assets/avatar-02.png";
+import avatar3Url from "../../assets/avatar-03.png";
+import avatar4Url from "../../assets/avatar-04.png";
+import avatar5Url from "../../assets/avatar-05.png";
+import avatar6Url from "../../assets/avatar-06.png";
+import avatar7Url from "../../assets/avatar-07.png";
+import avatar8Url from "../../assets/avatar-08.png";
+
+const avatars = [
+  avatar1Url,
+  avatar2Url,
+  avatar3Url,
+  avatar4Url,
+  avatar5Url,
+  avatar6Url,
+  avatar7Url,
+  avatar8Url,
+];
 
 const PlayingArea = () => {
   // game room variables
@@ -119,7 +138,7 @@ const PlayingArea = () => {
                 >
                   <Stack>
                     <Box fill>
-                      <Image src={`avatar-0${ix + 2}.png`} />
+                      <Image src={avatars[ix + 1]} />
                     </Box>
                     <Text>{player.name}</Text>
                   </Stack>
@@ -137,7 +156,7 @@ const PlayingArea = () => {
         />
       ) : null} */}
       {gameStat.card != undefined ? (
-        <AbsoluteBox x={width / 2 - 100} y={height / 2 - 200}>
+        <AbsoluteBox x={width / 2 - 100} y={(2 * height) / 3 - 200}>
           <Box
             width={"small"}
             pad={"small"}
@@ -154,6 +173,7 @@ const PlayingArea = () => {
               round={"xsmall"}
               border
               overflow={"hidden"}
+              background={"#eeeeee"}
             >
               <Heading level={3}>{gameStat.card.title}</Heading>
               <Text>{gameStat.card.description}</Text>
@@ -194,7 +214,7 @@ const PlayingArea = () => {
             >
               <Stack>
                 <Box fill>
-                  <Image src={`avatar-01.png`} />
+                  <Image src={avatars[0]} />
                 </Box>
                 <Text>{me.name}</Text>
               </Stack>

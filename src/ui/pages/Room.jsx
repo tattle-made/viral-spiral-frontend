@@ -13,6 +13,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { molecules } from "../index";
 import { GameManagerContext } from "../../App";
 import { useEffect } from "react";
+import bgWorld1 from "../../assets/bg-world-1.jpg";
 
 function sleep(time) {
   return new Promise((resolve) => setTimeout(resolve, time));
@@ -54,7 +55,7 @@ function Room({ props }) {
   }
 
   return (
-    <Box fill background={"url(/bg-world-1.jpg)"}>
+    <Box fill background={`url(${bgWorld1})`}>
       <Box fill justify="center" align="center" full>
         <PlayingArea />
       </Box>

@@ -13,6 +13,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { GameManagerContext } from "../../App";
 import vsLogo from "../../assets/vs-logo.png";
+import bgLanding from "../../assets/bg-landing-1.png";
 
 // todo : remove later when we're not deploying to github pages anymore
 const BASE_URL = "/viral-spiral-frontend/";
@@ -57,7 +58,7 @@ const Home = () => {
               justify={"end"}
             >
               <Box width={"medium"} height={"medium"}>
-                <Image src={"/bg-landing-1.png"} fit={"contain"} />
+                <Image src={bgLanding} fit={"contain"} />
               </Box>
             </Box>
           </Box>
