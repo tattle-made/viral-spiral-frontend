@@ -34,7 +34,6 @@ const DeckCard = styled.div`
 
 export default function CardDeck({ onPick, x, y }) {
   const [cards, setCards] = useState(Array.from({ length: 50 }, (v, k) => k));
-  console.log("2");
 
   function onCardPick() {
     setCards(cards.slice(0, -1));

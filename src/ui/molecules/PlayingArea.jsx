@@ -41,7 +41,6 @@ const PlayingArea = () => {
   }, [room]);
 
   useEffect(() => {
-    console.log("1");
     const mainDeckDimension = {
       w: 120,
       h: 200,
