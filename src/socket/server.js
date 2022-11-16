@@ -2,7 +2,7 @@ const ServerLocalConfig = {
   protocol: "http",
   host: "localhost",
   port: 5000,
-  url: "http://api.viralspiral.net",
+  url: "https://api.viralspiral.net",
 };
 
 const ServerProdConfig = {
