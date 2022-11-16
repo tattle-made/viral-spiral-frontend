@@ -7,6 +7,8 @@ import {
   Button,
   Form,
   FormField,
+  Layer,
+  Image,
 } from "grommet";
 import { Link, useNavigate } from "react-router-dom";
 import { GameManagerContext } from "../../App";
@@ -40,100 +42,122 @@ const Home = () => {
 
   return (
     <Box fill alignContent={"center"} justify={"center"}>
+      <Layer full animation={false}>
+        <Box fill>
+          <Box width={"small"} height={"small"}>
+            <Image src={"/vs-logo.png"} />
+          </Box>
+          <Box fill align={"end"}>
+            <Box
+              pad={{ right: "medium" }}
+              width={"medium"}
+              fill={"vertical"}
+              align={"end"}
+              justify={"end"}
+            >
+              <Box width={"medium"} height={"medium"}>
+                <Image src={"/bg-landing-1.png"} fit={"contain"} />
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+      </Layer>
       {/* <Box >
         { <Box>
           <Heading level={2}>Viral Spiral</Heading>
           <Text>{JSON.stringify(room)}</Text>
         </Box> }
       </Box> */}
-      <Box
-        fill
-        direction={"row-responsive"}
-        gap={"medium"}
-        alignContent={"center"}
-        justify={"center"}
-      >
-        <Box width={"medium"} justify="center">
-          <Box gap={"small"} border round pad={"medium"}>
-            <Form onSubmit={({ value }) => createRoom(value)}>
+      <Layer animation={false} background={"none"} modal={false}>
+        <Box
+          fill
+          direction={"row-responsive"}
+          gap={"medium"}
+          alignContent={"center"}
+          justify={"center"}
+        >
+          <Box width={"medium"} justify="center">
+            <Box gap={"small"} border round pad={"medium"}>
+              <Form onSubmit={({ value }) => createRoom(value)}>
+                <Box gap={"medium"}>
+                  <Box>
+                    <FormField>
+                      <TextInput
+                        className="new-room-game"
+                        name="game"
+                        placeholder={"Room"}
+                      ></TextInput>
+                    </FormField>
+                    <FormField>
+                      <TextInput
+                        className="new-room-password"
+                        name="password"
+                        type="password"
+                        placeholder={"Password"}
+                      ></TextInput>
+                    </FormField>
+
+                    <FormField>
+                      <TextInput
+                        className="new-room-me"
+                        name="me"
+                        placeholder={"Your Username"}
+                      ></TextInput>
+                    </FormField>
+
+                    <FormField>
+                      <TextInput
+                        className="new-room-players"
+                        name="players"
+                        placeholder={"Players"}
+                      ></TextInput>
+                    </FormField>
+                  </Box>
+                  <Box>
+                    <Button
+                      className="new-room-create"
+                      type="submit"
+                      label={"Create Room"}
+                    ></Button>
+                  </Box>
+                </Box>
+              </Form>
+            </Box>
+          </Box>
+          <Box justify="center">
+            <Text weight={"400"}>or</Text>
+          </Box>
+          <Box width={"medium"} gap={"small"} justify="center">
+            <Form onSubmit={({ value }) => joinRoom(value)}>
               <Box gap={"medium"}>
                 <Box>
                   <FormField>
                     <TextInput
-                      className="new-room-game"
+                      className="join-room-game"
                       name="game"
                       placeholder={"Room"}
                     ></TextInput>
                   </FormField>
                   <FormField>
                     <TextInput
-                      className="new-room-password"
-                      name="password"
-                      type="password"
-                      placeholder={"Password"}
-                    ></TextInput>
-                  </FormField>
-
-                  <FormField>
-                    <TextInput
-                      className="new-room-me"
+                      className="join-room-me"
                       name="me"
-                      placeholder={"Your Username"}
-                    ></TextInput>
-                  </FormField>
-
-                  <FormField>
-                    <TextInput
-                      className="new-room-players"
-                      name="players"
-                      placeholder={"Players"}
+                      placeholder={"Username"}
                     ></TextInput>
                   </FormField>
                 </Box>
                 <Box>
                   <Button
-                    className="new-room-create"
+                    className="join-room-join"
                     type="submit"
-                    label={"Create Room"}
+                    label={"Join Room"}
                   ></Button>
                 </Box>
               </Box>
             </Form>
           </Box>
         </Box>
-        <Box justify="center">
-          <Text weight={"400"}>or</Text>
-        </Box>
-        <Box width={"medium"} gap={"small"} justify="center">
-          <Form onSubmit={({ value }) => joinRoom(value)}>
-            <Box gap={"medium"}>
-              <Box>
-                <FormField>
-                  <TextInput
-                    className="join-room-game"
-                    name="game"
-                    placeholder={"Room"}
-                  ></TextInput>
-                </FormField>
-                <FormField>
-                  <TextInput
-                    className="join-room-me"
-                    name="me"
-                    placeholder={"Username"}
-                  ></TextInput>
-                </FormField>
-              </Box>
-              <Box>
-                <Button
-                  className="join-room-join"
-                  type="submit"
-                  label={"Join Room"}
-                ></Button>
-              </Box>
-            </Box>
-          </Form>
-        </Box>
-      </Box>
+      </Layer>
     </Box>
   );
 };
