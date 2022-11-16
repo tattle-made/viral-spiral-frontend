@@ -6,18 +6,17 @@ function aboutGameMessage(message) {
     color: player.color.name,
     bias: player.biases,
     affinity: player.affinities,
-    colors,
   }));
 
-  let colors = {};
-  let affinities = {};
+  // let colors = {};
+  // let affinities = {};
 
-  player.colors.map((color) => {
-    colors[color.id_] = color.name;
-  });
-  players.topics.map((topic) => {
-    affinities[topic.id_] = topic.name;
-  });
+  // player.colors.map((color) => {
+  //   colors[color.id_] = color.name;
+  // });
+  // players.topics.map((topic) => {
+  //   affinities[topic.id_] = topic.name;
+  // });
 
   return {
     players,
