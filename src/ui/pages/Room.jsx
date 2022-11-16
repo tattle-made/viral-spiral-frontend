@@ -60,7 +60,7 @@ function Room({ props }) {
       </Box>
       <Layer
         modal={false}
-        background={"#ffffffcc"}
+        background={"#ffffffaa"}
         position={"top-left"}
         margin={"small"}
         animation={false}
@@ -70,7 +70,7 @@ function Room({ props }) {
             <Box width={"xsmall"} height={"xsmall"}>
               <Image src={"/vs-logo.png"} fit={"contain"} />
             </Box>
-            <Box>
+            <Box pad={"small"}>
               <Heading level={3} margin={"none"}>
                 Score
               </Heading>
