@@ -85,6 +85,13 @@ const PlayingArea = () => {
     // manager.addMessage(JSON.stringify({ width, height }));
   }, [width, height]);
 
+  async function actionDiscardCard() {
+    console.log("discard card");
+    try {
+      //todo : sent action event to manager
+    } catch (err) {}
+  }
+
   async function actionKeepCard() {
     console.log("keeping it");
     try {
@@ -171,7 +178,7 @@ const PlayingArea = () => {
               height={"fit-content"}
               justify={"center"}
               round={"xsmall"}
-              border
+              border={{ size: "medium", color: pallette.blue.dark }}
               overflow={"hidden"}
               background={"#eeeeee"}
             >
@@ -180,7 +187,10 @@ const PlayingArea = () => {
             </Box>
             <Box>
               {gameStat.card.recipients.length === 0 ? (
-                <Box>Keep</Box>
+                <Box>
+                  <Button onClick={actionKeepCard}>Keep</Button>
+                  or <Button onClick={actionDiscardCard}>Discard</Button>
+                </Box>
               ) : (
                 <Box>
                   <Text>
@@ -193,6 +203,7 @@ const PlayingArea = () => {
                       ></Button>
                     ))}{" "}
                     or <Button onClick={actionKeepCard}>Keep</Button>
+                    or <Button onClick={actionDiscardCard}>Discard</Button>
                   </Text>
                 </Box>
               )}
