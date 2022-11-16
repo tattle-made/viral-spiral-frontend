@@ -213,6 +213,10 @@ class GameManager {
         );
         console.log({ message });
         return this.client.messageWithAck(message.name, message.payload);
+      case "action_discard_card":
+        var { game, sender, cardId } = actionPayload;
+        var message = Messages.make.actionDiscardCard(game, sender, cardId);
+        return this.client.messageWithAck(message.name, message.payload);
       default:
         console.debug("Unsupported Action");
         this.addMessage(`⚠️ Unsupported Action`);

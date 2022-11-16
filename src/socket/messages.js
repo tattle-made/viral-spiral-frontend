@@ -47,6 +47,17 @@ const make = {
       },
     },
   }),
+  actionDiscardCard: (game, sender, cardId) => ({
+    name: "player_action",
+    payload: {
+      game,
+      player: sender,
+      action: "action_discard_card",
+      kwargs: {
+        card_instance_id: cardId,
+      },
+    },
+  }),
 };
 
 export default { make };

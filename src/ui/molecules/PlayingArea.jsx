@@ -88,7 +88,13 @@ const PlayingArea = () => {
   async function actionDiscardCard() {
     console.log("discard card");
     try {
-      //todo : sent action event to manager
+      await manager.playerAction("action_discard_card", {
+        game: room.name,
+        sender: room.me,
+        cardId: gameStat.card.id,
+      });
+      manager.played_cards.push(gameStat.card.id);
+      manager.updateGameState({ card: undefined });
     } catch (err) {}
   }
 
