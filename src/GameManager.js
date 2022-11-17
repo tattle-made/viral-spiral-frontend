@@ -181,11 +181,12 @@ class GameManager {
       const { name, payload } = Messages.make.aboutGame(room);
       const { about } = await client.messageWithAck(name, payload);
       const { players, current, totalGlobalBias } = adapt("about_game", about);
-      console.log(about);
+      console.log({ players, current, totalGlobalBias });
+      // console.log(about);
       if (
         !_.isEqual(this.room.room.players, players) &&
         !_.isEqual(this.room.room.current, current) &&
-        totalGlobalBias === this.room.room.totalGlobalBias
+        totalGlobalBias != this.room.room.totalGlobalBias
       ) {
         this.room.setRoom({
           ...this.room.room,

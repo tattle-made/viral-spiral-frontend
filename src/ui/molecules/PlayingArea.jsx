@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from "react";
-import { Heading, Box, Text, Image, Button, Stack } from "grommet";
+import { Heading, Box, Text, Image, Button, Stack, Tip } from "grommet";
 import { useDrag, useDrop } from "react-dnd";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -145,16 +145,44 @@ const PlayingArea = () => {
                 <Box
                   key={ix}
                   width={"xsmall"}
-                  height={"xsmall"}
+                  height={"fit-content"}
                   round={"xsmall"}
-                  background={pallette[player.color].dark}
+                  direction={"row"}
+                  gap={"small"}
                 >
-                  <Stack>
-                    <Box fill>
-                      <Image src={avatars[ix + 1]} />
-                    </Box>
-                    <Text>{player.name}</Text>
-                  </Stack>
+                  <Tip
+                    content={
+                      <Box gap={"small"}>
+                        <Box>
+                          <Text weight={"bold"}>Affinites</Text>
+                          {Object.keys(player.affinity).map((key, ix) => (
+                            <Text key={ix}>
+                              {key}: {player.affinity[key]}
+                            </Text>
+                          ))}
+                        </Box>
+                        <Box>
+                          <Text weight={"bold"}>Biases</Text>
+                          {Object.keys(player.bias).map((key, ix) => (
+                            <Text key={ix}>
+                              {key}: {player.bias[key]}
+                            </Text>
+                          ))}
+                        </Box>
+                      </Box>
+                    }
+                  >
+                    <Stack>
+                      <Box
+                        width="xsmall"
+                        height={"xsmall"}
+                        background={pallette[player.color].dark}
+                      >
+                        <Image src={avatars[ix + 1]} />
+                      </Box>
+                      <Text>{player.name}</Text>
+                    </Stack>
+                  </Tip>
                 </Box>
               );
             })}
@@ -229,12 +257,35 @@ const PlayingArea = () => {
               round={"xsmall"}
               background={pallette[me.color].dark}
             >
-              <Stack>
-                <Box fill>
-                  <Image src={avatars[0]} />
-                </Box>
-                <Text>{me.name}</Text>
-              </Stack>
+              <Tip
+                content={
+                  <Box gap={"small"}>
+                    <Box>
+                      <Text weight={"bold"}>Affinites</Text>
+                      {Object.keys(me.affinity).map((key, ix) => (
+                        <Text key={ix}>
+                          {key}: {me.affinity[key]}
+                        </Text>
+                      ))}
+                    </Box>
+                    <Box>
+                      <Text weight={"bold"}>Biases</Text>
+                      {Object.keys(me.bias).map((key, ix) => (
+                        <Text key={ix}>
+                          {key}: {me.bias[key]}
+                        </Text>
+                      ))}
+                    </Box>
+                  </Box>
+                }
+              >
+                <Stack>
+                  <Box fill>
+                    <Image src={avatars[0]} />
+                  </Box>
+                  <Text>{me.name}</Text>
+                </Stack>
+              </Tip>
             </Box>
           </Box>
         ) : null}

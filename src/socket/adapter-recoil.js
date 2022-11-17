@@ -1,22 +1,36 @@
 function aboutGameMessage(message) {
+  let colors = {};
+  let affinities = {};
+
+  message.colors.map((color) => {
+    colors[color.id_] = color.name;
+  });
+  message.topics.map((topic) => {
+    affinities[topic.id_] = topic.name;
+  });
+
   const players = message.players.map((player) => ({
     id: player.id_,
     name: player.name,
     score: player.score,
     color: player.color.name,
-    bias: player.biases,
-    affinity: player.affinities,
+    bias: Object.fromEntries(
+      new Map(
+        Object.keys(player.biases).map((bias) => [
+          colors[bias],
+          player.biases[bias],
+        ])
+      )
+    ),
+    affinity: Object.fromEntries(
+      new Map(
+        Object.keys(player.affinities).map((bias) => [
+          affinities[bias],
+          player.affinities[bias],
+        ])
+      )
+    ),
   }));
-
-  // let colors = {};
-  // let affinities = {};
-
-  // player.colors.map((color) => {
-  //   colors[color.id_] = color.name;
-  // });
-  // players.topics.map((topic) => {
-  //   affinities[topic.id_] = topic.name;
-  // });
 
   return {
     players,
