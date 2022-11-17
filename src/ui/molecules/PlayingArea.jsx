@@ -151,8 +151,14 @@ const PlayingArea = () => {
                   gap={"small"}
                 >
                   <Tip
+                    plain
                     content={
-                      <Box gap={"small"}>
+                      <Box
+                        gap={"small"}
+                        background={pallette.blue.dark}
+                        pad={"small"}
+                        round
+                      >
                         <Box>
                           <Text weight={"bold"}>Affinites</Text>
                           {Object.keys(player.affinity).map((key, ix) => (
@@ -258,8 +264,14 @@ const PlayingArea = () => {
               background={pallette[me.color].dark}
             >
               <Tip
+                plain
                 content={
-                  <Box gap={"small"}>
+                  <Box
+                    gap={"small"}
+                    background={pallette.blue.dark}
+                    pad={"small"}
+                    round
+                  >
                     <Box>
                       <Text weight={"bold"}>Affinites</Text>
                       {Object.keys(me.affinity).map((key, ix) => (
