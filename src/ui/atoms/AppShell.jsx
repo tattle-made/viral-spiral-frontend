@@ -16,7 +16,7 @@ export default function AppShell({ children }) {
     <Grommet theme={Theme} full>
       <Box fill direction="row">
         <Box flex>{children}</Box>
-        {env === "development" || env === undefined ? (
+        {true || env === "development" || env === undefined ? (
           <Box width={"medium"} pad={"medium"} margin={"small"} border round>
             <Tabs alignSelf="start" alignControls="start">
               <Tab className="tab-game-stat" title="state">
@@ -30,7 +30,7 @@ export default function AppShell({ children }) {
             </Tabs>
           </Box>
         ) : null}
-        {env === "production" ? (
+        {false && env === "production" ? (
           <Box width={"medium"} pad={"medium"} margin={"small"} border round>
             <Box width={"100%"} fill={"vertical"} overflow={"scroll"}>
               <GameIncomingMessage message={gameMessage} />
