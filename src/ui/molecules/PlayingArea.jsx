@@ -254,7 +254,7 @@ const PlayingArea = () => {
         <Box height={"20em"} />
       )}
 
-      <AbsoluteBox x={width / 2} y={(5 / 6) * height}>
+      <AbsoluteBox x={(2 * width) / 3 - 100} y={(5 / 6) * height}>
         {me ? (
           <Box alignSelf={"center"}>
             <Box

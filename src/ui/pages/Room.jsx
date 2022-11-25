@@ -60,7 +60,7 @@ function Room({ props }) {
       </Box>
       <Layer
         modal={false}
-        background={"#ffffffaa"}
+        background={"#ffffffdd"}
         position={"top-left"}
         margin={"small"}
         animation={false}
@@ -75,7 +75,7 @@ function Room({ props }) {
                 Total Global Bias
               </Heading>
               {room && room.totalGlobalBias ? (
-                <Text>{room.totalGlobalBias}</Text>
+                <Text weight={"bold"}>{room.totalGlobalBias}</Text>
               ) : null}
             </Box>
           </Box>
