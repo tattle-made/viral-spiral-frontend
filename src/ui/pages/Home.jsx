@@ -33,6 +33,7 @@ const Home = () => {
       await manager.createRoom(value);
       navigate(`${BASE_URL}room`);
     } catch (err) {
+      console.log(err);
       console.log("error caught with create room");
     }
   }
@@ -127,7 +128,7 @@ const Home = () => {
             </Box>
           </Box>
           <Box justify="center">
-            <Text weight={"400"}>or</Text>
+            <Text weight={400}>or</Text>
           </Box>
           <Box width={"medium"} gap={"small"} justify="center">
             <Form onSubmit={({ value }) => joinRoom(value)}>

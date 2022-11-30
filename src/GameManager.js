@@ -64,7 +64,7 @@ class GameManager {
         "play_card",
         (() => {
           return (msg) => {
-            console.log("Play Card");
+            // console.log("Play Card");
             // check if you were the last one to play card?
             const cardId = msg.data.card_instance.id_;
             if (this.played_cards.includes(cardId)) {
@@ -138,7 +138,12 @@ class GameManager {
       setGameMessage,
     };
 
-    return { gameStat, room, gameConfig, gameMessage };
+    return {
+      gameStat,
+      room,
+      gameConfig,
+      gameMessage,
+    };
   }
 
   setListener() {
@@ -165,7 +170,7 @@ class GameManager {
   async joinGame({ room, username }) {
     console.log("join room called");
     const message = Messages.make.joinGame(room, username);
-    console.log(message);
+    // console.log(message);
     await this.client.messageWithAck(message.name, message.payload);
     this.room.setRoom({
       id: "abc-def",
@@ -181,7 +186,7 @@ class GameManager {
       const { name, payload } = Messages.make.aboutGame(room);
       const { about } = await client.messageWithAck(name, payload);
       const { players, current, totalGlobalBias } = adapt("about_game", about);
-      console.log({ players, current, totalGlobalBias });
+      // console.log({ players, current, totalGlobalBias });
       // console.log(about);
       if (
         !_.isEqual(this.room.room.players, players) &&
