@@ -10,18 +10,13 @@ export default function AppShell({ children }) {
   const manager = useContext(GameManagerContext);
   const { gameStat, room, gameMessage } = manager.useGameState();
   const env = import.meta.env.MODE;
-  console.log({ env });
+  // console.log({ env });
 
   return (
     <Grommet theme={Theme} full>
       <Box fill direction="row">
         <Box flex>{children}</Box>
-        <Box width={"medium"} pad={"medium"} margin={"small"} border round>
-          <Box width={"100%"} fill={"vertical"} overflow={"scroll"}>
-            <GameIncomingMessage message={gameMessage} />
-          </Box>
-        </Box>
-        {/* {env === "development" || env === undefined ? (
+        {env === "development" || env === undefined ? (
           <Box width={"medium"} pad={"medium"} margin={"small"} border round>
             <Tabs alignSelf="start" alignControls="start">
               <Tab className="tab-game-stat" title="state">
@@ -41,7 +36,7 @@ export default function AppShell({ children }) {
               <GameIncomingMessage message={gameMessage} />
             </Box>
           </Box>
-        ) : null} */}
+        ) : null}
       </Box>
     </Grommet>
   );
