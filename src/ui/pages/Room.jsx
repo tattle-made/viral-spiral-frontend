@@ -55,6 +55,10 @@ function Room({ props }) {
     navigate(BASE_URL);
   }
 
+  function closeEncyclopaedia() {
+    manager.closeEncylopaedia();
+  }
+
   return (
     <Box fill background={`url(${bgWorld1})`}>
       <Box fill justify="center" align="center" full>
@@ -113,6 +117,31 @@ function Room({ props }) {
             <Text size={"small"}>leave room</Text>
           </Button>
         </Box>
+      </Layer>
+      <Layer
+        modal={false}
+        background={{ opacity: true, clip: "border-box" }}
+        position={"center"}
+        margin={"small"}
+        animation={false}
+      >
+        {gameStat.mode && gameStat.mode.id === "encyclopaedia_search_result" ? (
+          <Box pad={"small"} height={"fit-content"} width={"large"}>
+            <Box direction="row">
+              <Heading level={2}>Encyclopaedia</Heading>
+              <Box flex={"grow"}></Box>
+              <Button onClick={closeEncyclopaedia}>X</Button>
+            </Box>
+            <Box>
+              {gameStat.mode.payload.map((result) => (
+                <Box>
+                  <Text weight={"bold"}>{result.headline}</Text>
+                  <Text>{result.text}</Text>
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        ) : null}
       </Layer>
       <Layer
         modal={false}

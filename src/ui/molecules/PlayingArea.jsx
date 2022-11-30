@@ -133,6 +133,13 @@ const PlayingArea = () => {
     }
   }
 
+  async function actionEncyclopaediaSearch() {
+    const { name: game, me: sender } = room;
+    const cardId = gameStat.card.id;
+    const actionPayload = { game, sender, cardId };
+    await manager.playerAction("encyclopedia_search", actionPayload);
+  }
+
   function pickCard() {
     setShowCard(true);
   }
@@ -232,7 +239,9 @@ const PlayingArea = () => {
                 <Heading level={3}>Special Powers</Heading>
                 <Button plain>Turn into fake</Button>
                 <Button plain>Mark as fake</Button>
-                <Button plain>Search</Button>
+                <Button plain onClick={actionEncyclopaediaSearch}>
+                  Search
+                </Button>
                 <Button plain>Cancel a Player</Button>
               </Box>
             </Box>

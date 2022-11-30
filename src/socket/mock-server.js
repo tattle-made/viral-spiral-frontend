@@ -174,6 +174,36 @@ io.on("connection", (socket) => {
       about: aboutGame[0],
     });
   });
+
+  socket.on("player_action", (arg, callback) => {
+    if (arg.action === "encyclopedia_search") {
+      callback({
+        status: 200,
+        results: [
+          {
+            id: "asdf",
+            headline: "Lorem ipsum dolor sit amet",
+            text: "Ac odio tempor orci dapibus ultrices in iaculis. Ut morbi tincidunt augue interdum velit.",
+          },
+          {
+            id: "asdf",
+            headline: "Nunc sed id semper risus",
+            text: "Faucibus a pellentesque sit amet porttitor eget. At tempor commodo ullamcorper a lacus vestibulum sed. ",
+          },
+          {
+            id: "asdf",
+            headline: "Lorem ipsum dolor ",
+            text: "Phasellus egestas tellus rutrum tellus pellentesque eu tincidunt.",
+          },
+          {
+            id: "asdf",
+            headline: "Varius vel pharetra vel",
+            text: "Sagittis eu volutpat odio facilisis mauris sit amet massa vitae. ",
+          },
+        ],
+      });
+    }
+  });
 });
 
 httpServer.listen(5000, () => {

@@ -10,6 +10,7 @@ const GameStatDefault = {
   tgb: 0,
   affinity: { sock: 0, cat: 0 },
   card: undefined,
+  mode: undefined,
 };
 
 const GameStat = atom({

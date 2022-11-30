@@ -238,6 +238,16 @@ class GameManager {
         var { game, sender, cardId } = actionPayload;
         var message = Messages.make.actionDiscardCard(game, sender, cardId);
         return this.client.messageWithAck(message.name, message.payload);
+      case "encyclopedia_search":
+        var message = Messages.make.actionSearchEncyclopaedia(actionPayload);
+        const { results } = await this.client.messageWithAck(
+          message.name,
+          message.payload
+        );
+        this.updateGameState({
+          mode: { id: "encyclopaedia_search_result", payload: results },
+        });
+        break;
       default:
         console.debug("Unsupported Action");
         this.addMessage(`⚠️ Unsupported Action`);
@@ -253,6 +263,10 @@ class GameManager {
     const { gameStat, setGameStat } = this.state;
     setGameStat({ ...gameStat, ...subState });
     this.played_cards.push();
+  }
+
+  closeEncylopaedia() {
+    this.updateGameState({ mode: undefined });
   }
 
   async loadGame() {}
