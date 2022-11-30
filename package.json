@@ -14,6 +14,8 @@
   "dependencies": {
     "@react-hook/size": "^2.1.2",
     "@react-spring/web": "^9.5.5",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
     "grommet": "^2.25.1",
     "leva": "^0.9.34",
     "puppeteer": "^19.2.0",
@@ -23,6 +25,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
     "recoil": "^0.7.5",
+    "socket.io": "^4.5.4",
     "socket.io-client": "^4.5.2",
     "styled-components": "^5.3.5",
     "underscore": "^1.13.6"
