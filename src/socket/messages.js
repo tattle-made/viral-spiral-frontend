@@ -58,6 +58,66 @@ const make = {
       },
     },
   }),
+  actionFakeNews: (game, sender, cardId, fakeCardId) => ({
+    name: "player_action",
+    payload: {
+      game,
+      player: sender,
+      action: "fake_news",
+      kwargs: {
+        card_instance_id: cardId,
+        fake_card_id: fakeCardId,
+      },
+    },
+  }),
+
+  actionMarkAsFake: (game, sender, cardId) => ({
+    name: "player_action",
+    payload: {
+      game,
+      player: sender,
+      action: "mark_as_fake",
+      kwargs: {
+        card_instance_id: cardId,
+      },
+    },
+  }),
+
+  actionSearchEncyclopaedia: ({ game, sender, cardId }) => ({
+    name: "player_action",
+    payload: {
+      game,
+      player: sender,
+      action: "encyclopedia_search",
+      kwargs: {
+        keyword: cardId,
+      },
+    },
+  }),
+
+  actionInitiateCancelPlayer: (game, sender, otherId) => ({
+    name: "player_action",
+    payload: {
+      game,
+      player: sender,
+      action: "initiate_cancel",
+      kwargs: {
+        against: otherId,
+      },
+    },
+  }),
+  actionVoteToCancel: (game, sender, cancelStatusId, vote) => ({
+    name: "player_action",
+    payload: {
+      game,
+      player: sender,
+      action: "vote_cancel",
+      kwargs: {
+        cancel_status_id: cancelStatusId,
+        vote,
+      },
+    },
+  }),
 };
 
 export default { make };
