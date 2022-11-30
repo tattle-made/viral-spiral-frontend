@@ -15,6 +15,7 @@ import { GameManagerContext } from "../../App";
 import { useEffect } from "react";
 import bgWorld1 from "../../assets/bg-world-1.jpg";
 import vsLogo from "../../assets/vs-logo.png";
+import { useNotification } from "../../state/notification";
 
 const BASE_URL = "/viral-spiral-frontend/";
 
@@ -25,6 +26,7 @@ function Room({ props }) {
   const { gameStat, room } = manager.useGameState();
   const location = useLocation();
   const navigate = useNavigate();
+  const { notification } = useNotification();
 
   useEffect(() => {
     (async function joinRoom() {
@@ -110,6 +112,19 @@ function Room({ props }) {
           <Button default onClick={actionLeaveRoom}>
             <Text size={"small"}>leave room</Text>
           </Button>
+        </Box>
+      </Layer>
+      <Layer
+        modal={false}
+        background={{ opacity: false }}
+        position={"top"}
+        margin={"small"}
+        animation={false}
+      >
+        <Box pad={"small"}>
+          {notification.map((message) => (
+            <Text size={"6em"}>{message}</Text>
+          ))}
         </Box>
       </Layer>
     </Box>
