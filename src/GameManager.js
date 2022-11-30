@@ -240,13 +240,45 @@ class GameManager {
         return this.client.messageWithAck(message.name, message.payload);
       case "encyclopedia_search":
         var message = Messages.make.actionSearchEncyclopaedia(actionPayload);
-        const { results } = await this.client.messageWithAck(
+        var { results } = await this.client.messageWithAck(
           message.name,
           message.payload
         );
         this.updateGameState({
           mode: { id: "encyclopaedia_search_result", payload: results },
         });
+        break;
+      case "fake_news":
+        var message = Messages.make.actionFakeNews(actionPayload);
+        var { card } = await this.client.messageWithAck(
+          message.name,
+          message.payload
+        );
+        const currentCard = this.state.gameStat.card;
+        this.updateGameState({
+          card: { ...currentCard, description: card.fake_headline },
+        });
+        break;
+      case "mark_as_fake":
+        var message = Messages.make.actionMarkAsFake(actionPayload);
+        var { results } = await this.client.messageWithAck(
+          message.name,
+          message.payload
+        );
+        break;
+      case "initiate_cancel":
+        var message = Messages.make.actionInitiateCancelPlayer(actionPayload);
+        var { results } = await this.client.messageWithAck(
+          message.name,
+          message.payload
+        );
+        break;
+      case "vote_cancel":
+        var message = Messages.make.actionVoteToCancel(actionPayload);
+        var { results } = await this.client.messageWithAck(
+          message.name,
+          message.payload
+        );
         break;
       default:
         console.debug("Unsupported Action");

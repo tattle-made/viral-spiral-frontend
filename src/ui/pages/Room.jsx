@@ -118,6 +118,8 @@ function Room({ props }) {
           </Button>
         </Box>
       </Layer>
+
+      {/** a layer where all special power related UI is shown  */}
       <Layer
         modal={false}
         background={{ opacity: true, clip: "border-box" }}
@@ -133,8 +135,8 @@ function Room({ props }) {
               <Button onClick={closeEncyclopaedia}>X</Button>
             </Box>
             <Box>
-              {gameStat.mode.payload.map((result) => (
-                <Box>
+              {gameStat.mode.payload.map((result, ix) => (
+                <Box key={ix}>
                   <Text weight={"bold"}>{result.headline}</Text>
                   <Text>{result.text}</Text>
                 </Box>
@@ -143,6 +145,7 @@ function Room({ props }) {
           </Box>
         ) : null}
       </Layer>
+
       <Layer
         modal={false}
         background={{ opacity: false }}

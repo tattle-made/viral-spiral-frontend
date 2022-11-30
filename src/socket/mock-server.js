@@ -202,6 +202,13 @@ io.on("connection", (socket) => {
           },
         ],
       });
+    } else if (arg.action === "fake_news") {
+      callback({
+        status: 200,
+        card: {
+          fake_headline: "Sagittis eu volutpat odio facilisis mauris",
+        },
+      });
     }
   });
 });

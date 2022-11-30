@@ -58,7 +58,7 @@ const make = {
       },
     },
   }),
-  actionFakeNews: (game, sender, cardId, fakeCardId) => ({
+  actionFakeNews: ({ game, sender, cardId, fakeCardId }) => ({
     name: "player_action",
     payload: {
       game,

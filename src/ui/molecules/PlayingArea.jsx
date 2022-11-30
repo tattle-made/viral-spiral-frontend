@@ -140,6 +140,15 @@ const PlayingArea = () => {
     await manager.playerAction("encyclopedia_search", actionPayload);
   }
 
+  async function actionFakeNews() {
+    const { name: game, me: sender } = room;
+    const cardId = gameStat.card.id;
+    // todo : assign true dynamic values
+    const fakeCardId = undefined;
+    const actionPayload = { game, sender, cardId, fakeCardId };
+    await manager.playerAction("fake_news", actionPayload);
+  }
+
   function pickCard() {
     setShowCard(true);
   }
@@ -237,7 +246,9 @@ const PlayingArea = () => {
               </Box>
               <Box>
                 <Heading level={3}>Special Powers</Heading>
-                <Button plain>Turn into fake</Button>
+                <Button plain onClick={actionFakeNews}>
+                  Turn into fake
+                </Button>
                 <Button plain>Mark as fake</Button>
                 <Button plain onClick={actionEncyclopaediaSearch}>
                   Search
