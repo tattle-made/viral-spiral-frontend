@@ -21,6 +21,7 @@ import avatar5Url from "../../assets/avatar-05.png";
 import avatar6Url from "../../assets/avatar-06.png";
 import avatar7Url from "../../assets/avatar-07.png";
 import avatar8Url from "../../assets/avatar-08.png";
+import { useNotification } from "../../state/notification";
 
 const avatars = [
   avatar1Url,
@@ -39,6 +40,7 @@ const PlayingArea = () => {
   const { gameStat, room } = manager.useGameState();
   const [me, setMe] = useState(undefined);
   const [them, setThem] = useState(undefined);
+  const { notification, add } = useNotification();
 
   // layout variables
   const playArea = useRef(null);
@@ -205,25 +207,34 @@ const PlayingArea = () => {
       {gameStat.card != undefined ? (
         <AbsoluteBox x={width / 2 - 100} y={(2 * height) / 3 - 200}>
           <Box
-            width={"small"}
+            width={"medium"}
             pad={"small"}
             align={"center"}
             alignSelf={"center"}
             alignContent={"center"}
             gap={"medium"}
           >
-            <Box
-              pad={"small"}
-              width={"100%"}
-              height={"fit-content"}
-              justify={"center"}
-              round={"xsmall"}
-              border={{ size: "medium", color: pallette.blue.dark }}
-              overflow={"hidden"}
-              background={"#eeeeee"}
-            >
-              <Heading level={3}>{gameStat.card.title}</Heading>
-              <Text>{gameStat.card.description}</Text>
+            <Box direction={"row"} gap={"large"} alignContent={"center"}>
+              <Box
+                pad={"small"}
+                width={"small"}
+                height={"fit-content"}
+                justify={"center"}
+                round={"xsmall"}
+                border={{ size: "medium", color: pallette.blue.dark }}
+                overflow={"hidden"}
+                background={"#eeeeee"}
+              >
+                <Heading level={3}>{gameStat.card.title}</Heading>
+                <Text>{gameStat.card.description}</Text>
+              </Box>
+              <Box>
+                <Heading level={3}>Special Powers</Heading>
+                <Button plain>Turn into fake</Button>
+                <Button plain>Mark as fake</Button>
+                <Button plain>Search</Button>
+                <Button plain>Cancel a Player</Button>
+              </Box>
             </Box>
             <Box>
               {gameStat.card.recipients.length === 0 ? (
@@ -242,7 +253,7 @@ const PlayingArea = () => {
                         onClick={() => actionPassCard(recipient)}
                       ></Button>
                     ))}{" "}
-                    or <Button onClick={actionKeepCard}>Keep</Button>
+                    or <Button onClick={actionKeepCard}>Keep </Button>
                     or <Button onClick={actionDiscardCard}>Discard</Button>
                   </Text>
                 </Box>
