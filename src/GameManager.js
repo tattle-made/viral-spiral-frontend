@@ -34,6 +34,12 @@ class GameManager {
           return (msg) => {
             console.debug("connected", msg);
             this.addMessage(`🔌 connected`);
+            if (this.room && this.room.room) {
+              this.joinGame( { 
+                room: this.room.room.name,
+                username: this.room.room.me
+              } );
+            }
           };
         })()
       );
@@ -183,8 +189,13 @@ class GameManager {
 
   pollRoom({ room }) {
     this.pollID = setInterval(async () => {
+      if (window.aboutOngoing) {
+        return;
+      }
       const { name, payload } = Messages.make.aboutGame(room);
+      window.aboutOngoing = true;
       const { about } = await client.messageWithAck(name, payload);
+      window.aboutOngoing = false;
       const { players, current, totalGlobalBias } = adapt("about_game", about);
       // console.log({ players, current, totalGlobalBias });
       // console.log(about);
