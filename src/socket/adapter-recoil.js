@@ -35,8 +35,9 @@ function aboutGameMessage(message) {
   return {
     players,
     current: {
-      id: message.current_drawing_player.id_,
-      name: message.current_drawing_player.name,
+      id: message.current_drawing_player && message.current_drawing_player.id_,
+      name:
+        message.current_drawing_player && message.current_drawing_player.name,
     },
     totalGlobalBias: message.total_global_bias,
   };

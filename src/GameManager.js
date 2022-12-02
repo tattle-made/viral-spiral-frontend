@@ -178,13 +178,22 @@ class GameManager {
     console.log("join room called");
     const message = Messages.make.joinGame(room, username);
     // console.log(message);
-    await this.client.messageWithAck(message.name, message.payload);
+    const { about } = await this.client.messageWithAck(
+      message.name,
+      message.payload
+    );
+    console.log(about);
+    const { players, current, totalGlobalBias } = adapt("about_game", about);
+
     this.room.setRoom({
       id: "abc-def",
       name: room,
       password: "",
       me: username,
       state: undefined,
+      players,
+      current,
+      totalGlobalBias,
     });
   }
 
