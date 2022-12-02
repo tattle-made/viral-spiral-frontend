@@ -34,11 +34,12 @@ class GameManager {
           return (msg) => {
             console.debug("connected", msg);
             this.addMessage(`🔌 connected`);
-            if (this.room && this.room.room) {
-              this.joinGame( { 
+            console.log(this.room);
+            if (this.room.room === undefined) {
+              this.joinGame({
                 room: this.room.room.name,
-                username: this.room.room.me
-              } );
+                username: this.room.room.me,
+              });
             }
           };
         })()
