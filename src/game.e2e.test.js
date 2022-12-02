@@ -18,8 +18,8 @@ async function launchBrowser() {
 
 (async () => {
   const roomName = `uniball-${randomRoomNum()}`;
-  const GAME_URL = "http://localhost:5173/viral-spiral-frontend/";
-  // const GAME_URL = "https://tattle-made.github.io/viral-spiral-frontend/";
+  // const GAME_URL = "http://localhost:5173/viral-spiral-frontend/";
+  const GAME_URL = "https://tattle-made.github.io/viral-spiral-frontend/";
 
   console.log({ roomName });
 
@@ -31,7 +31,7 @@ async function launchBrowser() {
   await page.type(".new-room-me", "adhiraj");
   await page.type(".new-room-players", "aman,farah,krys");
   await page.click(".new-room-create");
-  await sleep(5000);
+  await sleep(10000);
   await page.click(".tab-game-stat");
 
   const browserB = await launchBrowser();
