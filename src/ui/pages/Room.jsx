@@ -10,6 +10,7 @@ import {
   Image,
   Spinner,
 } from "grommet";
+import { XCircle } from "react-feather";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { molecules } from "../index";
 import { GameManagerContext } from "../../App";
@@ -85,6 +86,11 @@ function Room({ props }) {
                 <Text weight={"bold"}>{room.totalGlobalBias}</Text>
               ) : null}
             </Box>
+            <Button
+              default
+              onClick={actionLeaveRoom}
+              icon={<XCircle />}
+            ></Button>
           </Box>
         </Box>
       </Layer>
@@ -106,19 +112,6 @@ function Room({ props }) {
           </Box>
         </Box>
       </Layer> */}
-      <Layer
-        modal={false}
-        background={{ opacity: "weak" }}
-        position={"top-right"}
-        margin={"small"}
-        animation={false}
-      >
-        <Box direction={"row"} gap={"small"} background={"light-2"} pad="small">
-          <Button default onClick={actionLeaveRoom}>
-            <Text size={"small"}>leave room</Text>
-          </Button>
-        </Box>
-      </Layer>
 
       {/** a layer where all special power related UI is shown  */}
       <Layer

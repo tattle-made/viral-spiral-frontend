@@ -18,27 +18,44 @@ export default function AppShell({ children }) {
     <Grommet theme={Theme} full>
       <Box fill direction="row">
         <Box flex>{children}</Box>
-        {true || env === "development" || env === undefined ? (
-          <Box width={"medium"} pad={"medium"} margin={"small"} border round>
-            <Tabs alignSelf="start" alignControls="start">
-              <Tab className="tab-game-stat" title="state">
-                <GameState gameStat={gameStat} room={room} />
-              </Tab>
-              <Tab title="messages">
-                <Box width={"100%"} fill={"vertical"} overflow={"scroll"}>
-                  <GameIncomingMessage message={gameMessage} />
-                </Box>
-              </Tab>
-            </Tabs>
-          </Box>
-        ) : null}
-        {false && env === "production" ? (
-          <Box width={"medium"} pad={"medium"} margin={"small"} border round>
-            <Box width={"100%"} fill={"vertical"} overflow={"scroll"}>
-              <GameIncomingMessage message={gameMessage} />
+        <Layer
+          modal={false}
+          background={{ color: "#ffffff00" }}
+          position={"right"}
+          margin={"small"}
+          animation={false}
+          full={"vertical"}
+        >
+          {true || env === "development" || env === undefined ? (
+            <Box
+              width={"medium"}
+              fill={"vertical"}
+              pad={"medium"}
+              margin={"small"}
+              round
+              background={"#f3f3f3"}
+              alignSelf={"right"}
+            >
+              <Tabs alignSelf="start" alignControls="start">
+                <Tab className="tab-game-stat" title="state">
+                  <GameState gameStat={gameStat} room={room} />
+                </Tab>
+                <Tab title="messages">
+                  <Box width={"100%"} fill={"vertical"} overflow={"scroll"}>
+                    <GameIncomingMessage message={gameMessage} />
+                  </Box>
+                </Tab>
+              </Tabs>
             </Box>
-          </Box>
-        ) : null}
+          ) : null}
+          {false && env === "production" ? (
+            <Box width={"medium"} pad={"medium"} margin={"small"} border round>
+              <Box width={"100%"} fill={"vertical"} overflow={"scroll"}>
+                <GameIncomingMessage message={gameMessage} />
+              </Box>
+            </Box>
+          ) : null}
+        </Layer>
         {notification.length != 0 ? (
           <Layer
             modal={false}

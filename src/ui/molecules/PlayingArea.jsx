@@ -141,7 +141,7 @@ const PlayingArea = () => {
     <Box ref={playArea} fill>
       <AbsoluteBox x={100} y={200}>
         {them ? (
-          <Box direction={"row"} gap={"xlarge"}>
+          <Box direction={"row-responsive"} gap={"xlarge"}>
             {them.map((player, ix) => (
               <PlayerScoreCard player={player} />
             ))}
@@ -171,10 +171,10 @@ const PlayingArea = () => {
                 width={"small"}
                 height={"fit-content"}
                 justify={"center"}
-                round={"xsmall"}
-                border={{ size: "medium", color: pallette.blue.dark }}
+                round={"small"}
+                border={{ size: "xsmall", color: "neutral-1" }}
                 overflow={"hidden"}
-                background={"#eeeeee"}
+                background="accent-4"
               >
                 <Heading level={3}>{gameStat.card.title}</Heading>
                 <Text>{gameStat.card.description}</Text>
