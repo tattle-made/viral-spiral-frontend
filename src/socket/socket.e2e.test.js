@@ -195,6 +195,7 @@ describe("test socket e2e", () => {
       colors_filepath: "config_jsons/example1/colors.json",
       draw_fn_name: "first",
       cards_filepath: "config_jsons/example1/cards.json",
+      encyclopedia_filepath: "config_jsons/example1/articles.json",
     });
 
     console.log("created game");
