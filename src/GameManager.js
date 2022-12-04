@@ -12,6 +12,7 @@ import {
 } from "./state";
 import adapt from "./socket/adapter-recoil";
 import _, { isEqual } from "underscore";
+import { useNotification } from "./state/notification";
 
 class GameManager {
   constructor(client) {
@@ -83,6 +84,7 @@ class GameManager {
                 description: msg.data.card_instance.card.description,
                 recipients: msg.data.recipients,
               };
+              this.addMessage(`🎴 Play Card`);
               this.updateGameState({ card });
             }
           };
@@ -124,6 +126,7 @@ class GameManager {
     const [room, setRoom] = useRecoilState(Room);
     const [gameConfig, setGameConfig] = useRecoilState(GameConfig);
     const [gameMessage, setGameMessage] = useRecoilState(GameMessage);
+    const { notification, add, reset } = useNotification();
 
     this.state = {
       gameStat,
@@ -145,11 +148,18 @@ class GameManager {
       setGameMessage,
     };
 
+    this.notification = {
+      notification,
+      add,
+      reset,
+    };
+
     return {
       gameStat,
       room,
       gameConfig,
       gameMessage,
+      add,
     };
   }
 
@@ -161,40 +171,59 @@ class GameManager {
 
   async createRoom({ game, players, me, password }) {
     console.log("create room called");
-    let allPlayers = `${players},${me}`;
-    const message = Messages.make.createGame(game, password, allPlayers);
-    console.log(message);
-    await this.client.messageWithAck(message.name, message.payload);
-    this.room.setRoom({
-      id: "abc-def",
-      name: game,
-      password: password,
-      me,
-      state: undefined,
-    });
+    this.notification.add("Creating Room");
+    try {
+      let allPlayers = `${players},${me}`;
+      const message = Messages.make.createGame(game, password, allPlayers);
+      console.log(message);
+      await this.client.messageWithAck(message.name, message.payload);
+      this.room.setRoom({
+        id: "abc-def",
+        name: game,
+        password: password,
+        me,
+        state: undefined,
+      });
+      this.notification.reset();
+    } catch (err) {
+      this.notification.add("Error Creating Room");
+      setTimeout(() => {
+        this.notification.reset();
+      }, 1500);
+    }
   }
 
   async joinGame({ room, username }) {
     console.log("join room called");
-    const message = Messages.make.joinGame(room, username);
-    // console.log(message);
-    const { about } = await this.client.messageWithAck(
-      message.name,
-      message.payload
-    );
-    console.log(about);
-    const { players, current, totalGlobalBias } = adapt("about_game", about);
+    this.notification.add("loading");
+    try {
+      const message = Messages.make.joinGame(room, username);
 
-    this.room.setRoom({
-      id: "abc-def",
-      name: room,
-      password: "",
-      me: username,
-      state: undefined,
-      players,
-      current,
-      totalGlobalBias,
-    });
+      // console.log(message);
+      const { about } = await this.client.messageWithAck(
+        message.name,
+        message.payload
+      );
+      console.log(about);
+      const { players, current, totalGlobalBias } = adapt("about_game", about);
+
+      this.room.setRoom({
+        id: "abc-def",
+        name: room,
+        password: "",
+        me: username,
+        state: undefined,
+        players,
+        current,
+        totalGlobalBias,
+      });
+      this.notification.reset();
+    } catch (err) {
+      this.notification.add("Error joining Room");
+      setTimeout(() => {
+        this.notification.reset();
+      }, 1500);
+    }
   }
 
   pollRoom({ room }) {
@@ -239,76 +268,97 @@ class GameManager {
 
   async playerAction(actionType, actionPayload) {
     console.log("player action called");
-    switch (actionType) {
-      case "action_keep_card":
-        var { game, sender, cardId } = actionPayload;
-        var message = Messages.make.actionKeepCard(game, sender, cardId);
-        console.log({ card: message });
-        return this.client.messageWithAck(message.name, message.payload);
-      case "action_pass_card":
-        var { game, sender, receiver, cardId } = actionPayload;
-        var message = Messages.make.actionPassCard(
-          game,
-          sender,
-          receiver,
-          cardId
-        );
-        console.log({ message });
-        return this.client.messageWithAck(message.name, message.payload);
-      case "action_discard_card":
-        var { game, sender, cardId } = actionPayload;
-        var message = Messages.make.actionDiscardCard(game, sender, cardId);
-        return this.client.messageWithAck(message.name, message.payload);
-      case "encyclopedia_search":
-        var message = Messages.make.actionSearchEncyclopaedia(actionPayload);
-        var { results } = await this.client.messageWithAck(
-          message.name,
-          message.payload
-        );
-        this.updateGameState({
-          mode: { id: "encyclopaedia_search_result", payload: results },
-        });
-        break;
-      case "fake_news":
-        var message = Messages.make.actionFakeNews(actionPayload);
-        var { card } = await this.client.messageWithAck(
-          message.name,
-          message.payload
-        );
-        const currentCard = this.state.gameStat.card;
-        this.updateGameState({
-          card: { ...currentCard, description: card.fake_headline },
-        });
-        break;
-      case "mark_as_fake":
-        var message = Messages.make.actionMarkAsFake(actionPayload);
-        var { results } = await this.client.messageWithAck(
-          message.name,
-          message.payload
-        );
-        break;
-      case "initiate_cancel":
-        var message = Messages.make.actionInitiateCancelPlayer(actionPayload);
-        var { results } = await this.client.messageWithAck(
-          message.name,
-          message.payload
-        );
-        break;
-      case "vote_cancel":
-        var message = Messages.make.actionVoteToCancel(actionPayload);
-        var { results } = await this.client.messageWithAck(
-          message.name,
-          message.payload
-        );
-        break;
-      default:
-        console.debug("Unsupported Action");
-        this.addMessage(`⚠️ Unsupported Action`);
+
+    this.notification.add("loading");
+
+    try {
+      switch (actionType) {
+        case "action_keep_card":
+          var { game, sender, cardId } = actionPayload;
+          var message = Messages.make.actionKeepCard(game, sender, cardId);
+          console.log({ card: message });
+          return this.client.messageWithAck(message.name, message.payload);
+        case "action_pass_card":
+          var { game, sender, receiver, cardId } = actionPayload;
+          var message = Messages.make.actionPassCard(
+            game,
+            sender,
+            receiver,
+            cardId
+          );
+          console.log({ message });
+          return this.client.messageWithAck(message.name, message.payload);
+        case "action_discard_card":
+          var { game, sender, cardId } = actionPayload;
+          var message = Messages.make.actionDiscardCard(game, sender, cardId);
+          return this.client.messageWithAck(message.name, message.payload);
+        case "encyclopedia_search":
+          var message = Messages.make.actionSearchEncyclopaedia(actionPayload);
+          var { results } = await this.client.messageWithAck(
+            message.name,
+            message.payload
+          );
+          this.updateGameState({
+            mode: { id: "encyclopaedia_search_result", payload: results },
+          });
+          break;
+        case "fake_news":
+          var message = Messages.make.actionFakeNews(actionPayload);
+          var { card } = await this.client.messageWithAck(
+            message.name,
+            message.payload
+          );
+          const currentCard = this.state.gameStat.card;
+          this.updateGameState({
+            card: { ...currentCard, description: card.fake_headline },
+          });
+          break;
+        case "mark_as_fake":
+          var message = Messages.make.actionMarkAsFake(actionPayload);
+          var { results } = await this.client.messageWithAck(
+            message.name,
+            message.payload
+          );
+          break;
+        case "initiate_cancel":
+          var message = Messages.make.actionInitiateCancelPlayer(actionPayload);
+          var { results } = await this.client.messageWithAck(
+            message.name,
+            message.payload
+          );
+          break;
+        case "vote_cancel":
+          var message = Messages.make.actionVoteToCancel(actionPayload);
+          var { results } = await this.client.messageWithAck(
+            message.name,
+            message.payload
+          );
+          break;
+        default:
+          console.debug("Unsupported Action");
+          this.addMessage(`⚠️ Unsupported Action`);
+      }
+      this.notification.reset();
+    } catch (err) {
+      this.notification.add("Error");
+      setTimeout(() => {
+        this.notification.reset();
+      }, 1500);
     }
   }
 
   addMessage(message) {
     const { gameMessage, setGameMessage } = this.gameMessage;
+    // if (message === gameMessage[0]) {
+    //   let count = a.match(/\d+/gi)[0];
+    //   if (count === null) {
+    //     setGameMessage([message, ...gameMessage.slice(0, 50)]);
+    //     count = 0;
+    //   }
+    //   let newCount = count + 1;
+    //   setGameMessage([`{message} (${newCount})`, ...gameMessage.slice(1, 50)]);
+    // } else {
+    // }
     setGameMessage([message, ...gameMessage.slice(0, 50)]);
   }
 

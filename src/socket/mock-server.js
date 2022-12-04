@@ -17,13 +17,27 @@ app.get("/", (req, res) => {
   res.json({ msg: "ok" });
 });
 
+function sleep(time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 const aboutGame = [
   {
     total_global_bias: 10,
     current_drawing_player: {
       id_: "player1",
       name: "adhiraj",
-      available_powers: [],
+      allowed_actions: [
+        "keep_card",
+        "discard_card",
+        "mark_as_fake",
+        "encyclopedia_search",
+        "pass_card",
+        "viral_spiral",
+        "initiate_cancel",
+        "vote_cancel",
+        "fake_news",
+      ],
     },
     colors: [
       {
@@ -135,19 +149,21 @@ io.on("connection", (socket) => {
   socket.on("message", (arg) => {
     console.log(arg);
   });
-  socket.on("create_game", (arg, callback) => {
+  socket.on("create_game", async (arg, callback) => {
     console.log(arg);
     console.log(callback);
+    await sleep(5500);
     callback({
       status: 200,
       data: "Created game",
     });
   });
-  socket.on("join_game", (arg, callback) => {
+  socket.on("join_game", async (arg, callback) => {
     console.log(arg);
+    await sleep(5500);
     callback({
       status: 200,
-      data: "Joined Game",
+      about: aboutGame[0],
     });
 
     setInterval(() => {
@@ -175,39 +191,74 @@ io.on("connection", (socket) => {
     });
   });
 
-  socket.on("player_action", (arg, callback) => {
-    if (arg.action === "encyclopedia_search") {
+  socket.on("player_action", async (arg, callback) => {
+    await sleep(2500);
+    if (arg.action === "fake_news") {
+      callback({
+        status: 200,
+        card: {
+          fake_headline: "Sagittis eu volutpat odio facilisis mauris",
+        },
+      });
+    } else if (arg.action === "mark_as_fake") {
+      callback({
+        status: 200,
+        card: {
+          foo: "bar",
+        },
+      });
+    } else if (arg.action === "encyclopedia_search") {
       callback({
         status: 200,
         results: [
           {
             id: "asdf",
             headline: "Lorem ipsum dolor sit amet",
-            text: "Ac odio tempor orci dapibus ultrices in iaculis. Ut morbi tincidunt augue interdum velit.",
+            content:
+              "Ac odio tempor orci dapibus ultrices in iaculis. Ut morbi tincidunt augue interdum velit.",
+            is_fake: undefined,
+            content_lower: undefined,
           },
           {
             id: "asdf",
             headline: "Nunc sed id semper risus",
-            text: "Faucibus a pellentesque sit amet porttitor eget. At tempor commodo ullamcorper a lacus vestibulum sed. ",
+            content:
+              "Faucibus a pellentesque sit amet porttitor eget. At tempor commodo ullamcorper a lacus vestibulum sed. ",
+            is_fake: undefined,
+            content_lower: undefined,
           },
           {
             id: "asdf",
             headline: "Lorem ipsum dolor ",
-            text: "Phasellus egestas tellus rutrum tellus pellentesque eu tincidunt.",
+            content:
+              "Phasellus egestas tellus rutrum tellus pellentesque eu tincidunt.",
+            is_fake: undefined,
+            content_lower: undefined,
           },
           {
             id: "asdf",
             headline: "Varius vel pharetra vel",
-            text: "Sagittis eu volutpat odio facilisis mauris sit amet massa vitae. ",
+            content:
+              "Sagittis eu volutpat odio facilisis mauris sit amet massa vitae. ",
+            is_fake: undefined,
+            content_lower: undefined,
           },
         ],
       });
-    } else if (arg.action === "fake_news") {
+    } else if (arg.action === "initiate_cancel") {
       callback({
         status: 200,
-        card: {
-          fake_headline: "Sagittis eu volutpat odio facilisis mauris",
-        },
+        foo: bar,
+      });
+    } else if (arg.action === "vote_cancel") {
+      callback({
+        status: 200,
+        foo: bar,
+      });
+    } else if (arg.action === "viral_spiral") {
+      callback({
+        status: 200,
+        foo: bar,
       });
     }
   });

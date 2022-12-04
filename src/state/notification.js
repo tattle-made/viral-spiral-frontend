@@ -11,19 +11,19 @@ function useNotification() {
   const [pollId, setPollId] = useState(undefined);
 
   function add(message) {
-    setNotification([...notification, message]);
+    // setNotification([...notification, message]);
+    setNotification([message]);
 
-    if (!pollId) {
-      let id = setInterval(() => {
-        setNotification(notification.slice(1));
-      }, 2500);
-      setPollId(id);
-    }
+    // if (!pollId) {
+    //   let id = setInterval(() => {
+    //     setNotification(notification.slice(1));
+    //   }, 2500);
+    //   setPollId(id);
+    // }
   }
 
   function reset() {
-    const [notification, setNotification] = useRecoilState(Notification);
-    clearInterval(pollId);
+    // clearInterval(pollId);
     setNotification([]);
   }
 

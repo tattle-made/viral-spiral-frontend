@@ -8,6 +8,7 @@ import {
   Paragraph,
   Button,
   Image,
+  Spinner,
 } from "grommet";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { molecules } from "../index";
@@ -144,20 +145,6 @@ function Room({ props }) {
             </Box>
           </Box>
         ) : null}
-      </Layer>
-
-      <Layer
-        modal={false}
-        background={{ opacity: false }}
-        position={"top"}
-        margin={"small"}
-        animation={false}
-      >
-        <Box pad={"small"}>
-          {notification.map((message) => (
-            <Text size={"6em"}>{message}</Text>
-          ))}
-        </Box>
       </Layer>
     </Box>
   );
