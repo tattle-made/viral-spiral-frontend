@@ -17,26 +17,28 @@ async function launchBrowser() {
 }
 
 (async () => {
-  const roomName = `uniball-${randomRoomNum()}`;
+  // const roomName = `uniball-${randomRoomNum()}`;
+  const roomName = "tabahi-1000";
   // const GAME_URL = "http://localhost:5173/viral-spiral-frontend/";
   const GAME_URL = "https://tattle-made.github.io/viral-spiral-frontend/";
 
   console.log({ roomName });
 
-  const browser = await launchBrowser();
-  const page = await browser.newPage();
-  await page.goto(GAME_URL);
-  await page.type(".new-room-game", roomName);
-  await page.type(".new-room-password", "asdf");
-  await page.type(".new-room-me", "adhiraj");
-  await page.type(".new-room-players", "aman,farah,krys");
-  await page.click(".new-room-create");
-  await sleep(10000);
-  await page.click(".tab-game-stat");
+  // const browser = await launchBrowser();
+  // const page = await browser.newPage();
+  // await page.goto(GAME_URL);
+  // await page.type(".new-room-game", roomName);
+  // await page.type(".new-room-password", "asdf");
+  // await page.type(".new-room-me", "adhiraj");
+  // await page.type(".new-room-players", "aman,farah,krys");
+  // await page.click(".new-room-create");
+  // await sleep(10000);
+  // await page.click(".tab-game-stat");
 
   const browserB = await launchBrowser();
   const pageB = await browserB.newPage();
   await pageB.goto(GAME_URL);
+  await sleep(2000);
   await pageB.type(".join-room-game", roomName);
   await pageB.type(".join-room-me", "aman");
   await pageB.click(".join-room-join");
@@ -46,6 +48,7 @@ async function launchBrowser() {
   const browserC = await launchBrowser();
   const pageC = await browserC.newPage();
   await pageC.goto(GAME_URL);
+  await sleep(2000);
   await pageC.type(".join-room-game", roomName);
   await pageC.type(".join-room-me", "farah");
   await pageC.click(".join-room-join");
@@ -55,6 +58,7 @@ async function launchBrowser() {
   const browserD = await launchBrowser();
   const pageD = await browserD.newPage();
   await pageD.goto(GAME_URL);
+  await sleep(2000);
   await pageD.type(".join-room-game", roomName);
   await pageD.type(".join-room-me", "krys");
   await pageD.click(".join-room-join");

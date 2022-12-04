@@ -5,6 +5,7 @@ import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
 import { pages } from "./ui";
 import GameManagerInstance from "./GameManager";
 import AppShell from "./ui/atoms/AppShell";
+import Rules from "./ui/pages/Rules";
 
 const { Home, Room, Test } = pages;
 
@@ -25,6 +26,7 @@ const App = () => {
               <Routes>
                 <Route path={`${BASE_URL}`} element={<Home />} />
                 <Route path={`${BASE_URL}room`} element={<Room />} />
+                <Route path={`${BASE_URL}rules`} element={<Rules />} />
                 <Route path={`${BASE_URL}test`} element={<Test />} />
               </Routes>
             </BrowserRouter>

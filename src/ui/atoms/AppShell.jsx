@@ -26,35 +26,35 @@ export default function AppShell({ children }) {
           animation={false}
           full={"vertical"}
         >
-          {true || env === "development" || env === undefined ? (
-            <Box
-              width={"medium"}
-              fill={"vertical"}
-              pad={"medium"}
-              margin={"small"}
-              round
-              background={"#f3f3f3"}
-              alignSelf={"right"}
-            >
-              <Tabs alignSelf="start" alignControls="start">
-                <Tab className="tab-game-stat" title="state">
-                  <GameState gameStat={gameStat} room={room} />
-                </Tab>
-                <Tab title="messages">
-                  <Box width={"100%"} fill={"vertical"} overflow={"scroll"}>
-                    <GameIncomingMessage message={gameMessage} />
-                  </Box>
-                </Tab>
-              </Tabs>
-            </Box>
-          ) : null}
-          {false && env === "production" ? (
+          {/* {true || env === "development" || env === undefined ? ( */}
+          <Box
+            width={"medium"}
+            fill={"vertical"}
+            pad={"medium"}
+            margin={"small"}
+            round
+            background={"#f3f3f3"}
+            alignSelf={"right"}
+          >
+            <Tabs alignSelf="start" alignControls="start">
+              <Tab title="messages">
+                <Box width={"100%"} fill={"vertical"} overflow={"scroll"}>
+                  <GameIncomingMessage message={gameMessage} />
+                </Box>
+              </Tab>
+              <Tab className="tab-game-stat" title="state">
+                <GameState gameStat={gameStat} room={room} />
+              </Tab>
+            </Tabs>
+          </Box>
+          {/* ) : null} */}
+          {/* {false && env === "production" ? (
             <Box width={"medium"} pad={"medium"} margin={"small"} border round>
               <Box width={"100%"} fill={"vertical"} overflow={"scroll"}>
                 <GameIncomingMessage message={gameMessage} />
               </Box>
             </Box>
-          ) : null}
+          ) : null} */}
         </Layer>
         {notification.length != 0 ? (
           <Layer
