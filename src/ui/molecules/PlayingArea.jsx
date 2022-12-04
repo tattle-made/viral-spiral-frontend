@@ -168,8 +168,8 @@ const PlayingArea = () => {
             <Box direction={"row"} gap={"large"} alignContent={"center"}>
               <Box
                 pad={"small"}
-                width={"small"}
-                height={"fit-content"}
+                width={"8em"}
+                height={"12em"}
                 justify={"center"}
                 round={"small"}
                 border={{ size: "xsmall", color: "neutral-1" }}
@@ -208,13 +208,14 @@ const PlayingArea = () => {
                     </Heading>
                     <Box direction={"row-responsive"} gap={"small"} wrap={true}>
                       <Button plain onClick={actionFakeNews}>
-                        <Text fi> Turn into fake</Text>
+                        Turn into fake news
                       </Button>
                       <Button plain>Mark as fake</Button>
                       <Button plain onClick={actionEncyclopaediaSearch}>
                         Search
                       </Button>
                       <Button plain>Cancel a Player</Button>
+                      <Button plain>Viral Spiral</Button>
                     </Box>
                   </Box>
                 </Box>
