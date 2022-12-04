@@ -156,7 +156,7 @@ const PlayingArea = () => {
         />
       ) : null} */}
       {gameStat.card != undefined ? (
-        <AbsoluteBox x={width / 2 - 100} y={(2 * height) / 3 - 200}>
+        <AbsoluteBox x={width / 2 - 400} y={(2 * height) / 3 - 300}>
           <Box
             width={"medium"}
             pad={"small"}
@@ -179,23 +179,13 @@ const PlayingArea = () => {
                 <Heading level={3}>{gameStat.card.title}</Heading>
                 <Text>{gameStat.card.description}</Text>
               </Box>
-              <Box>
-                <Heading level={3}>Special Powers</Heading>
-                <Button plain onClick={actionFakeNews}>
-                  Turn into fake
-                </Button>
-                <Button plain>Mark as fake</Button>
-                <Button plain onClick={actionEncyclopaediaSearch}>
-                  Search
-                </Button>
-                <Button plain>Cancel a Player</Button>
-              </Box>
             </Box>
             <Box>
               {gameStat.card.recipients.length === 0 ? (
                 <Box>
-                  <Button onClick={actionKeepCard}>Keep</Button>
-                  or <Button onClick={actionDiscardCard}>Discard</Button>
+                  <Button onClick={actionKeepCard}>"Keep "</Button>
+                  {"or "}
+                  <Button onClick={actionDiscardCard}>Discard</Button>
                 </Box>
               ) : (
                 <Box>
@@ -209,8 +199,24 @@ const PlayingArea = () => {
                       ></Button>
                     ))}{" "}
                     or <Button onClick={actionKeepCard}>Keep </Button>
-                    or <Button onClick={actionDiscardCard}>Discard</Button>
+                    {" or "}
+                    <Button onClick={actionDiscardCard}>Discard</Button>
                   </Text>
+                  <Box margin={{ top: "small" }}>
+                    <Heading level={3} margin={"none"}>
+                      Special Powers
+                    </Heading>
+                    <Box direction={"row-responsive"} gap={"small"} wrap={true}>
+                      <Button plain onClick={actionFakeNews}>
+                        <Text fi> Turn into fake</Text>
+                      </Button>
+                      <Button plain>Mark as fake</Button>
+                      <Button plain onClick={actionEncyclopaediaSearch}>
+                        Search
+                      </Button>
+                      <Button plain>Cancel a Player</Button>
+                    </Box>
+                  </Box>
                 </Box>
               )}
             </Box>
