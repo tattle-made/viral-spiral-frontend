@@ -13,26 +13,10 @@ import { animated, useSpring } from "@react-spring/web";
 import useSize from "@react-hook/size";
 import CardDeck from "../atoms/CardDeck";
 import AbsoluteBox from "../atoms/AbsoluteBox";
-import avatar1Url from "../../assets/avatar-01.png";
-import avatar2Url from "../../assets/avatar-02.png";
-import avatar3Url from "../../assets/avatar-03.png";
-import avatar4Url from "../../assets/avatar-04.png";
-import avatar5Url from "../../assets/avatar-05.png";
-import avatar6Url from "../../assets/avatar-06.png";
-import avatar7Url from "../../assets/avatar-07.png";
-import avatar8Url from "../../assets/avatar-08.png";
-import { useNotification } from "../../state/notification";
 
-const avatars = [
-  avatar1Url,
-  avatar2Url,
-  avatar3Url,
-  avatar4Url,
-  avatar5Url,
-  avatar6Url,
-  avatar7Url,
-  avatar8Url,
-];
+import { useNotification } from "../../state/notification";
+import BiasIndicator from "../atoms/BiasIndicator";
+import PlayerScoreCard from "../atoms/PlayerScoreCard";
 
 const PlayingArea = () => {
   // game room variables
@@ -155,61 +139,12 @@ const PlayingArea = () => {
 
   return (
     <Box ref={playArea} fill>
-      <AbsoluteBox x={width / 2 - 200} y={height / 3}>
+      <AbsoluteBox x={100} y={200}>
         {them ? (
           <Box direction={"row"} gap={"xlarge"}>
-            {them.map((player, ix) => {
-              return (
-                <Box
-                  key={ix}
-                  width={"xsmall"}
-                  height={"fit-content"}
-                  round={"xsmall"}
-                  direction={"row"}
-                  gap={"small"}
-                >
-                  <Tip
-                    plain
-                    content={
-                      <Box
-                        gap={"small"}
-                        background={pallette.blue.dark}
-                        pad={"small"}
-                        round
-                      >
-                        <Box>
-                          <Text weight={"bold"}>Affinites</Text>
-                          {Object.keys(player.affinity).map((key, ix) => (
-                            <Text key={ix}>
-                              {key}: {player.affinity[key]}
-                            </Text>
-                          ))}
-                        </Box>
-                        <Box>
-                          <Text weight={"bold"}>Biases</Text>
-                          {Object.keys(player.bias).map((key, ix) => (
-                            <Text key={ix}>
-                              {key}: {player.bias[key]}
-                            </Text>
-                          ))}
-                        </Box>
-                      </Box>
-                    }
-                  >
-                    <Stack>
-                      <Box
-                        width="xsmall"
-                        height={"xsmall"}
-                        background={pallette[player.color].dark}
-                      >
-                        <Image src={avatars[ix + 1]} />
-                      </Box>
-                      <Text>{player.name}</Text>
-                    </Stack>
-                  </Tip>
-                </Box>
-              );
-            })}
+            {them.map((player, ix) => (
+              <PlayerScoreCard player={player} />
+            ))}
           </Box>
         ) : null}
       </AbsoluteBox>
@@ -285,53 +220,8 @@ const PlayingArea = () => {
         <Box height={"20em"} />
       )}
 
-      <AbsoluteBox x={(2 * width) / 3 - 100} y={(5 / 6) * height}>
-        {me ? (
-          <Box alignSelf={"center"}>
-            <Box
-              width={"xsmall"}
-              height={"xsmall"}
-              round={"xsmall"}
-              background={pallette[me.color].dark}
-            >
-              <Tip
-                plain
-                content={
-                  <Box
-                    gap={"small"}
-                    background={pallette.blue.dark}
-                    pad={"small"}
-                    round
-                  >
-                    <Box>
-                      <Text weight={"bold"}>Affinites</Text>
-                      {Object.keys(me.affinity).map((key, ix) => (
-                        <Text key={ix}>
-                          {key}: {me.affinity[key]}
-                        </Text>
-                      ))}
-                    </Box>
-                    <Box>
-                      <Text weight={"bold"}>Biases</Text>
-                      {Object.keys(me.bias).map((key, ix) => (
-                        <Text key={ix}>
-                          {key}: {me.bias[key]}
-                        </Text>
-                      ))}
-                    </Box>
-                  </Box>
-                }
-              >
-                <Stack>
-                  <Box fill>
-                    <Image src={avatars[0]} />
-                  </Box>
-                  <Text>{me.name}</Text>
-                </Stack>
-              </Tip>
-            </Box>
-          </Box>
-        ) : null}
+      <AbsoluteBox x={100} y={(5 / 6) * height}>
+        {me ? <PlayerScoreCard player={me} /> : null}
       </AbsoluteBox>
     </Box>
   );

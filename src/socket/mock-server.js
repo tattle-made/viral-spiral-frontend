@@ -66,6 +66,14 @@ const aboutGame = [
         id_: "affin3",
         name: "socks",
       },
+      {
+        id_: "affin4",
+        name: "water",
+      },
+      {
+        id_: "affin5",
+        name: "doors",
+      },
     ],
     players: [
       {
@@ -84,6 +92,8 @@ const aboutGame = [
           affin1: 0,
           affin2: 2,
           affin3: 3,
+          affin4: 2,
+          affin5: 9,
         },
       },
       {
@@ -91,7 +101,7 @@ const aboutGame = [
         name: "aman",
         score: 10,
         color: {
-          name: "red",
+          name: "yellow",
         },
         biases: {
           color1: 10,
@@ -102,6 +112,8 @@ const aboutGame = [
           affin1: 0,
           affin2: 2,
           affin3: 3,
+          affin4: 0,
+          affin5: 2,
         },
       },
       {
@@ -109,7 +121,7 @@ const aboutGame = [
         name: "krys",
         score: 10,
         color: {
-          name: "red",
+          name: "yellow",
         },
         biases: {
           color1: 10,
@@ -120,6 +132,8 @@ const aboutGame = [
           affin1: 0,
           affin2: 2,
           affin3: 3,
+          affin4: 4,
+          affin5: 5,
         },
       },
       {
@@ -127,7 +141,7 @@ const aboutGame = [
         name: "farah",
         score: 10,
         color: {
-          name: "red",
+          name: "blue",
         },
         biases: {
           color1: 10,
@@ -138,6 +152,8 @@ const aboutGame = [
           affin1: 0,
           affin2: 2,
           affin3: 3,
+          affin4: 0,
+          affin5: 2,
         },
       },
     ],
@@ -152,7 +168,7 @@ io.on("connection", (socket) => {
   socket.on("create_game", async (arg, callback) => {
     console.log(arg);
     console.log(callback);
-    await sleep(5500);
+    await sleep(550);
     callback({
       status: 200,
       data: "Created game",
@@ -160,7 +176,7 @@ io.on("connection", (socket) => {
   });
   socket.on("join_game", async (arg, callback) => {
     console.log(arg);
-    await sleep(5500);
+    await sleep(550);
     callback({
       status: 200,
       about: aboutGame[0],
@@ -192,7 +208,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("player_action", async (arg, callback) => {
-    await sleep(2500);
+    await sleep(250);
     if (arg.action === "fake_news") {
       callback({
         status: 200,

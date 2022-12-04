@@ -67,7 +67,7 @@ function Room({ props }) {
       </Box>
       <Layer
         modal={false}
-        background={"#ffffffdd"}
+        background={"#ffffff00"}
         position={"top-left"}
         margin={"small"}
         animation={false}
@@ -77,9 +77,9 @@ function Room({ props }) {
             <Box width={"xsmall"} height={"xsmall"}>
               <Image src={vsLogo} fit={"contain"} />
             </Box>
-            <Box pad={"small"}>
+            <Box pad={"small"} round={"small"} background={"accent-3"}>
               <Heading level={3} margin={"none"}>
-                Total Global Bias
+                Global Bias
               </Heading>
               {room && room.totalGlobalBias ? (
                 <Text weight={"bold"}>{room.totalGlobalBias}</Text>
@@ -139,7 +139,7 @@ function Room({ props }) {
               {gameStat.mode.payload.map((result, ix) => (
                 <Box key={ix}>
                   <Text weight={"bold"}>{result.headline}</Text>
-                  <Text>{result.text}</Text>
+                  <Text>{result.content}</Text>
                 </Box>
               ))}
             </Box>
