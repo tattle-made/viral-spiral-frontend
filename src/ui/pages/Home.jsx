@@ -13,7 +13,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { GameManagerContext } from "../../App";
 import vsLogo from "../../assets/vs-logo.png";
-import bgLanding from "../../assets/bg-landing-1.png";
+import bgLanding from "../../assets/bg-landing-2.png";
 
 // todo : remove later when we're not deploying to github pages anymore
 const BASE_URL = "/viral-spiral-frontend/";
@@ -47,18 +47,29 @@ const Home = () => {
     <Box fill alignContent={"center"} justify={"center"}>
       <Layer full animation={false}>
         <Box fill>
-          <Box width={"small"} height={"small"}>
-            <Image src={vsLogo} />
+          <Box direction={"row-responsive"} gap={"large"}>
+            <Box width={"small"} height={"small"}>
+              <Image src={vsLogo} />
+            </Box>
+            <Box alignSelf="center">
+              {/* <Text>
+                {" "}
+                A multiplayer adaptive card game about misinformation
+              </Text> */}
+              <Link to={`${BASE_URL}rules`}>
+                <Text size={"large"}>Rules</Text>
+              </Link>
+            </Box>
           </Box>
           <Box fill align={"end"}>
             <Box
               pad={{ right: "medium" }}
               width={"medium"}
               fill={"vertical"}
-              align={"end"}
-              justify={"end"}
+              alignSelf={"start"}
             >
-              <Box width={"medium"} height={"medium"}>
+              <Box flex={"grow"}></Box>
+              <Box width={"small"} height={"small"} alignSelf={"start"}>
                 <Image src={bgLanding} fit={"contain"} />
               </Box>
             </Box>
@@ -130,9 +141,9 @@ const Home = () => {
           <Box justify="center">
             <Text weight={400}>or</Text>
           </Box>
-          <Box width={"medium"} gap={"small"} justify="center">
+          <Box width={"medium"} gap={"small"} justify="center" border round>
             <Form onSubmit={({ value }) => joinRoom(value)}>
-              <Box gap={"medium"}>
+              <Box gap={"medium"} pad={"medium"} background={"white"}>
                 <Box>
                   <FormField>
                     <TextInput
