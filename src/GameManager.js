@@ -279,7 +279,7 @@ class GameManager {
           var { game, sender, cardId } = actionPayload;
           var message = Messages.make.actionKeepCard(game, sender, cardId);
           console.log({ card: message });
-          return this.client.messageWithAck(message.name, message.payload);
+          await this.client.messageWithAck(message.name, message.payload);
         case "action_pass_card":
           var { game, sender, receiver, cardId } = actionPayload;
           var message = Messages.make.actionPassCard(
@@ -289,11 +289,11 @@ class GameManager {
             cardId
           );
           console.log({ message });
-          return this.client.messageWithAck(message.name, message.payload);
+          await this.client.messageWithAck(message.name, message.payload);
         case "action_discard_card":
           var { game, sender, cardId } = actionPayload;
           var message = Messages.make.actionDiscardCard(game, sender, cardId);
-          return this.client.messageWithAck(message.name, message.payload);
+          await this.client.messageWithAck(message.name, message.payload);
         case "encyclopedia_search":
           var message = Messages.make.actionSearchEncyclopaedia(actionPayload);
           var { results } = await this.client.messageWithAck(
