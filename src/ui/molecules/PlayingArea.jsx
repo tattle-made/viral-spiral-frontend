@@ -127,7 +127,7 @@ const PlayingArea = () => {
   async function actionFakeNews() {
     const { name: game, me: sender } = room;
     const cardId = gameStat.card.id;
-    // todo : assign true dynamic values
+    // todo : assign true fake card id
     const fakeCardId = undefined;
     const actionPayload = { game, sender, cardId, fakeCardId };
     await manager.playerAction("fake_news", actionPayload);

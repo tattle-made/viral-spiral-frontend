@@ -10,7 +10,7 @@ import {
   Image,
   Spinner,
 } from "grommet";
-import { XCircle } from "react-feather";
+import { XCircle, RefreshCw } from "react-feather";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { molecules } from "../index";
 import { GameManagerContext } from "../../App";
@@ -61,6 +61,15 @@ function Room({ props }) {
     manager.closeEncylopaedia();
   }
 
+  function reload() {
+    try {
+      console.log("reloading");
+      navigate(0);
+    } catch (err) {
+      console.log("error");
+    }
+  }
+
   return (
     <Box fill background={`url(${bgWorld1})`}>
       <Box fill justify="center" align="center" full>
@@ -95,6 +104,11 @@ function Room({ props }) {
               default
               onClick={actionLeaveRoom}
               icon={<XCircle color={"#514E80"} />}
+            ></Button>
+            <Button
+              default
+              onClick={reload}
+              icon={<RefreshCw color={"#514E80"} />}
             ></Button>
           </Box>
         </Box>
