@@ -100,16 +100,28 @@ function Room({ props }) {
                 <Text weight={"bold"}>{room.totalGlobalBias}</Text>
               ) : null}
             </Box>
-            <Button
-              default
-              onClick={actionLeaveRoom}
-              icon={<XCircle color={"#514E80"} />}
-            ></Button>
-            <Button
-              default
-              onClick={reload}
-              icon={<RefreshCw color={"#514E80"} />}
-            ></Button>
+            <Box
+              round={"large"}
+              background={"neutral-1"}
+              height={"fit-content"}
+            >
+              <Button
+                default
+                onClick={actionLeaveRoom}
+                icon={<XCircle color={"#514E80"} />}
+              ></Button>
+            </Box>
+            <Box
+              round={"large"}
+              background={"neutral-1"}
+              height={"fit-content"}
+            >
+              <Button
+                default
+                onClick={reload}
+                icon={<RefreshCw color={"#514E80"} />}
+              ></Button>
+            </Box>
           </Box>
         </Box>
       </Layer>
