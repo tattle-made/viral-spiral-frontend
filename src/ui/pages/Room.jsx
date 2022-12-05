@@ -94,7 +94,7 @@ function Room({ props }) {
             <Button
               default
               onClick={actionLeaveRoom}
-              icon={<XCircle />}
+              icon={<XCircle color={"#514E80"} />}
             ></Button>
           </Box>
         </Box>
