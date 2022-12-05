@@ -83,6 +83,7 @@ class GameManager {
                 title: msg.data.card_instance.card.title,
                 description: msg.data.card_instance.card.description,
                 recipients: msg.data.recipients,
+                allowedActions: msg.data.allowed_actions,
               };
               // this.addMessage(`🎴 Play Card`);
               this.updateGameState({ card });

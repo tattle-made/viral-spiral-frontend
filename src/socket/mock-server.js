@@ -27,17 +27,6 @@ const aboutGame = [
     current_drawing_player: {
       id_: "player1",
       name: "adhiraj",
-      allowed_actions: [
-        "keep_card",
-        "discard_card",
-        "mark_as_fake",
-        "encyclopedia_search",
-        "pass_card",
-        "viral_spiral",
-        "initiate_cancel",
-        "vote_cancel",
-        "fake_news",
-      ],
     },
     colors: [
       {
@@ -194,6 +183,17 @@ io.on("connection", (socket) => {
                 "Smug cat looks on while robbers tie up family steal cash",
             },
           },
+          allowed_actions: [
+            "keep_card",
+            "discard_card",
+            "mark_as_fake",
+            "encyclopedia_search",
+            "pass_card",
+            "viral_spiral",
+            "initiate_cancel",
+            "vote_cancel",
+            "fake_news",
+          ],
         },
       });
     }, 1000);

@@ -206,17 +206,45 @@ const PlayingArea = () => {
                     <Heading level={3} margin={"none"}>
                       Special Powers
                     </Heading>
-                    <Box direction={"row-responsive"} gap={"small"} wrap={true}>
-                      <Button plain onClick={actionFakeNews}>
-                        Turn into fake news
-                      </Button>
-                      <Button plain>Mark as fake</Button>
-                      <Button plain onClick={actionEncyclopaediaSearch}>
-                        Search
-                      </Button>
-                      <Button plain>Cancel a Player</Button>
-                      <Button plain>Viral Spiral</Button>
-                    </Box>
+                    {gameStat.card.allowedActions ? (
+                      <Box
+                        direction={"row-responsive"}
+                        gap={"small"}
+                        wrap={true}
+                      >
+                        {gameStat.card.allowedActions.includes("fake_news") ? (
+                          <Button
+                            plain
+                            onClick={actionFakeNews}
+                            label={"Turn into fake news"}
+                          ></Button>
+                        ) : null}
+                        {gameStat.card.allowedActions.includes(
+                          "mark_as_fake"
+                        ) ? (
+                          <Button plain label={"Mark as fake"}></Button>
+                        ) : null}
+                        {gameStat.card.allowedActions.includes(
+                          "encyclopedia_search"
+                        ) ? (
+                          <Button
+                            plain
+                            onClick={actionEncyclopaediaSearch}
+                            label={"Search"}
+                          ></Button>
+                        ) : null}
+                        {gameStat.card.allowedActions.includes(
+                          "initiate_cancel"
+                        ) ? (
+                          <Button plain label={"Cancel Player"}></Button>
+                        ) : null}
+                        {gameStat.card.allowedActions.includes(
+                          "viral_spiral"
+                        ) ? (
+                          <Button plain label={"Viral Spiral"}></Button>
+                        ) : null}
+                      </Box>
+                    ) : null}
                   </Box>
                 </Box>
               )}
