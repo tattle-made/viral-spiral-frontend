@@ -88,7 +88,7 @@ function Room({ props }) {
               round={"large"}
               width={"xsmall"}
               height={"xsmall"}
-              background={"#ffffffaa"}
+              background={"#ffffff"}
             >
               <Image src={vsLogo} fit={"contain"} />
             </Box>
@@ -160,12 +160,12 @@ function Room({ props }) {
               <Button onClick={closeEncyclopaedia}>X</Button>
             </Box>
             <Box>
-              {gameStat.mode.payload.map((result, ix) => (
-                <Box key={ix}>
-                  <Text weight={"bold"}>{result.headline}</Text>
-                  <Text>{result.content}</Text>
+              {gameStat.mode.payload ? (
+                <Box>
+                  <Text weight={"bold"}>{gameStat.mode.payload.title}</Text>
+                  <Text>{gameStat.mode.payload.content}</Text>
                 </Box>
-              ))}
+              ) : null}
             </Box>
           </Box>
         ) : null}

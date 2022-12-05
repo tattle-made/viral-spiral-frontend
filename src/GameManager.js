@@ -72,19 +72,24 @@ class GameManager {
         "play_card",
         (() => {
           return (msg) => {
-            // console.log("Play Card");
+            console.log("Play Card");
+            console.log(msg);
             // check if you were the last one to play card?
-            const cardId = msg.data.card_instance.id_;
+            const cardInstanceId = msg.data.card_instance.id_;
+            const cardId = msg.data.card_instance.card.id_;
+            console.log({ cardId, cardInstanceId });
             if (this.played_cards.includes(cardId)) {
               this.addMessage(`🎴 played card received again. Ignoring`);
             } else {
               const card = {
-                id: cardId,
+                id: cardInstanceId,
+                cardId,
+                cardInstanceId,
                 title: msg.data.card_instance.card.title,
                 description: msg.data.card_instance.card.description,
                 recipients: msg.data.recipients,
                 allowedActions: msg.data.allowed_actions,
-                fakeCards: undefined,
+                fakeCardId: msg.data.card_instance.card.fakes[0].id_,
               };
               // this.addMessage(`🎴 Play Card`);
               this.updateGameState({ card });
@@ -296,12 +301,19 @@ class GameManager {
           await this.client.messageWithAck(message.name, message.payload);
         case "encyclopedia_search":
           var message = Messages.make.actionSearchEncyclopaedia(actionPayload);
-          var { results } = await this.client.messageWithAck(
+          console.log({ message });
+          var { message } = await this.client.messageWithAck(
             message.name,
             message.payload
           );
+          if (!message.title) {
+            message.title = "";
+          }
+          if (!message.content) {
+            message.content = "";
+          }
           this.updateGameState({
-            mode: { id: "encyclopaedia_search_result", payload: results },
+            mode: { id: "encyclopaedia_search_result", payload: message },
           });
           break;
         case "fake_news":

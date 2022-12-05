@@ -226,40 +226,13 @@ io.on("connection", (socket) => {
     } else if (arg.action === "encyclopedia_search") {
       callback({
         status: 200,
-        results: [
-          {
-            id: "asdf",
-            headline: "Lorem ipsum dolor sit amet",
-            content:
-              "Ac odio tempor orci dapibus ultrices in iaculis. Ut morbi tincidunt augue interdum velit.",
-            is_fake: undefined,
-            content_lower: undefined,
-          },
-          {
-            id: "asdf",
-            headline: "Nunc sed id semper risus",
-            content:
-              "Faucibus a pellentesque sit amet porttitor eget. At tempor commodo ullamcorper a lacus vestibulum sed. ",
-            is_fake: undefined,
-            content_lower: undefined,
-          },
-          {
-            id: "asdf",
-            headline: "Lorem ipsum dolor ",
-            content:
-              "Phasellus egestas tellus rutrum tellus pellentesque eu tincidunt.",
-            is_fake: undefined,
-            content_lower: undefined,
-          },
-          {
-            id: "asdf",
-            headline: "Varius vel pharetra vel",
-            content:
-              "Sagittis eu volutpat odio facilisis mauris sit amet massa vitae. ",
-            is_fake: undefined,
-            content_lower: undefined,
-          },
-        ],
+        message: {
+          title: "Excess socks-baggage brings down airplane, many feared dead",
+          content:
+            "Breaking - At 1.07 AM today, City Air Flight 3807 crashed into the harbour. Rescue operations are underway, many are feared dead. The cause of the crash has been surmised to have been destablization caused by an extreme excess of baggage, mostly socks, that were being taken for a Socks Manufacturing convention...",
+          type: "News",
+          author: None,
+        },
       });
     } else if (arg.action === "initiate_cancel") {
       callback({

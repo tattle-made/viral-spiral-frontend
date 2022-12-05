@@ -119,16 +119,22 @@ const PlayingArea = () => {
 
   async function actionEncyclopaediaSearch() {
     const { name: game, me: sender } = room;
-    const cardId = gameStat.card.id;
+    const cardId = gameStat.card.cardId;
     const actionPayload = { game, sender, cardId };
+
+    console.log("------");
+    console.log({ actionPayload });
+    console.log("------");
     await manager.playerAction("encyclopedia_search", actionPayload);
   }
 
   async function actionFakeNews() {
     const { name: game, me: sender } = room;
     const cardId = gameStat.card.id;
+
     // todo : assign true fake card id
-    const fakeCardId = undefined;
+    const fakeCardId = gameStat.card.fakeCardId;
+
     const actionPayload = { game, sender, cardId, fakeCardId };
     await manager.playerAction("fake_news", actionPayload);
   }

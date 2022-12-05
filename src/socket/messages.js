@@ -64,7 +64,7 @@ const make = {
     payload: {
       game,
       player: sender,
-      action: "fake_news",
+      action: "action_fake_news",
       kwargs: {
         card_instance_id: cardId,
         fake_card_id: fakeCardId,
@@ -77,7 +77,7 @@ const make = {
     payload: {
       game,
       player: sender,
-      action: "mark_as_fake",
+      action: "action_mark_as_fake",
       kwargs: {
         card_instance_id: cardId,
       },
@@ -89,9 +89,9 @@ const make = {
     payload: {
       game,
       player: sender,
-      action: "encyclopedia_search",
+      action: "action_encyclopedia_search",
       kwargs: {
-        keyword: cardId,
+        card_id: cardId,
       },
     },
   }),
@@ -101,7 +101,7 @@ const make = {
     payload: {
       game,
       player: sender,
-      action: "initiate_cancel",
+      action: "action_initiate_cancel",
       kwargs: {
         against: otherId,
       },
@@ -112,7 +112,7 @@ const make = {
     payload: {
       game,
       player: sender,
-      action: "vote_cancel",
+      action: "action_vote_cancel",
       kwargs: {
         cancel_status_id: cancelStatusId,
         vote,
@@ -124,7 +124,7 @@ const make = {
     payload: {
       game,
       player: sender,
-      action: "viral_spiral",
+      action: "action_viral_spiral",
       kwargs: {
         pass_card_instance_id: cardId,
       },
