@@ -56,20 +56,27 @@ export default function PlayerScoreCard({ player }) {
     >
       <Box>
         <Box direction={"row"} gap={"small"}>
-          <Stack>
-            <Box
-              width="xsmall"
-              fill={"vertical"}
-              background={pallette[player.color].dark}
-              border={{ color: "neutral-2" }}
-              round={"small"}
-            >
-              <Image src={avatars[0]} />
+          <Box>
+            <Stack>
+              <Box
+                width="xsmall"
+                fill={"vertical"}
+                background={pallette[player.color].dark}
+                border={{ color: "neutral-2" }}
+                round={"small"}
+              >
+                <Image src={avatars[0]} />
+              </Box>
+              <Box pad={"xxsmall"}>
+                <Text>{player.name}</Text>
+              </Box>
+            </Stack>
+            <Box pad={"small"}>
+              <Text weight={"bold"} size={"xlarge"}>
+                {player.score}
+              </Text>
             </Box>
-            <Box pad={"xxsmall"}>
-              <Text>{player.name}</Text>
-            </Box>
-          </Stack>
+          </Box>
           <Box pad={{ right: "xsmall", bottom: "xsmall" }}>
             <Box gap={"xsmall"}>
               <Text weight={"bold"}>Biases</Text>
