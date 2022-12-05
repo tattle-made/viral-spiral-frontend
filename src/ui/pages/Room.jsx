@@ -15,7 +15,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { molecules } from "../index";
 import { GameManagerContext } from "../../App";
 import { useEffect } from "react";
-import bgWorld1 from "../../assets/bg-world-1.jpg";
+import bgWorld1 from "../../assets/bg-world-1.png";
 import vsLogo from "../../assets/vs-logo.png";
 import { useNotification } from "../../state/notification";
 
@@ -74,8 +74,13 @@ function Room({ props }) {
         animation={false}
       >
         <Box width={"fit-content"}>
-          <Box direction="row">
-            <Box width={"xsmall"} height={"xsmall"}>
+          <Box direction="row" gap={"small"}>
+            <Box
+              round={"large"}
+              width={"xsmall"}
+              height={"xsmall"}
+              background={"#ffffffaa"}
+            >
               <Image src={vsLogo} fit={"contain"} />
             </Box>
             <Box pad={"small"} round={"small"} background={"accent-3"}>
