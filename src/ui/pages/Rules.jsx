@@ -1,8 +1,34 @@
-import { Box, Text, Heading, Anchor, Paragraph } from "grommet";
+import { Box, Text, Heading, Anchor, Paragraph, Image } from "grommet";
+import bgLandingCard01 from "../../assets/bg-landing-cards-01.png";
+import bgLandingCard02 from "../../assets/bg-landing-cards-02.png";
+import bgLandingCard03 from "../../assets/bg-landing-cards-03.png";
+import bgLandingCard04 from "../../assets/bg-landing-cards-04.png";
+import bgLanding from "../../assets/bg-landing-2.png";
+
 export default function Rules() {
   return (
-    <Box pad={"large"}>
+    <Box pad={"large"} fill flex={"grow"}>
       <Heading level={3}>Rules</Heading>
+      <Box
+        direction={"row-responsive"}
+        gap={"xsmall"}
+        flex={"grow"}
+        border
+        width={"fit-content"}
+        round
+      >
+        <Box width={"small"} height={"small"} alignSelf={"start"}>
+          <Image src={bgLanding} fit={"contain"} />
+        </Box>
+        <Box direction={"row-responsive"}>
+          <Box width={"8em"} height={"small"} alignSelf={"start"}>
+            <Image src={bgLandingCard01} fit={"contain"} />
+          </Box>
+          <Box width={"8em"} height={"small"} alignSelf={"start"}>
+            <Image src={bgLandingCard03} fit={"contain"} />
+          </Box>
+        </Box>
+      </Box>
       <Paragraph>
         Welcome to VIRAL SPIRAL, a game about sharing news on the internet. In
         this game you will play a member of a closed online community — think of

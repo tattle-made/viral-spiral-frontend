@@ -14,6 +14,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { GameManagerContext } from "../../App";
 import vsLogo from "../../assets/vs-logo.png";
 import bgLanding from "../../assets/bg-landing-2.png";
+import bgLandingCard01 from "../../assets/bg-landing-cards-01.png";
+import bgLandingCard02 from "../../assets/bg-landing-cards-02.png";
+import bgLandingCard03 from "../../assets/bg-landing-cards-03.png";
+import bgLandingCard04 from "../../assets/bg-landing-cards-04.png";
 
 // todo : remove later when we're not deploying to github pages anymore
 const BASE_URL = "/";
@@ -65,13 +69,23 @@ const Home = () => {
           <Box fill align={"end"}>
             <Box
               pad={{ right: "medium" }}
-              width={"medium"}
+              width={"large"}
               fill={"vertical"}
               alignSelf={"start"}
             >
               <Box flex={"grow"}></Box>
-              <Box width={"small"} height={"small"} alignSelf={"start"}>
-                <Image src={bgLanding} fit={"contain"} />
+              <Box direction={"row-responsive"} gap={"xsmall"}>
+                <Box width={"small"} height={"small"} alignSelf={"start"}>
+                  <Image src={bgLanding} fit={"contain"} />
+                </Box>
+                <Box direction={"row-responsive"}>
+                  <Box width={"8em"} height={"small"} alignSelf={"start"}>
+                    <Image src={bgLandingCard01} fit={"contain"} />
+                  </Box>
+                  <Box width={"8em"} height={"small"} alignSelf={"start"}>
+                    <Image src={bgLandingCard03} fit={"contain"} />
+                  </Box>
+                </Box>
               </Box>
             </Box>
           </Box>
