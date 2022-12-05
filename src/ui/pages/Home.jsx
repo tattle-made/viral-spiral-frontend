@@ -22,6 +22,7 @@ const Home = () => {
   const navigate = useNavigate();
   const manager = useContext(GameManagerContext);
   const { gameStat, room } = manager.useGameState();
+  console.log("we are home");
 
   useEffect(() => {
     manager.setup();
