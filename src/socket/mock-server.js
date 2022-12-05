@@ -57,11 +57,11 @@ const aboutGame = [
       },
       {
         id_: "affin4",
-        name: "water",
+        name: "gloves",
       },
       {
         id_: "affin5",
-        name: "doors",
+        name: "boat",
       },
     ],
     players: [

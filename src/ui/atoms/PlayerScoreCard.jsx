@@ -8,6 +8,11 @@ import avatar5Url from "../../assets/avatar-05.png";
 import avatar6Url from "../../assets/avatar-06.png";
 import avatar7Url from "../../assets/avatar-07.png";
 import avatar8Url from "../../assets/avatar-08.png";
+import affinity1 from "../../assets/affinity-01.png";
+import affinity2 from "../../assets/affinity-02.png";
+import affinity3 from "../../assets/affinity-03.png";
+import affinity4 from "../../assets/affinity-04.png";
+import affinity5 from "../../assets/affinity-05.png";
 import { pallette } from "./theme";
 
 const avatars = [
@@ -20,6 +25,25 @@ const avatars = [
   avatar7Url,
   avatar8Url,
 ];
+
+const affinityIcons = {
+  skub: affinity1,
+  cat: affinity2,
+  socks: affinity3,
+  gloves: affinity4,
+  boat: affinity5,
+};
+
+const IconWithScore = ({ icon, score }) => (
+  <Stack anchor="top-right">
+    <Box width="2.4em" round={"small"}>
+      <Image src={icon} />
+    </Box>
+    <Box round background={"accent-1"} width={"1em"} align={"center"}>
+      <Text size={"small"}>{score}</Text>
+    </Box>
+  </Stack>
+);
 
 export default function PlayerScoreCard({ player }) {
   return (
@@ -61,12 +85,11 @@ export default function PlayerScoreCard({ player }) {
 
               <Box gap={"xsmall"}>
                 <Text weight={"bold"}>Affinites</Text>
-                <Box direction={"row"} gap="xsmall">
+                <Box direction={"row"}>
                   {Object.keys(player.affinity).map((key, ix) => (
-                    <BiasIndicator
-                      key={ix}
-                      color={"red"}
-                      value={player.affinity[key]}
+                    <IconWithScore
+                      icon={affinityIcons[key]}
+                      score={player.affinity[key]}
                     />
                   ))}
                 </Box>
