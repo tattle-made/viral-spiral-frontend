@@ -143,6 +143,23 @@ function Room({ props }) {
             </Box>
           </Box>
         ) : null}
+        {gameStat.mode && gameStat.mode.id === "vote_cancel" ? (
+          <Box pad={"small"} height={"fit-content"} width={"large"}>
+            <Box direction="row">
+              <Heading level={2}>Vote to Cancel</Heading>
+              <Box flex={"grow"}></Box>
+              {/* <Button onClick={closeEncyclopaedia}>X</Button> */}
+            </Box>
+            {/* <Box>
+              {gameStat.mode.payload.map((result, ix) => (
+                <Box key={ix}>
+                  <Text weight={"bold"}>{result.headline}</Text>
+                  <Text>{result.content}</Text>
+                </Box>
+              ))}
+            </Box> */}
+          </Box>
+        ) : null}
       </Layer>
     </Box>
   );

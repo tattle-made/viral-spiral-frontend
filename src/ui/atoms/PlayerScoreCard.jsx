@@ -28,10 +28,10 @@ const avatars = [
 
 const affinityIcons = {
   skub: affinity1,
-  cat: affinity2,
+  cats: affinity2,
   socks: affinity3,
-  gloves: affinity4,
-  boat: affinity5,
+  high_fives: affinity4,
+  houseboats: affinity5,
 };
 
 const IconWithScore = ({ icon, score }) => (

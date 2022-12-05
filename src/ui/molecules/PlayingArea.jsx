@@ -133,6 +133,27 @@ const PlayingArea = () => {
     await manager.playerAction("fake_news", actionPayload);
   }
 
+  async function specialPowers(powerName) {
+    const { name: game, me: sender } = room;
+    const cardId = gameStat.card.id;
+    switch (powerName) {
+      case "mark_as_fake":
+        var actionPayload = { game, sender, cardId };
+        await manager.playerAction("mark_as_fake", actionPayload);
+        break;
+      case "viral_spiral":
+        var actionPayload = { game, sender, cardId };
+        await manager.playerAction("viral_spiral", actionPayload);
+        break;
+      case "initiate_cancel":
+        var actionPayload = { game, sender, cardId };
+        await manager.playerAction("initiate_cancel", actionPayload);
+        break;
+      default:
+        console.log("Unsupported Power");
+    }
+  }
+
   function pickCard() {
     setShowCard(true);
   }
@@ -222,7 +243,11 @@ const PlayingArea = () => {
                         {gameStat.card.allowedActions.includes(
                           "mark_as_fake"
                         ) ? (
-                          <Button plain label={"Mark as fake"}></Button>
+                          <Button
+                            plain
+                            label={"Mark as fake"}
+                            onClick={() => specialPowers("mark_as_fake")}
+                          ></Button>
                         ) : null}
                         {gameStat.card.allowedActions.includes(
                           "encyclopedia_search"
@@ -236,12 +261,20 @@ const PlayingArea = () => {
                         {gameStat.card.allowedActions.includes(
                           "initiate_cancel"
                         ) ? (
-                          <Button plain label={"Cancel Player"}></Button>
+                          <Button
+                            plain
+                            label={"Cancel Player"}
+                            onClick={() => specialPowers("initiate_cancel")}
+                          ></Button>
                         ) : null}
                         {gameStat.card.allowedActions.includes(
                           "viral_spiral"
                         ) ? (
-                          <Button plain label={"Viral Spiral"}></Button>
+                          <Button
+                            plain
+                            label={"Viral Spiral"}
+                            onClick={() => specialPowers("viral_spiral")}
+                          ></Button>
                         ) : null}
                       </Box>
                     ) : null}

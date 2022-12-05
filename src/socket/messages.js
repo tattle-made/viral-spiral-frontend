@@ -72,7 +72,7 @@ const make = {
     },
   }),
 
-  actionMarkAsFake: (game, sender, cardId) => ({
+  actionMarkAsFake: ({ game, sender, cardId }) => ({
     name: "player_action",
     payload: {
       game,
@@ -116,6 +116,17 @@ const make = {
       kwargs: {
         cancel_status_id: cancelStatusId,
         vote,
+      },
+    },
+  }),
+  actionViralSpiral: ({ game, sender, cardId }) => ({
+    name: "player_action",
+    payload: {
+      game,
+      player: sender,
+      action: "viral_spiral",
+      kwargs: {
+        pass_card_instance_id: cardId,
       },
     },
   }),

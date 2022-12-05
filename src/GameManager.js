@@ -316,21 +316,28 @@ class GameManager {
           break;
         case "mark_as_fake":
           var message = Messages.make.actionMarkAsFake(actionPayload);
-          var { results } = await this.client.messageWithAck(
+          var result = await this.client.messageWithAck(
             message.name,
             message.payload
           );
           break;
         case "initiate_cancel":
           var message = Messages.make.actionInitiateCancelPlayer(actionPayload);
-          var { results } = await this.client.messageWithAck(
+          var result = await this.client.messageWithAck(
             message.name,
             message.payload
           );
           break;
         case "vote_cancel":
           var message = Messages.make.actionVoteToCancel(actionPayload);
-          var { results } = await this.client.messageWithAck(
+          var result = await this.client.messageWithAck(
+            message.name,
+            message.payload
+          );
+          break;
+        case "viral_spiral":
+          var message = Messages.make.actionViralSpiral(actionPayload);
+          var results = await this.client.messageWithAck(
             message.name,
             message.payload
           );

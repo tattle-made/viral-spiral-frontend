@@ -45,7 +45,7 @@ const aboutGame = [
     topics: [
       {
         id_: "affin1",
-        name: "cat",
+        name: "cats",
       },
       {
         id_: "affin2",
@@ -57,11 +57,11 @@ const aboutGame = [
       },
       {
         id_: "affin4",
-        name: "gloves",
+        name: "high_fives",
       },
       {
         id_: "affin5",
-        name: "boat",
+        name: "houseboats",
       },
     ],
     players: [
@@ -264,17 +264,17 @@ io.on("connection", (socket) => {
     } else if (arg.action === "initiate_cancel") {
       callback({
         status: 200,
-        foo: bar,
+        foo: "bar",
       });
     } else if (arg.action === "vote_cancel") {
       callback({
         status: 200,
-        foo: bar,
+        foo: "bar",
       });
     } else if (arg.action === "viral_spiral") {
       callback({
         status: 200,
-        foo: bar,
+        foo: "bar",
       });
     }
   });
