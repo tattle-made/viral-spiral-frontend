@@ -12,7 +12,7 @@ const { Home, Room, Test } = pages;
 export const GameManagerContext = createContext(null);
 
 // todo : remove later when we're not deploying to github pages anymore
-const BASE_URL = "/viral-spiral-frontend/";
+const BASE_URL = "/";
 
 const App = () => {
   useEffect(() => {}, []);

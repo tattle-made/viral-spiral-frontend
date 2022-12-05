@@ -19,7 +19,7 @@ import bgWorld1 from "../../assets/bg-world-1.png";
 import vsLogo from "../../assets/vs-logo.png";
 import { useNotification } from "../../state/notification";
 
-const BASE_URL = "/viral-spiral-frontend/";
+const BASE_URL = "/";
 
 const { PlayingArea } = molecules;
 

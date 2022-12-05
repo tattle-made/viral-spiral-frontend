@@ -16,7 +16,7 @@ import vsLogo from "../../assets/vs-logo.png";
 import bgLanding from "../../assets/bg-landing-2.png";
 
 // todo : remove later when we're not deploying to github pages anymore
-const BASE_URL = "/viral-spiral-frontend/";
+const BASE_URL = "/";
 
 const Home = () => {
   const navigate = useNavigate();
