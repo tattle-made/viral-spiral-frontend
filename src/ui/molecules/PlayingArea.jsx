@@ -264,7 +264,7 @@ const PlayingArea = () => {
                             label={"Search"}
                           ></Button>
                         ) : null}
-                        {/* {gameStat.card.allowedActions.includes(
+                        {gameStat.card.allowedActions.includes(
                           "initiate_cancel"
                         ) ? (
                           <Button
@@ -272,8 +272,9 @@ const PlayingArea = () => {
                             label={"Cancel Player"}
                             onClick={() => specialPowers("initiate_cancel")}
                           ></Button>
-                        ) : null} */}
-                        {/* {gameStat.card.allowedActions.includes(
+                        ) : null}
+
+                        {gameStat.card.allowedActions.includes(
                           "viral_spiral"
                         ) ? (
                           <Button
@@ -281,7 +282,7 @@ const PlayingArea = () => {
                             label={"Viral Spiral"}
                             onClick={() => specialPowers("viral_spiral")}
                           ></Button>
-                        ) : null} */}
+                        ) : null}
                       </Box>
                     ) : null}
                   </Box>

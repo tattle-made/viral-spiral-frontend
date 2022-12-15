@@ -9,21 +9,7 @@ class Client {
   }
 
   connect() {
-    // debugger;
     this.socket = io(this.server.config.url);
-    // this.socket.on("connect", () => {
-    //   console.log(`connected : ${this.socket.id}`);
-    // });
-    // this.socket.on("connect_error", () => {
-    //   console.log(`error`);
-    // });
-    // this.socket.on("disconnect", (reason) => {
-    //   console.log(`disconnect : ${reason}`);
-    // });
-    // this.socket.on("text_response", (arg) => {
-    //   console.log(arg);
-    // });
-    // todo : connect handlers
   }
 
   disconnect() {
@@ -49,7 +35,7 @@ class Client {
 
   async messageWithAck({ name, payload }) {
     return new Promise((resolve, reject) => {
-      // console.log(name + "SENT");
+      console.log(name + "SENT");
       // console.log(name);
       // console.log(this.socket);
       this.socket.emit(name, payload, (arg) => {

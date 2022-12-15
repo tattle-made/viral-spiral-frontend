@@ -45,72 +45,17 @@ class GameManager {
         })()
       );
 
+      client.addHandler("error", Handlers.errorHandler());
       client.addHandler(
-        "error",
-        (() => {
-          return (msg) => {
-            console.debug("Error", msg);
-            this.addMessage(`error`);
-          };
-        })()
+        "play_card",
+        Handlers.playCard(this.played_cards, this.game())
       );
+      client.addHandler("heartbeat", Handlers.heartBeatHandler());
 
       client.addHandler("disconnect", Handlers.disconnectHandler);
       client.addHandler("connect_error", Handlers.errorHandler);
       client.addHandler("text_response", Handlers.textResponseMessageHandler);
-      client.addHandler(
-        "endgame",
-        (() => {
-          return (msg) => {
-            console.log("received end game event");
-            this.addMessage(`🎴 Game has ended`);
-          };
-        })()
-      );
-      client.addHandler(
-        "play_card",
-        (() => {
-          return (msg) => {
-            console.log("Play Card");
-            // console.log(msg);
-            // check if you were the last one to play card?
-            const cardInstanceId = msg.data.card_instance.id_;
-            const cardId = msg.data.card_instance.card.id_;
-            // console.log({ cardId, cardInstanceId });
-            if (this.played_cards.includes(cardId)) {
-              this.addMessage(`🎴 played card received again. Ignoring`);
-            } else {
-              const card = {
-                id: cardInstanceId,
-                cardId,
-                cardInstanceId,
-                title: msg.data.card_instance.card.title,
-                description: msg.data.card_instance.card.description,
-                recipients: msg.data.recipients,
-                allowedActions: msg.data.allowed_actions,
-                fakeCardId: msg.data.card_instance.card.fakes[0].id_,
-              };
-              // this.addMessage(`🎴 Play Card`);
-              this.game().card.set(card);
-            }
-          };
-        })()
-      );
-
-      // todo : refactor to the handler.
-      // use of the recoil getter and setter in this is causing problems
-      // state doesnt update once refactored into a new file. not sure why.
-      client.addHandler(
-        "heartbeat",
-        (() => {
-          return (msg) => {
-            console.log("---HEARTBEAT--");
-            console.log(msg);
-            console.log("-----");
-            this.addMessage(`❤️ ${msg.count}`);
-          };
-        })()
-      );
+      client.addHandler("endgame", Handlers.endGame(this.game()));
 
       this.client.enableHandlers();
     } catch (err) {
@@ -336,6 +281,7 @@ class GameManager {
 
   game() {
     const { gameStat, setGameStat } = this.state;
+    const { gameMessage, setGameMessage } = this.gameMessage;
     return {
       encyclopaedia: {
         show: (message) => {
@@ -363,6 +309,11 @@ class GameManager {
             ...gameStat,
             card: { ...gameStat.card, description: newText },
           });
+        },
+      },
+      notification: {
+        add: (message) => {
+          setGameMessage([message, ...gameMessage.slice(0, 50)]);
         },
       },
     };

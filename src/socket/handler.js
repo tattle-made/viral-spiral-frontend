@@ -6,27 +6,56 @@ function disconnectHandler() {
 }
 function errorHandler(msg) {
   console.log("error");
-  console.log(msg);
+  return (msg) => {
+    console.log("received end game event");
+    gameState.notification.add(`error`);
+  };
 }
 function textResponseMessageHandler() {
   console.log("message");
 }
-function endGameMessageHandler() {}
-function playCardMessageHandler() {
-  console.log("play card");
+function endGame(gameState) {
+  return (msg) => {
+    console.log("received end game event");
+    gameState.notification.add(`🎴 Game has ended`);
+  };
 }
 
-function heartBeatHandler(set, get) {
+function playCard(playedCards, gameState) {
+  console.log("Play Card");
+  // console.log(msg);
+
   return (msg) => {
-    console.debug("heartbeat", msg);
-    console.debug(get);
-    set([
-      {
-        key: Math.floor(Math.random() * 99999),
-        value: `❤️ : ${msg.count}`,
-      },
-      ...get.slice(0, 10),
-    ]);
+    const cardInstanceId = msg.data.card_instance.id_;
+    const cardId = msg.data.card_instance.card.id_;
+
+    try {
+      if (playedCards.includes(cardId)) {
+        gameState.notification.add(`🎴 played card received again. Ignoring`);
+      } else {
+        const card = {
+          id: cardInstanceId,
+          cardId,
+          cardInstanceId,
+          title: msg.data.card_instance.card.title,
+          description: msg.data.card_instance.card.description,
+          recipients: msg.data.recipients,
+          allowedActions: msg.data.allowed_actions,
+          fakeCardId: msg.data.card_instance.card.fakes[0].id_,
+        };
+        gameState.card.set(card);
+      }
+    } catch (err) {
+      gameState.notification.add(`Error Receiving Play Card`);
+      console.error(err);
+    }
+  };
+}
+
+function heartBeatHandler() {
+  return (msg) => {
+    console.log("received end game event");
+    gameState.notification.add(`❤️ ${msg.count}`);
   };
 }
 
@@ -35,7 +64,7 @@ export default {
   disconnectHandler,
   errorHandler,
   textResponseMessageHandler,
-  endGameMessageHandler,
-  playCardMessageHandler,
+  endGame,
+  playCard,
   heartBeatHandler,
 };

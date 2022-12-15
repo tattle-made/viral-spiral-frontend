@@ -211,21 +211,21 @@ io.on("connection", (socket) => {
 
   socket.on("player_action", async (arg, callback) => {
     await sleep(250);
-    if (arg.action === "fake_news") {
+    if (arg.action === "action_fake_news") {
       callback({
         status: 200,
         card: {
           fake_headline: "Sagittis eu volutpat odio facilisis mauris",
         },
       });
-    } else if (arg.action === "mark_as_fake") {
+    } else if (arg.action === "action_mark_as_fake") {
       callback({
         status: 200,
         card: {
           foo: "bar",
         },
       });
-    } else if (arg.action === "encyclopedia_search") {
+    } else if (arg.action === "action_encyclopedia_search") {
       callback({
         status: 200,
         message: {
@@ -236,17 +236,22 @@ io.on("connection", (socket) => {
           author: None,
         },
       });
-    } else if (arg.action === "initiate_cancel") {
+    } else if (arg.action === "action_initiate_cancel") {
       callback({
         status: 200,
         foo: "bar",
       });
-    } else if (arg.action === "vote_cancel") {
+    } else if (arg.action === "action_vote_cancel") {
       callback({
         status: 200,
         foo: "bar",
       });
-    } else if (arg.action === "viral_spiral") {
+    } else if (arg.action === "action_viral_spiral") {
+      callback({
+        status: 200,
+        foo: "bar",
+      });
+    } else if (arg.action === "action_pass_card") {
       callback({
         status: 200,
         foo: "bar",

@@ -9,7 +9,6 @@ import { useNotification } from "../../state/notification";
 
 export default function AppShell({ children }) {
   const manager = useContext(GameManagerContext);
-  const { gameStat, room, gameMessage } = manager.useGameState();
   const env = import.meta.env.MODE;
   const { notification } = useNotification();
   // console.log({ env });
@@ -44,7 +43,11 @@ export default function AppShell({ children }) {
                     </Box>
                   );
                 } else {
-                  return <Text size={"2em"}>{message}</Text>;
+                  return (
+                    <Text key={ix} size={"2em"}>
+                      {message}
+                    </Text>
+                  );
                 }
               })}
             </Box>
