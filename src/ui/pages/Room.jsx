@@ -58,7 +58,7 @@ function Room({ props }) {
   }
 
   function closeEncyclopaedia() {
-    manager.closeEncylopaedia();
+    manager.game().encyclopaedia.hide();
   }
 
   function reload() {

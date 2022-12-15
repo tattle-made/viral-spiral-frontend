@@ -19,14 +19,10 @@ import bgLandingCard02 from "../../assets/bg-landing-cards-02.png";
 import bgLandingCard03 from "../../assets/bg-landing-cards-03.png";
 import bgLandingCard04 from "../../assets/bg-landing-cards-04.png";
 
-// todo : remove later when we're not deploying to github pages anymore
-const BASE_URL = "/";
-
 const Home = () => {
   const navigate = useNavigate();
   const manager = useContext(GameManagerContext);
   const { gameStat, room } = manager.useGameState();
-  console.log("we are home");
 
   useEffect(() => {
     manager.setup();
@@ -34,18 +30,19 @@ const Home = () => {
   }, [manager]);
 
   async function createRoom(value) {
-    try {
-      await manager.createRoom(value);
-      navigate(`${BASE_URL}room`);
-    } catch (err) {
-      console.log(err);
-      console.log("error caught with create room");
+    const res = await manager.createRoom(value);
+    if (res) {
+      navigate(`/room`);
     }
   }
 
-  function joinRoom(value) {
-    // console.log(value);
-    navigate(`${BASE_URL}room?name=${value.game}&me=${value.me}`);
+  /**
+   *
+   * @param {object} value
+   *  must have a field called `game` and `me`
+   */
+  function joinRoom({ game, me }) {
+    navigate(`/room?name=${game}&me=${me}`);
   }
 
   return (
@@ -57,11 +54,7 @@ const Home = () => {
               <Image src={vsLogo} />
             </Box>
             <Box alignSelf="center">
-              {/* <Text>
-                {" "}
-                A multiplayer adaptive card game about misinformation
-              </Text> */}
-              <Link to={`${BASE_URL}rules`}>
+              <Link to={`/rules`}>
                 <Text size={"large"}>Rules</Text>
               </Link>
             </Box>
@@ -91,12 +84,7 @@ const Home = () => {
           </Box>
         </Box>
       </Layer>
-      {/* <Box >
-        { <Box>
-          <Heading level={2}>Viral Spiral</Heading>
-          <Text>{JSON.stringify(room)}</Text>
-        </Box> }
-      </Box> */}
+
       <Layer animation={false} background={"none"} modal={false}>
         <Box
           fill
@@ -107,7 +95,7 @@ const Home = () => {
         >
           <Box width={"medium"} justify="center">
             <Box gap={"small"} border round pad={"medium"}>
-              <Form onSubmit={({ value }) => createRoom(value)}>
+              <Form onSubmit={createRoom}>
                 <Box gap={"medium"}>
                   <Box>
                     <FormField>
@@ -157,7 +145,7 @@ const Home = () => {
             <Text weight={400}>or</Text>
           </Box>
           <Box width={"medium"} gap={"small"} justify="center" border round>
-            <Form onSubmit={({ value }) => joinRoom(value)}>
+            <Form onSubmit={joinRoom}>
               <Box gap={"medium"} pad={"medium"} background={"white"}>
                 <Box>
                   <FormField>

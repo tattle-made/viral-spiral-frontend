@@ -80,7 +80,7 @@ const PlayingArea = () => {
         cardId: gameStat.card.id,
       });
       manager.played_cards.push(gameStat.card.id);
-      manager.updateGameState({ card: undefined });
+      manager.game().card.reset();
     } catch (err) {}
   }
 
@@ -93,7 +93,7 @@ const PlayingArea = () => {
         cardId: gameStat.card.id,
       });
       manager.played_cards.push(gameStat.card.id);
-      manager.updateGameState({ card: undefined });
+      manager.game().card.reset();
     } catch (err) {
       console.error(`Error : keeping card`, err);
       manager.addMessage(`Error : keeping card`);
@@ -110,7 +110,7 @@ const PlayingArea = () => {
         cardId: gameStat.card.id,
       });
       manager.played_cards.push(gameStat.card.id);
-      manager.updateGameState({ card: undefined });
+      manager.game().card.reset();
     } catch (err) {
       console.error(`Error : passing card`, err);
       manager.addMessage(`Error : passing card`);
@@ -170,7 +170,7 @@ const PlayingArea = () => {
         {them ? (
           <Box direction={"row-responsive"} gap={"xlarge"}>
             {them.map((player, ix) => (
-              <PlayerScoreCard player={player} />
+              <PlayerScoreCard key={ix} player={player} />
             ))}
           </Box>
         ) : null}

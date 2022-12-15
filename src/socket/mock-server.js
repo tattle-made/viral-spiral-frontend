@@ -178,9 +178,11 @@ io.on("connection", (socket) => {
           card_instance: {
             id_: "4d7105dafc564ce69418c599b5cc718b",
             card: {
+              id_: "asdfadf",
               title: "",
               description:
                 "Smug cat looks on while robbers tie up family steal cash",
+              fakes: [{ id_: "asdfads" }],
             },
           },
           allowed_actions: [

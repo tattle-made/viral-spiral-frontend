@@ -18,44 +18,9 @@ export default function AppShell({ children }) {
     <Grommet theme={Theme} full>
       <Box fill direction="row">
         <Box flex>{children}</Box>
-        <Layer
-          modal={false}
-          background={{ color: "#ffffff00" }}
-          position={"right"}
-          margin={"small"}
-          animation={false}
-          full={"vertical"}
-        >
-          {/* {true || env === "development" || env === undefined ? ( */}
-          <Box
-            width={"medium"}
-            fill={"vertical"}
-            pad={"medium"}
-            margin={"small"}
-            round
-            background={"#f3f3f3"}
-            alignSelf={"right"}
-          >
-            <Tabs alignSelf="start" alignControls="start">
-              <Tab title="messages">
-                <Box width={"100%"} fill={"vertical"} overflow={"scroll"}>
-                  <GameIncomingMessage message={gameMessage} />
-                </Box>
-              </Tab>
-              <Tab className="tab-game-stat" title="state">
-                <GameState gameStat={gameStat} room={room} />
-              </Tab>
-            </Tabs>
-          </Box>
-          {/* ) : null} */}
-          {/* {false && env === "production" ? (
-            <Box width={"medium"} pad={"medium"} margin={"small"} border round>
-              <Box width={"100%"} fill={"vertical"} overflow={"scroll"}>
-                <GameIncomingMessage message={gameMessage} />
-              </Box>
-            </Box>
-          ) : null} */}
-        </Layer>
+
+        {/* add layer here */}
+
         {notification.length != 0 ? (
           <Layer
             modal={false}
@@ -65,10 +30,15 @@ export default function AppShell({ children }) {
             animation={false}
           >
             <Box pad={"small"}>
-              {notification.map((message) => {
+              {notification.map((message, ix) => {
                 if (message === "loading") {
                   return (
-                    <Box direction="row" gap={"medium"} align={"center"}>
+                    <Box
+                      key={ix}
+                      direction="row"
+                      gap={"medium"}
+                      align={"center"}
+                    >
                       <Spinner />
                       <Text size={"2em"}>{message}</Text>
                     </Box>

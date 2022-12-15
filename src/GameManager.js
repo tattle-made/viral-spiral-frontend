@@ -35,7 +35,6 @@ class GameManager {
           return (msg) => {
             console.debug("connected", msg);
             this.addMessage(`🔌 connected`);
-            console.log(this.room);
             if (this.room.room === undefined) {
               this.joinGame({
                 room: this.room.room.name,
@@ -73,11 +72,11 @@ class GameManager {
         (() => {
           return (msg) => {
             console.log("Play Card");
-            console.log(msg);
+            // console.log(msg);
             // check if you were the last one to play card?
             const cardInstanceId = msg.data.card_instance.id_;
             const cardId = msg.data.card_instance.card.id_;
-            console.log({ cardId, cardInstanceId });
+            // console.log({ cardId, cardInstanceId });
             if (this.played_cards.includes(cardId)) {
               this.addMessage(`🎴 played card received again. Ignoring`);
             } else {
@@ -92,7 +91,7 @@ class GameManager {
                 fakeCardId: msg.data.card_instance.card.fakes[0].id_,
               };
               // this.addMessage(`🎴 Play Card`);
-              this.updateGameState({ card });
+              this.game().card.set(card);
             }
           };
         })()
@@ -183,7 +182,7 @@ class GameManager {
       let allPlayers = `${players},${me}`;
       const message = Messages.make.createGame(game, password, allPlayers);
       console.log(message);
-      await this.client.messageWithAck(message.name, message.payload);
+      await this.client.messageWithAck(message);
       this.room.setRoom({
         id: "abc-def",
         name: game,
@@ -192,11 +191,13 @@ class GameManager {
         state: undefined,
       });
       this.notification.reset();
+      return 1;
     } catch (err) {
       this.notification.add("Error Creating Room");
       setTimeout(() => {
         this.notification.reset();
       }, 1500);
+      return undefined;
     }
   }
 
@@ -207,10 +208,7 @@ class GameManager {
       const message = Messages.make.joinGame(room, username);
 
       // console.log(message);
-      const { about } = await this.client.messageWithAck(
-        message.name,
-        message.payload
-      );
+      const { about } = await this.client.messageWithAck(message);
       console.log(about);
       const { players, current, totalGlobalBias } = adapt("about_game", about);
 
@@ -281,83 +279,42 @@ class GameManager {
     try {
       switch (actionType) {
         case "action_keep_card":
-          var { game, sender, cardId } = actionPayload;
-          var message = Messages.make.actionKeepCard(game, sender, cardId);
-          console.log({ card: message });
-          await this.client.messageWithAck(message.name, message.payload);
+          var message = Messages.make.actionKeepCard(actionPayload);
+          await this.client.messageWithAck(message);
           break;
         case "action_pass_card":
-          var { game, sender, receiver, cardId } = actionPayload;
-          var message = Messages.make.actionPassCard(
-            game,
-            sender,
-            receiver,
-            cardId
-          );
-          console.log({ message });
-          await this.client.messageWithAck(message.name, message.payload);
+          var message = Messages.make.actionPassCard(actionPayload);
+          await this.client.messageWithAck(message);
           break;
         case "action_discard_card":
-          var { game, sender, cardId } = actionPayload;
-          var message = Messages.make.actionDiscardCard(game, sender, cardId);
-          console.log(message);
-          await this.client.messageWithAck(message.name, message.payload);
+          var message = Messages.make.actionDiscardCard(actionPayload);
+          await this.client.messageWithAck(message);
           break;
         case "encyclopedia_search":
           var message = Messages.make.actionSearchEncyclopaedia(actionPayload);
-          console.log({ message });
-          var { message } = await this.client.messageWithAck(
-            message.name,
-            message.payload
-          );
-          if (!message.title) {
-            message.title = "";
-          }
-          if (!message.content) {
-            message.content = "";
-          }
-          this.updateGameState({
-            mode: { id: "encyclopaedia_search_result", payload: message },
-          });
+          var { message } = await this.client.messageWithAck(message);
+          this.game().encyclopaedia.show(message);
           break;
         case "fake_news":
           var message = Messages.make.actionFakeNews(actionPayload);
-          var { card } = await this.client.messageWithAck(
-            message.name,
-            message.payload
-          );
-          const currentCard = this.state.gameStat.card;
-          this.updateGameState({
-            card: { ...currentCard, description: card.fake_headline },
-          });
+          var { card } = await this.client.messageWithAck(message);
+          this.game().card.changeText(card.fake_headline);
           break;
         case "mark_as_fake":
           var message = Messages.make.actionMarkAsFake(actionPayload);
-          var result = await this.client.messageWithAck(
-            message.name,
-            message.payload
-          );
+          var result = await this.client.messageWithAck(message);
           break;
         case "initiate_cancel":
           var message = Messages.make.actionInitiateCancelPlayer(actionPayload);
-          var result = await this.client.messageWithAck(
-            message.name,
-            message.payload
-          );
+          var result = await this.client.messageWithAck(message);
           break;
         case "vote_cancel":
           var message = Messages.make.actionVoteToCancel(actionPayload);
-          var result = await this.client.messageWithAck(
-            message.name,
-            message.payload
-          );
+          var result = await this.client.messageWithAck(message);
           break;
         case "viral_spiral":
           var message = Messages.make.actionViralSpiral(actionPayload);
-          var results = await this.client.messageWithAck(
-            message.name,
-            message.payload
-          );
+          var results = await this.client.messageWithAck(message);
           break;
         default:
           console.debug("Unsupported Action");
@@ -374,42 +331,42 @@ class GameManager {
 
   addMessage(message) {
     const { gameMessage, setGameMessage } = this.gameMessage;
-    // if (message === gameMessage[0]) {
-    //   let count = a.match(/\d+/gi)[0];
-    //   if (count === null) {
-    //     setGameMessage([message, ...gameMessage.slice(0, 50)]);
-    //     count = 0;
-    //   }
-    //   let newCount = count + 1;
-    //   setGameMessage([`{message} (${newCount})`, ...gameMessage.slice(1, 50)]);
-    // } else {
-    // }
     setGameMessage([message, ...gameMessage.slice(0, 50)]);
   }
 
-  updateGameState(subState) {
+  game() {
     const { gameStat, setGameStat } = this.state;
-    setGameStat({ ...gameStat, ...subState });
-    this.played_cards.push();
+    return {
+      encyclopaedia: {
+        show: (message) => {
+          setGameStat({
+            ...gameStat,
+            mode: {
+              id: "encyclopaedia_search_result",
+              payload: { title: "", content: "", message },
+            },
+          });
+        },
+        hide: () => {
+          setGameStat({ ...gameStat, mode: undefined });
+        },
+      },
+      card: {
+        set: (card) => {
+          setGameStat({ ...gameStat, card: card });
+        },
+        reset: () => {
+          setGameStat({ ...gameStat, card: undefined });
+        },
+        changeText: (newText) => {
+          setGameStat({
+            ...gameStat,
+            card: { ...gameStat.card, description: newText },
+          });
+        },
+      },
+    };
   }
-
-  closeEncylopaedia() {
-    this.updateGameState({ mode: undefined });
-  }
-
-  async loadGame() {}
-
-  updateStats() {}
-
-  isConnected() {}
-
-  /**
-   * checks the local storage to see if user needs to rejoin
-   * a game they were playing previously.
-   */
-  shouldResume() {}
-
-  loadGameFromLocalStorage() {}
 }
 
 const server = new Server(import.meta.env.MODE);

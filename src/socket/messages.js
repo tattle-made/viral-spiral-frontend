@@ -25,7 +25,7 @@ const make = {
       game,
     },
   }),
-  actionPassCard: (game, sender, receiver, cardId) => ({
+  actionPassCard: ({ game, sender, receiver, cardId }) => ({
     name: "player_action",
     payload: {
       game,
@@ -37,7 +37,7 @@ const make = {
       },
     },
   }),
-  actionKeepCard: (game, sender, cardId) => ({
+  actionKeepCard: ({ game, sender, cardId }) => ({
     name: "player_action",
     payload: {
       game,
@@ -48,7 +48,7 @@ const make = {
       },
     },
   }),
-  actionDiscardCard: (game, sender, cardId) => ({
+  actionDiscardCard: ({ game, sender, cardId }) => ({
     name: "player_action",
     payload: {
       game,
@@ -96,7 +96,7 @@ const make = {
     },
   }),
 
-  actionInitiateCancelPlayer: (game, sender, otherId) => ({
+  actionInitiateCancelPlayer: ({ game, sender, otherId, topicId }) => ({
     name: "player_action",
     payload: {
       game,
@@ -104,10 +104,11 @@ const make = {
       action: "action_initiate_cancel",
       kwargs: {
         against: otherId,
+        topic_id: topicId,
       },
     },
   }),
-  actionVoteToCancel: (game, sender, cancelStatusId, vote) => ({
+  actionVoteToCancel: ({ game, sender, cancelStatusId, vote }) => ({
     name: "player_action",
     payload: {
       game,
@@ -119,7 +120,7 @@ const make = {
       },
     },
   }),
-  actionViralSpiral: ({ game, sender, cardId }) => ({
+  actionViralSpiral: ({ game, sender, cardId, players }) => ({
     name: "player_action",
     payload: {
       game,
@@ -127,6 +128,7 @@ const make = {
       action: "action_viral_spiral",
       kwargs: {
         pass_card_instance_id: cardId,
+        players, // fix : unsure of the key
       },
     },
   }),

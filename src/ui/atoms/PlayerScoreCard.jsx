@@ -95,6 +95,7 @@ export default function PlayerScoreCard({ player }) {
                 <Box direction={"row"}>
                   {Object.keys(player.affinity).map((key, ix) => (
                     <IconWithScore
+                      key={ix}
                       icon={affinityIcons[key]}
                       score={player.affinity[key]}
                     />
