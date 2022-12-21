@@ -1,14 +1,24 @@
 import React from "react";
 import { Box, Text } from "grommet";
+import ReactJson from "react-json-view";
+import { useRecoilState } from "recoil";
+import { StateGameMode } from "../../state/mode";
 
 const GameState = ({ gameStat, room }) => {
+  const [mode] = useRecoilState(StateGameMode);
+
   return (
     <Box>
-      <Box height="2em"></Box>
-      <Text weight={500}>Game Stat</Text>
-      <Box>{JSON.stringify(gameStat, null, 2)}</Box>
-      <Text weight={500}>Room</Text>
-      <Box>{JSON.stringify(room, null, 2)}</Box>
+      <Box height={"0.8em"} />
+
+      <ReactJson
+        src={{
+          state: gameStat,
+          mode,
+          room,
+        }}
+        collapsed={false}
+      />
     </Box>
   );
 };
