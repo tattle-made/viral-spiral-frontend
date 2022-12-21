@@ -13,6 +13,7 @@ import {
 import adapt from "./socket/adapter-recoil";
 import _, { isEqual } from "underscore";
 import { useNotification } from "./state/notification";
+import { ModeGame, StateGameMode } from "./state/mode";
 
 class GameManager {
   constructor(client) {
@@ -21,8 +22,7 @@ class GameManager {
     this.state = {};
     this.room = {};
     this.played_cards = [];
-    this.pollID = undefined; // we keep this handy to stop the polling when the room is inactive
-    // this.stats = new GameStats();
+    this.pollID = undefined; // we keep this handy to stop the polling when the room is inactive9
   }
 
   setup() {
@@ -44,14 +44,12 @@ class GameManager {
           };
         })()
       );
-
       client.addHandler("error", Handlers.errorHandler());
       client.addHandler(
         "play_card",
         Handlers.playCard(this.played_cards, this.game())
       );
       client.addHandler("heartbeat", Handlers.heartBeatHandler());
-
       client.addHandler("disconnect", Handlers.disconnectHandler);
       client.addHandler("connect_error", Handlers.errorHandler);
       client.addHandler("text_response", Handlers.textResponseMessageHandler);
@@ -77,47 +75,17 @@ class GameManager {
     const [room, setRoom] = useRecoilState(Room);
     const [gameConfig, setGameConfig] = useRecoilState(GameConfig);
     const [gameMessage, setGameMessage] = useRecoilState(GameMessage);
+    const [mode, setMode] = useRecoilState(StateGameMode);
     const { notification, add, reset } = useNotification();
 
-    this.state = {
-      gameStat,
-      setGameStat,
-    };
+    this.state = { gameStat, setGameStat };
+    this.room = { room, setRoom };
+    this.gameConfig = { gameConfig, setGameConfig };
+    this.gameMessage = { gameMessage, setGameMessage };
+    this.notification = { notification, add, reset };
+    this.mode = { mode, setMode };
 
-    this.room = {
-      room,
-      setRoom,
-    };
-
-    this.gameConfig = {
-      gameConfig,
-      setGameConfig,
-    };
-
-    this.gameMessage = {
-      gameMessage,
-      setGameMessage,
-    };
-
-    this.notification = {
-      notification,
-      add,
-      reset,
-    };
-
-    return {
-      gameStat,
-      room,
-      gameConfig,
-      gameMessage,
-      add,
-    };
-  }
-
-  setListener() {
-    setInterval(() => {
-      this.state.setGameStat({ tgb: 2, affinity: { cat: 2, sock: 2 } });
-    }, 5000);
+    return { gameStat, room, gameConfig, gameMessage, add };
   }
 
   async createRoom({ game, players, me, password }) {
@@ -131,7 +99,7 @@ class GameManager {
       this.room.setRoom({
         id: "abc-def",
         name: game,
-        password: password,
+        password,
         me,
         state: undefined,
       });
@@ -155,7 +123,10 @@ class GameManager {
       // console.log(message);
       const { about } = await this.client.messageWithAck(message);
       console.log(about);
-      const { players, current, totalGlobalBias } = adapt("about_game", about);
+      const { players, current, totalGlobalBias, affinities } = adapt(
+        "about_game",
+        about
+      );
 
       this.room.setRoom({
         id: "abc-def",
@@ -166,6 +137,7 @@ class GameManager {
         players,
         current,
         totalGlobalBias,
+        affinities,
       });
       this.notification.reset();
     } catch (err) {
@@ -185,7 +157,10 @@ class GameManager {
       window.aboutOngoing = true;
       const { about } = await client.messageWithAck(name, payload);
       window.aboutOngoing = false;
-      const { players, current, totalGlobalBias } = adapt("about_game", about);
+      const { players, current, totalGlobalBias, affinities } = adapt(
+        "about_game",
+        about
+      );
       // console.log({ players, current, totalGlobalBias });
       // console.log(about);
       if (
@@ -198,6 +173,7 @@ class GameManager {
           players,
           current,
           totalGlobalBias,
+          affinities,
         });
         this.addMessage(`🎴 its ${current.name}'s turn now`);
       }
@@ -212,7 +188,7 @@ class GameManager {
       me: undefined,
       state: undefined,
     });
-    this.state.setGameStat(GameStatDefault);
+    this.game().reset();
     this.client.disconnect();
   }
 
@@ -251,7 +227,8 @@ class GameManager {
           break;
         case "initiate_cancel":
           var message = Messages.make.actionInitiateCancelPlayer(actionPayload);
-          var result = await this.client.messageWithAck(message);
+          var { foo } = await this.client.messageWithAck(message);
+          console.log("FOO ", foo);
           break;
         case "vote_cancel":
           var message = Messages.make.actionVoteToCancel(actionPayload);
@@ -279,22 +256,20 @@ class GameManager {
     setGameMessage([message, ...gameMessage.slice(0, 50)]);
   }
 
+  /**
+   * Provides a clear API for modifying the game state
+   * This should map to the domain language used by everyone
+   * in the team
+   * @returns
+   */
   game() {
     const { gameStat, setGameStat } = this.state;
-    const { gameMessage, setGameMessage } = this.gameMessage;
+    const { setMode } = this.mode;
+
     return {
       encyclopaedia: {
-        show: (message) => {
-          setGameStat({
-            ...gameStat,
-            mode: {
-              id: "encyclopaedia_search_result",
-              payload: { title: "", content: "", message },
-            },
-          });
-        },
-        hide: () => {
-          setGameStat({ ...gameStat, mode: undefined });
+        show: () => {
+          setMode({ id: ModeGame.ENCYCLOPEDIA_SEARCH_RESULT });
         },
       },
       card: {
@@ -311,10 +286,26 @@ class GameManager {
           });
         },
       },
+      cancelVote: {
+        showAffinitySelector: () => {
+          setMode({ id: ModeGame.CANCEL_AFFINITY_SELECTOR });
+        },
+        showVoting: () => {
+          setMode({ id: ModeGame.CANCEL_VOTE });
+        },
+      },
+      viralspiral: {
+        selectPlayers: () => {
+          setMode({ id: ModeGame.VIRALSPIRAL_PLAYER_SELECTOR });
+        },
+      },
       notification: {
         add: (message) => {
           setGameMessage([message, ...gameMessage.slice(0, 50)]);
         },
+      },
+      reset: () => {
+        setGameMessage(GameStatDefault);
       },
     };
   }

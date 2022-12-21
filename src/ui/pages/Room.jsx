@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import bgWorld1 from "../../assets/bg-world-1.png";
 import vsLogo from "../../assets/vs-logo.png";
 import { useNotification } from "../../state/notification";
+import { ActionLayer } from "../molecules/ActionLayer";
 
 const BASE_URL = "/";
 
@@ -45,6 +46,9 @@ function Room({ props }) {
 
       await manager.joinGame({ room: name, username: me });
       manager.pollRoom({ room: name });
+
+      console.log("hello");
+      manager.game().encyclopaedia.show();
     })();
 
     return () => {
@@ -55,10 +59,6 @@ function Room({ props }) {
   function actionLeaveRoom() {
     manager.leaveRoom();
     navigate(BASE_URL);
-  }
-
-  function closeEncyclopaedia() {
-    manager.game().encyclopaedia.hide();
   }
 
   function reload() {
@@ -126,67 +126,7 @@ function Room({ props }) {
         </Box>
       </Layer>
 
-      {/* <Layer
-        modal={false}
-        background={{ opacity: "weak" }}
-        position={"bottom-right"}
-        margin={"small"}
-        animation={false}
-      >
-        <Box width={"fit-content"} border round={"small"} pad={"small"}>
-          <Box>
-            <Heading level={3} margin={"none"}>
-              Bias and Affinities
-            </Heading>
-            <Text>Socks : 4</Text>
-            <Text>Cats : 3</Text>
-          </Box>
-        </Box>
-      </Layer> */}
-
-      {/** a layer where all special power related UI is shown  */}
-      <Layer
-        modal={false}
-        background={{ opacity: true, clip: "border-box" }}
-        position={"center"}
-        margin={"small"}
-        animation={false}
-      >
-        {gameStat.mode && gameStat.mode.id === "encyclopaedia_search_result" ? (
-          <Box pad={"small"} height={"fit-content"} width={"large"}>
-            <Box direction="row">
-              <Heading level={2}>Encyclopaedia</Heading>
-              <Box flex={"grow"}></Box>
-              <Button onClick={closeEncyclopaedia}>X</Button>
-            </Box>
-            <Box>
-              {gameStat.mode.payload ? (
-                <Box>
-                  <Text weight={"bold"}>{gameStat.mode.payload.title}</Text>
-                  <Text>{gameStat.mode.payload.content}</Text>
-                </Box>
-              ) : null}
-            </Box>
-          </Box>
-        ) : null}
-        {gameStat.mode && gameStat.mode.id === "vote_cancel" ? (
-          <Box pad={"small"} height={"fit-content"} width={"large"}>
-            <Box direction="row">
-              <Heading level={2}>Vote to Cancel</Heading>
-              <Box flex={"grow"}></Box>
-              {/* <Button onClick={closeEncyclopaedia}>X</Button> */}
-            </Box>
-            {/* <Box>
-              {gameStat.mode.payload.map((result, ix) => (
-                <Box key={ix}>
-                  <Text weight={"bold"}>{result.headline}</Text>
-                  <Text>{result.content}</Text>
-                </Box>
-              ))}
-            </Box> */}
-          </Box>
-        ) : null}
-      </Layer>
+      <ActionLayer />
     </Box>
   );
 }

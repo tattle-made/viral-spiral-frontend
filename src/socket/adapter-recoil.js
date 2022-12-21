@@ -40,6 +40,7 @@ function aboutGameMessage(message) {
         message.current_drawing_player && message.current_drawing_player.name,
     },
     totalGlobalBias: message.total_global_bias,
+    affinities,
   };
 }
 
