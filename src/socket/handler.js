@@ -5,7 +5,7 @@ function disconnectHandler() {
   console.log("disconnected");
 }
 function errorHandler(msg) {
-  console.log("error");
+  console.error("error", msg);
   return (msg) => {
     console.log("received end game event");
     gameState.notification.add(`error`);
@@ -18,6 +18,26 @@ function endGame(gameState) {
   return (msg) => {
     console.log("received end game event");
     gameState.notification.add(`🎴 Game has ended`);
+  };
+}
+
+// todo : replace this global state
+let pendingIds = [];
+function voteCancel(stateGame) {
+  return (msg) => {
+    try {
+      console.log("vote cancel");
+      const cancelStatusId = msg.data.pending_vote.id_;
+      const against = msg.data.pending_vote.against.name;
+      console.log({ cancelStatusId, against });
+      if (!pendingIdsp.includes(cancelStatusId)) {
+        pendingIds.push(cancelStatusId);
+        stateGame.cancelVote.showVoting(cancelStatusId, against);
+      }
+    } catch (err) {
+      console.error("Could not handle incoming vote cancel message");
+      console.error(err);
+    }
   };
 }
 
@@ -69,4 +89,5 @@ export default {
   endGame,
   playCard,
   heartBeatHandler,
+  voteCancel,
 };

@@ -42,8 +42,10 @@ const Home = () => {
    * @param {object} value
    *  must have a field called `game` and `me`
    */
-  function joinRoom({ game, me }) {
-    navigate(`/room?name=${game}&me=${me}`);
+  function joinRoom({ value }) {
+    const { game, me } = value;
+    console.log({ game, me });
+    // navigate(`/room?name=${game}&me=${me}`);
   }
 
   return (
@@ -149,14 +151,14 @@ const Home = () => {
             <Form onSubmit={joinRoom}>
               <Box gap={"medium"} pad={"medium"} background={"white"}>
                 <Box>
-                  <FormField>
+                  <FormField name="game">
                     <TextInput
                       className="join-room-game"
                       name="game"
                       placeholder={"Room"}
                     ></TextInput>
                   </FormField>
-                  <FormField>
+                  <FormField name="me">
                     <TextInput
                       className="join-room-me"
                       name="me"

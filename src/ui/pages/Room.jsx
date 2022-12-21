@@ -46,9 +46,6 @@ function Room({ props }) {
 
       await manager.joinGame({ room: name, username: me });
       manager.pollRoom({ room: name });
-
-      console.log("hello");
-      manager.game().encyclopaedia.show();
     })();
 
     return () => {

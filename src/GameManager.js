@@ -54,6 +54,7 @@ class GameManager {
       client.addHandler("connect_error", Handlers.errorHandler);
       client.addHandler("text_response", Handlers.textResponseMessageHandler);
       client.addHandler("endgame", Handlers.endGame(this.game()));
+      client.addHandler("vote_cancel", Handlers.voteCancel(this.game()));
 
       this.client.enableHandlers();
     } catch (err) {
@@ -228,15 +229,17 @@ class GameManager {
         case "initiate_cancel":
           var message = Messages.make.actionInitiateCancelPlayer(actionPayload);
           var { foo } = await this.client.messageWithAck(message);
-          console.log("FOO ", foo);
+          this.game().cancelVote.showAffinitySelector();
           break;
         case "vote_cancel":
           var message = Messages.make.actionVoteToCancel(actionPayload);
-          var result = await this.client.messageWithAck(message);
+          await this.client.messageWithAck(message);
+          // manager.game().encyclopaedia.show();
           break;
         case "viral_spiral":
           var message = Messages.make.actionViralSpiral(actionPayload);
-          var results = await this.client.messageWithAck(message);
+          await this.client.messageWithAck(message);
+          this.game().viralspiral.selectPlayers();
           break;
         default:
           console.debug("Unsupported Action");
@@ -290,8 +293,11 @@ class GameManager {
         showAffinitySelector: () => {
           setMode({ id: ModeGame.CANCEL_AFFINITY_SELECTOR });
         },
-        showVoting: () => {
-          setMode({ id: ModeGame.CANCEL_VOTE });
+        showVoting: (cancelStatusId, against) => {
+          setMode({
+            id: ModeGame.CANCEL_VOTE,
+            payload: { cancelStatusId, against },
+          });
         },
       },
       viralspiral: {
