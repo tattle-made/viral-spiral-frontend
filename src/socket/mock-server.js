@@ -196,6 +196,16 @@ io.on("connection", (socket) => {
             "vote_cancel",
             "fake_news",
           ],
+          valid_topics_for_cancel: [
+            {
+              id_: "affin1",
+              name: "cats",
+            },
+            {
+              id_: "affin2",
+              name: "skubs",
+            },
+          ],
         },
       });
     }, 1000);
@@ -210,7 +220,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on("player_action", async (arg, callback) => {
-    await sleep(250);
+    console.log(arg);
+    // await sleep(250);
     if (arg.action === "action_fake_news") {
       callback({
         status: 200,
@@ -237,6 +248,7 @@ io.on("connection", (socket) => {
         },
       });
     } else if (arg.action === "action_initiate_cancel") {
+      console.log("ping action_initiate_cancel");
       callback({
         status: 200,
         foo: "bar",

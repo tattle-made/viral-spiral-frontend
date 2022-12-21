@@ -96,6 +96,16 @@ const make = {
     },
   }),
 
+  /**
+   *
+   * @param {object} {
+   *  game
+   *  sender
+   *  otherId : id of the player whose turn you wish to cancel
+   *  topicId :
+   * }
+   * @returns
+   */
   actionInitiateCancelPlayer: ({ game, sender, otherId, topicId }) => ({
     name: "player_action",
     payload: {

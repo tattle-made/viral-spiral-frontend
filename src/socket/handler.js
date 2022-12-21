@@ -42,8 +42,10 @@ function playCard(playedCards, gameState) {
           recipients: msg.data.recipients,
           allowedActions: msg.data.allowed_actions,
           fakeCardId: msg.data.card_instance.card.fakes[0].id_,
+          validTopicsForCancel: msg.data.valid_topics_for_cancel,
         };
         gameState.card.set(card);
+        //gameState.mode.set('cancel_player',payload)
       }
     } catch (err) {
       gameState.notification.add(`Error Receiving Play Card`);

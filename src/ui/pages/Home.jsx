@@ -29,7 +29,8 @@ const Home = () => {
     return () => manager.teardown();
   }, [manager]);
 
-  async function createRoom(value) {
+  async function createRoom({ value }) {
+    console.debug({ ROOM: value });
     const res = await manager.createRoom(value);
     if (res) {
       navigate(`/room`);
