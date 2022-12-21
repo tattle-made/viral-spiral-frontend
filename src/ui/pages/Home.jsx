@@ -45,7 +45,7 @@ const Home = () => {
   function joinRoom({ value }) {
     const { game, me } = value;
     console.log({ game, me });
-    // navigate(`/room?name=${game}&me=${me}`);
+    navigate(`/room?name=${game}&me=${me}`);
   }
 
   return (
