@@ -44,17 +44,17 @@ class GameManager {
           };
         })()
       );
-      client.addHandler("error", Handlers.errorHandler());
+      client.addHandler("error", Handlers.errorHandler(this.state()));
       client.addHandler(
         "play_card",
-        Handlers.playCard(this.played_cards, this.game())
+        Handlers.playCard(this.played_cards, this.state())
       );
       client.addHandler("heartbeat", Handlers.heartBeatHandler());
       client.addHandler("disconnect", Handlers.disconnectHandler);
       client.addHandler("connect_error", Handlers.errorHandler);
       client.addHandler("text_response", Handlers.textResponseMessageHandler);
-      client.addHandler("endgame", Handlers.endGame(this.game()));
-      client.addHandler("vote_cancel", Handlers.voteCancel(this.game()));
+      client.addHandler("endgame", Handlers.endGame(this.state()));
+      client.addHandler("vote_cancel", Handlers.voteCancel(this.state()));
 
       this.client.enableHandlers();
     } catch (err) {
@@ -189,7 +189,7 @@ class GameManager {
       me: undefined,
       state: undefined,
     });
-    this.game().reset();
+    this.state().reset();
     this.client.disconnect();
   }
 
@@ -215,12 +215,12 @@ class GameManager {
         case "encyclopedia_search":
           var message = Messages.make.actionSearchEncyclopaedia(actionPayload);
           var { message } = await this.client.messageWithAck(message);
-          this.game().encyclopaedia.show(message);
+          this.state().encyclopaedia.show(message);
           break;
         case "fake_news":
           var message = Messages.make.actionFakeNews(actionPayload);
           var { card } = await this.client.messageWithAck(message);
-          this.game().card.changeText(card.fake_headline);
+          this.state().card.changeText(card.fake_headline);
           break;
         case "mark_as_fake":
           var message = Messages.make.actionMarkAsFake(actionPayload);
@@ -229,17 +229,17 @@ class GameManager {
         case "initiate_cancel":
           var message = Messages.make.actionInitiateCancelPlayer(actionPayload);
           var { foo } = await this.client.messageWithAck(message);
-          this.game().cancelVote.showAffinitySelector();
+          this.state().cancelVote.showAffinitySelector();
           break;
         case "vote_cancel":
           var message = Messages.make.actionVoteToCancel(actionPayload);
           await this.client.messageWithAck(message);
-          // manager.game().encyclopaedia.show();
+          // manager.state().encyclopaedia.show();
           break;
         case "viral_spiral":
           var message = Messages.make.actionViralSpiral(actionPayload);
           await this.client.messageWithAck(message);
-          this.game().viralspiral.selectPlayers();
+          this.state().viralspiral.selectPlayers();
           break;
         default:
           console.debug("Unsupported Action");
@@ -265,7 +265,7 @@ class GameManager {
    * in the team
    * @returns
    */
-  game() {
+  state() {
     const { gameStat, setGameStat } = this.state;
     const { setMode } = this.mode;
 

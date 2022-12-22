@@ -80,7 +80,7 @@ const PlayingArea = () => {
         cardId: gameStat.card.id,
       });
       manager.played_cards.push(gameStat.card.id);
-      manager.game().card.reset();
+      manager.state().card.reset();
     } catch (err) {}
   }
 
@@ -93,7 +93,7 @@ const PlayingArea = () => {
         cardId: gameStat.card.id,
       });
       manager.played_cards.push(gameStat.card.id);
-      manager.game().card.reset();
+      manager.state().card.reset();
     } catch (err) {
       console.error(`Error : keeping card`, err);
       manager.addMessage(`Error : keeping card`);
@@ -110,7 +110,7 @@ const PlayingArea = () => {
         cardId: gameStat.card.id,
       });
       manager.played_cards.push(gameStat.card.id);
-      manager.game().card.reset();
+      manager.state().card.reset();
     } catch (err) {
       console.error(`Error : passing card`, err);
       manager.addMessage(`Error : passing card`);

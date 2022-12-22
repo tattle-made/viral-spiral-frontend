@@ -4,9 +4,9 @@ function connectionHandler() {
 function disconnectHandler() {
   console.log("disconnected");
 }
-function errorHandler(msg) {
-  console.error("error", msg);
+function errorHandler(gameState) {
   return (msg) => {
+    console.error("error", msg);
     console.log("received end game event");
     gameState.notification.add(`error`);
   };
@@ -42,10 +42,10 @@ function voteCancel(stateGame) {
 }
 
 function playCard(playedCards, gameState) {
-  console.log("Play Card");
-  // console.log(msg);
+  console.log("Play Card", { playedCards, gameState });
 
   return (msg) => {
+    console.log(msg);
     const cardInstanceId = msg.data.card_instance.id_;
     const cardId = msg.data.card_instance.card.id_;
 

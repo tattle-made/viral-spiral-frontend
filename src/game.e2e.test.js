@@ -19,8 +19,8 @@ async function launchBrowser() {
 (async () => {
   const roomName = `lucky-${randomRoomNum()}`;
   // const roomName = "tabahi-1000";
-  // const GAME_URL = "http://localhost:5173/";
-  const GAME_URL = "https://viralspiral.net/";
+  const GAME_URL = "http://localhost:5173/";
+  // const GAME_URL = "https://viralspiral.net/";
 
   console.log({ roomName });
 
