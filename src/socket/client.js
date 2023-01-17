@@ -35,9 +35,9 @@ class Client {
 
   async messageWithAck({ name, payload }) {
     return new Promise((resolve, reject) => {
-      console.log(name + "SENT");
+      // console.log(name + "SENT");
       // console.log(name);
-      console.log(this.socket);
+      // console.log(this.socket);
       this.socket.emit(name, payload, (arg) => {
         if (arg.status === 200) {
           // console.log(name + "RECEIVED");

@@ -1,3 +1,5 @@
+import adapt from "./adapter-recoil";
+
 function connectionHandler() {
   console.log("connected");
 }
@@ -46,30 +48,23 @@ function playCard(playedCards, gameState) {
 
   return (msg) => {
     console.log(msg);
-    const cardInstanceId = msg.data.card_instance.id_;
-    const cardId = msg.data.card_instance.card.id_;
+
+    let card;
 
     try {
-      if (playedCards.includes(cardId)) {
+      card = adapt("play_card", msg);
+      if (playedCards.includes(card.cardId)) {
         gameState.notification.add(`🎴 played card received again. Ignoring`);
       } else {
-        const card = {
-          id: cardInstanceId,
-          cardId,
-          cardInstanceId,
-          title: msg.data.card_instance.card.title,
-          description: msg.data.card_instance.card.description,
-          recipients: msg.data.recipients,
-          allowedActions: msg.data.allowed_actions,
-          fakeCardId: msg.data.card_instance.card.fakes[0].id_,
-          validTopicsForCancel: msg.data.valid_topics_for_cancel,
-        };
+        console.log("new card");
+        gameState.notification.add(`🎴 Play Card`);
         gameState.card.set(card);
-        //gameState.mode.set('cancel_player',payload)
+        playedCards.push(card.cardId);
       }
     } catch (err) {
-      gameState.notification.add(`Error Receiving Play Card`);
+      console.error("error parding play_Card message");
       console.error(err);
+      gameState.notification.add(`🎴 Error Receiving Play Card`);
     }
   };
 }

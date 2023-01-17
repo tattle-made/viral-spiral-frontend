@@ -16,7 +16,7 @@ async function launchBrowser() {
   });
 }
 
-(async () => {
+async function presetLaunchGameWith4Players() {
   const roomName = `lucky-${randomRoomNum()}`;
   // const roomName = "tabahi-1000";
   const GAME_URL = "http://localhost:5173/";
@@ -68,4 +68,36 @@ async function launchBrowser() {
 
   //   await sleep(5000);
   //   await browser.close();
+}
+
+async function presetLaunchGameWithTwoPlayers() {
+  const roomName = `lucky-${randomRoomNum()}`;
+  const GAME_URL = "http://localhost:5173/";
+
+  console.log({ roomName });
+
+  const browser = await launchBrowser();
+  const page = await browser.newPage();
+  await page.goto(GAME_URL);
+  await sleep(100);
+  await page.type(".new-room-game", roomName);
+  await page.type(".new-room-password", "asdf");
+  await page.type(".new-room-me", "adhiraj");
+  await page.type(".new-room-players", "aman,farah,krys");
+  await page.click(".new-room-create");
+  await sleep(5000);
+
+  const browserB = await launchBrowser();
+  const pageB = await browserB.newPage();
+  await pageB.goto(GAME_URL);
+  await sleep(100);
+  await pageB.type(".join-room-game", roomName);
+  await pageB.type(".join-room-me", "aman");
+  await pageB.click(".join-room-join");
+  await sleep(2000);
+}
+
+(async () => {
+  // await presetLaunchGameWithTwoPlayers();
+  await presetLaunchGameWith4Players();
 })();

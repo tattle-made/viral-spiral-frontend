@@ -25,9 +25,15 @@ class GameManager {
     this.pollID = undefined; // we keep this handy to stop the polling when the room is inactive9
   }
 
+  test() {
+    this.gameState().notification.add("hello");
+  }
+
   setup() {
     try {
       this.client.connect();
+      console.log(this);
+      console.log(this.gameState());
 
       client.addHandler(
         "connect",
@@ -44,17 +50,17 @@ class GameManager {
           };
         })()
       );
-      client.addHandler("error", Handlers.errorHandler(this.state()));
+      client.addHandler("error", Handlers.errorHandler(this.gameState()));
       client.addHandler(
         "play_card",
-        Handlers.playCard(this.played_cards, this.state())
+        Handlers.playCard(this.played_cards, this.gameState())
       );
       client.addHandler("heartbeat", Handlers.heartBeatHandler());
       client.addHandler("disconnect", Handlers.disconnectHandler);
       client.addHandler("connect_error", Handlers.errorHandler);
       client.addHandler("text_response", Handlers.textResponseMessageHandler);
-      client.addHandler("endgame", Handlers.endGame(this.state()));
-      client.addHandler("vote_cancel", Handlers.voteCancel(this.state()));
+      client.addHandler("endgame", Handlers.endGame(this.gameState()));
+      client.addHandler("vote_cancel", Handlers.voteCancel(this.gameState()));
 
       this.client.enableHandlers();
     } catch (err) {
@@ -123,7 +129,7 @@ class GameManager {
 
       // console.log(message);
       const { about } = await this.client.messageWithAck(message);
-      console.log(about);
+      // console.log(about);
       const { players, current, totalGlobalBias, affinities } = adapt(
         "about_game",
         about
@@ -189,7 +195,7 @@ class GameManager {
       me: undefined,
       state: undefined,
     });
-    this.state().reset();
+    this.gameState().reset();
     this.client.disconnect();
   }
 
@@ -215,12 +221,12 @@ class GameManager {
         case "encyclopedia_search":
           var message = Messages.make.actionSearchEncyclopaedia(actionPayload);
           var { message } = await this.client.messageWithAck(message);
-          this.state().encyclopaedia.show(message);
+          this.gameState().encyclopaedia.show(message);
           break;
         case "fake_news":
           var message = Messages.make.actionFakeNews(actionPayload);
           var { card } = await this.client.messageWithAck(message);
-          this.state().card.changeText(card.fake_headline);
+          this.gameState().card.changeText(card.fake_headline);
           break;
         case "mark_as_fake":
           var message = Messages.make.actionMarkAsFake(actionPayload);
@@ -229,17 +235,17 @@ class GameManager {
         case "initiate_cancel":
           var message = Messages.make.actionInitiateCancelPlayer(actionPayload);
           var { foo } = await this.client.messageWithAck(message);
-          this.state().cancelVote.showAffinitySelector();
+          this.gameState().cancelVote.showAffinitySelector();
           break;
         case "vote_cancel":
           var message = Messages.make.actionVoteToCancel(actionPayload);
           await this.client.messageWithAck(message);
-          // manager.state().encyclopaedia.show();
+          // manager.gameState().encyclopaedia.show();
           break;
         case "viral_spiral":
           var message = Messages.make.actionViralSpiral(actionPayload);
           await this.client.messageWithAck(message);
-          this.state().viralspiral.selectPlayers();
+          this.gameState().viralspiral.selectPlayers();
           break;
         default:
           console.debug("Unsupported Action");
@@ -254,6 +260,11 @@ class GameManager {
     }
   }
 
+  /**
+   * deprecated
+   * to be replaced with state().notification.add('message goes herethis.')
+   * @param {} message
+   */
   addMessage(message) {
     const { gameMessage, setGameMessage } = this.gameMessage;
     setGameMessage([message, ...gameMessage.slice(0, 50)]);
@@ -265,7 +276,7 @@ class GameManager {
    * in the team
    * @returns
    */
-  state() {
+  gameState() {
     const { gameStat, setGameStat } = this.state;
     const { setMode } = this.mode;
 
@@ -307,6 +318,7 @@ class GameManager {
       },
       notification: {
         add: (message) => {
+          const { gameMessage, setGameMessage } = this.gameMessage;
           setGameMessage([message, ...gameMessage.slice(0, 50)]);
         },
       },
