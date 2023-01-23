@@ -138,7 +138,7 @@ const make = {
       action: "action_viral_spiral",
       kwargs: {
         pass_card_instance_id: cardId,
-        players, // fix : unsure of the key
+        to: players,
       },
     },
   }),
