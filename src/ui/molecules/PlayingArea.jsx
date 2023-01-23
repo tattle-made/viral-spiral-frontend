@@ -121,10 +121,7 @@ const PlayingArea = () => {
     const { name: game, me: sender } = room;
     const cardId = gameStat.card.cardId;
     const actionPayload = { game, sender, cardId };
-
-    console.log("------");
-    console.log({ actionPayload });
-    console.log("------");
+    // console.debug({ actionPayload });
     await manager.playerAction("encyclopedia_search", actionPayload);
   }
 
@@ -147,9 +144,9 @@ const PlayingArea = () => {
         var actionPayload = { game, sender, cardId };
         await manager.playerAction("mark_as_fake", actionPayload);
         break;
-      case "viral_spiral":
+      case "viral_spiral_initiate":
         var actionPayload = { game, sender, cardId };
-        await manager.playerAction("viral_spiral", actionPayload);
+        await manager.playerAction("viral_spiral_initiate", actionPayload);
         break;
       case "initiate_cancel":
         var actionPayload = { game, sender, cardId };
@@ -280,7 +277,9 @@ const PlayingArea = () => {
                           <Button
                             plain
                             label={"Viral Spiral"}
-                            onClick={() => specialPowers("viral_spiral")}
+                            onClick={() =>
+                              specialPowers("viral_spiral_initiate")
+                            }
                           ></Button>
                         ) : null}
                       </Box>

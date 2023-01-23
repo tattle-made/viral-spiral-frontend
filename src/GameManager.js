@@ -200,7 +200,7 @@ class GameManager {
   }
 
   async playerAction(actionType, actionPayload) {
-    console.log("player action called");
+    // console.debug("player action called");
 
     this.notification.add("loading");
 
@@ -230,7 +230,7 @@ class GameManager {
           break;
         case "mark_as_fake":
           var message = Messages.make.actionMarkAsFake(actionPayload);
-          var result = await this.client.messageWithAck(message);
+          await this.client.messageWithAck(message);
           break;
         case "initiate_cancel":
           var message = Messages.make.actionInitiateCancelPlayer(actionPayload);
@@ -240,12 +240,16 @@ class GameManager {
         case "vote_cancel":
           var message = Messages.make.actionVoteToCancel(actionPayload);
           await this.client.messageWithAck(message);
-          // manager.gameState().encyclopaedia.show();
           break;
-        case "viral_spiral":
+        case "viral_spiral_initiate":
+          // var message = Messages.make.actionViralSpiral(actionPayload);
+          // await this.client.messageWithAck(message);
+          this.gameState().viralspiral.selectPlayers();
+          break;
+        case "viral_spiral_call":
           var message = Messages.make.actionViralSpiral(actionPayload);
           await this.client.messageWithAck(message);
-          this.gameState().viralspiral.selectPlayers();
+          // this.gameState().viralspiral.selectPlayers();
           break;
         default:
           console.debug("Unsupported Action");
@@ -282,8 +286,12 @@ class GameManager {
 
     return {
       encyclopaedia: {
-        show: () => {
-          setMode({ id: ModeGame.ENCYCLOPEDIA_SEARCH_RESULT });
+        show: (message) => {
+          const { title, content } = message;
+          setMode({
+            id: ModeGame.ENCYCLOPEDIA_SEARCH_RESULT,
+            payload: { title, content },
+          });
         },
       },
       card: {

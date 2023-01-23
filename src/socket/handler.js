@@ -32,7 +32,7 @@ function voteCancel(stateGame) {
       const cancelStatusId = msg.data.pending_vote.id_;
       const against = msg.data.pending_vote.against.name;
       console.log({ cancelStatusId, against });
-      if (!pendingIdsp.includes(cancelStatusId)) {
+      if (!pendingIds.includes(cancelStatusId)) {
         pendingIds.push(cancelStatusId);
         stateGame.cancelVote.showVoting(cancelStatusId, against);
       }
@@ -47,14 +47,14 @@ function playCard(playedCards, gameState) {
   console.log("Play Card", { playedCards, gameState });
 
   return (msg) => {
-    console.log(msg);
+    // console.log(msg);
 
     let card;
 
     try {
       card = adapt("play_card", msg);
       if (playedCards.includes(card.cardId)) {
-        gameState.notification.add(`🎴 played card received again. Ignoring`);
+        gameState.notification.add(`🎴 Play Card received again. Ignoring`);
       } else {
         console.log("new card");
         gameState.notification.add(`🎴 Play Card`);

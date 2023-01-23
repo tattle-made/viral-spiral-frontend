@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box, Layer, Heading } from "grommet";
+import { Box, Layer, Heading, Text } from "grommet";
 import { useRecoilState } from "recoil";
 import { GameStat } from "../../state";
 import { CenteredPopupLayer } from "../atoms/CenteredPopupLayer";
@@ -21,10 +21,16 @@ export function ActionEncylopedia({ onAction }) {
         </Box>
         <Box>
           {payload ? (
-            <Box>
-              <Text weight={"bold"}>{payload.title}</Text>
-              <Text>{payload.content}</Text>
-            </Box>
+            payload.title && payload.content ? (
+              <Box>
+                <Box>
+                  <Text weight={"bold"}>{payload.title}</Text>
+                  <Text>{payload.content}</Text>
+                </Box>
+              </Box>
+            ) : (
+              <Text>No Results Found</Text>
+            )
           ) : null}
         </Box>
       </Box>
