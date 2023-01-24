@@ -117,6 +117,6 @@ async function presetLaunchGameWithOnePlayers() {
 
 (async () => {
   // await presetLaunchGameWithTwoPlayers();
-  // await presetLaunchGameWith4Players();
-  await presetLaunchGameWithOnePlayers();
+  await presetLaunchGameWith4Players();
+  // await presetLaunchGameWithOnePlayers();
 })();

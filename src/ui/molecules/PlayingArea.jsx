@@ -79,6 +79,7 @@ const PlayingArea = () => {
         sender: room.me,
         cardId: gameStat.card.id,
       });
+      manager.player.player("default").start();
       manager.played_cards.push(gameStat.card.id);
       manager.gameState().card.reset();
     } catch (err) {}
@@ -92,6 +93,7 @@ const PlayingArea = () => {
         sender: room.me,
         cardId: gameStat.card.id,
       });
+      manager.player.player("default").start();
       manager.played_cards.push(gameStat.card.id);
       manager.gameState().card.reset();
     } catch (err) {
@@ -109,6 +111,7 @@ const PlayingArea = () => {
         receiver,
         cardId: gameStat.card.id,
       });
+      manager.player.player("default").start();
       manager.played_cards.push(gameStat.card.id);
       manager.gameState().card.reset();
     } catch (err) {

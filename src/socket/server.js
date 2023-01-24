@@ -1,8 +1,8 @@
 const ServerLocalConfig = {
   protocol: "http",
   host: "localhost",
-  port: 5001,
-  url: "http://localhost:5001",
+  port: 5000,
+  url: "http://localhost:5000",
 };
 
 const ServerProdConfig = {

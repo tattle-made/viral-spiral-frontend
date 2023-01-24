@@ -14,6 +14,7 @@ import adapt from "./socket/adapter-recoil";
 import _, { isEqual } from "underscore";
 import { useNotification } from "./state/notification";
 import { ModeGame, StateGameMode } from "./state/mode";
+import * as Tone from "tone";
 
 class GameManager {
   constructor(client) {
@@ -23,6 +24,10 @@ class GameManager {
     this.room = {};
     this.played_cards = [];
     this.pollID = undefined; // we keep this handy to stop the polling when the room is inactive9
+    this.player = new Tone.Players({
+      default: "/src/assets/action_default.wav",
+      specialPowers: "/src/assets/action_special_power.wav",
+    }).toDestination();
   }
 
   test() {
