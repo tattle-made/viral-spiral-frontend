@@ -31,8 +31,8 @@ function voteCancel(stateGame) {
       console.log("vote cancel");
       const cancelStatusId = msg.data.pending_vote.id_;
       const against = msg.data.pending_vote.against.name;
-      console.log({ cancelStatusId, against });
       if (!pendingIds.includes(cancelStatusId)) {
+        console.log("showing");
         pendingIds.push(cancelStatusId);
         stateGame.cancelVote.showVoting(cancelStatusId, against);
       }

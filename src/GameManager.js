@@ -234,8 +234,7 @@ class GameManager {
           break;
         case "vote_cancel":
           var message = Messages.make.actionVoteToCancel(actionPayload);
-          await this.client.messageWithAck(message);
-          break;
+          return this.client.messageWithAck(message);
         case "viral_spiral_call":
           var message = Messages.make.actionViralSpiral(actionPayload);
           await this.client.messageWithAck(message);

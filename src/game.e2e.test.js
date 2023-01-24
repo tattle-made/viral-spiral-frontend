@@ -97,7 +97,26 @@ async function presetLaunchGameWithTwoPlayers() {
   await sleep(2000);
 }
 
+async function presetLaunchGameWithOnePlayers() {
+  const roomName = `lucky-${randomRoomNum()}`;
+  const GAME_URL = "http://localhost:5173/";
+
+  console.log({ roomName });
+
+  const browser = await launchBrowser();
+  const page = await browser.newPage();
+  await page.goto(GAME_URL);
+  await sleep(100);
+  await page.type(".new-room-game", roomName);
+  await page.type(".new-room-password", "asdf");
+  await page.type(".new-room-me", "adhiraj");
+  await page.type(".new-room-players", "aman,farah,krys");
+  await page.click(".new-room-create");
+  await sleep(5000);
+}
+
 (async () => {
   // await presetLaunchGameWithTwoPlayers();
-  await presetLaunchGameWith4Players();
+  // await presetLaunchGameWith4Players();
+  await presetLaunchGameWithOnePlayers();
 })();
