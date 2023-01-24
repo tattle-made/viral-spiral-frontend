@@ -232,21 +232,9 @@ class GameManager {
           var message = Messages.make.actionMarkAsFake(actionPayload);
           await this.client.messageWithAck(message);
           break;
-        case "initiate_cancel":
-          this.gameState().cancelVote.showAffinitySelector();
-          break;
-        case "initiate_cancel_send_event":
-          var message = Messages.make.actionInitiateCancelPlayer(actionPayload);
-          await this.client.messageWithAck(message);
-          break;
         case "vote_cancel":
           var message = Messages.make.actionVoteToCancel(actionPayload);
           await this.client.messageWithAck(message);
-          break;
-        case "viral_spiral_initiate":
-          // var message = Messages.make.actionViralSpiral(actionPayload);
-          // await this.client.messageWithAck(message);
-          this.gameState().viralspiral.selectPlayers();
           break;
         case "viral_spiral_call":
           var message = Messages.make.actionViralSpiral(actionPayload);
@@ -278,15 +266,19 @@ class GameManager {
 
   /**
    * Provides a clear API for modifying the game state
-   * This should map to the domain language used by everyone
-   * in the team
-   * @returns
+   * The function names should map to the domain language used by everyone
+   * in the team and encapsulate state modification logic
    */
   gameState() {
     const { gameStat, setGameStat } = this.state;
     const { setMode } = this.mode;
 
     return {
+      mode: {
+        reset: () => {
+          setMode({ id: ModeGame.DEFAULT });
+        },
+      },
       encyclopaedia: {
         show: (message) => {
           const { title, content } = message;
@@ -313,6 +305,9 @@ class GameManager {
       cancelVote: {
         showAffinitySelector: () => {
           setMode({ id: ModeGame.CANCEL_AFFINITY_SELECTOR });
+        },
+        hideAffinitySelector: () => {
+          setMode({ id: ModeGame.DEFAULT });
         },
         showVoting: (cancelStatusId, against) => {
           setMode({

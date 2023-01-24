@@ -33,7 +33,6 @@ export function ActionViralSpiralSelectPlayers({ onAction, payload }) {
   const [players, setPlayers] = useState([]);
 
   async function performViralSpiral(to) {
-    // console.log({ value, me, roomName, card });
     if ((to && me[0].name && roomName, card.cardInstanceId)) {
       let payload = {
         game: roomName,
@@ -42,6 +41,7 @@ export function ActionViralSpiralSelectPlayers({ onAction, payload }) {
         players,
       };
       await manager.playerAction("viral_spiral_call", payload);
+      manager.gameState().mode.reset();
     }
   }
 

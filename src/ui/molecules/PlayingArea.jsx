@@ -128,8 +128,6 @@ const PlayingArea = () => {
   async function actionFakeNews() {
     const { name: game, me: sender } = room;
     const cardId = gameStat.card.id;
-
-    // todo : assign true fake card id
     const fakeCardId = gameStat.card.fakeCardId;
 
     const actionPayload = { game, sender, cardId, fakeCardId };
@@ -145,20 +143,14 @@ const PlayingArea = () => {
         await manager.playerAction("mark_as_fake", actionPayload);
         break;
       case "viral_spiral_initiate":
-        var actionPayload = { game, sender, cardId };
-        await manager.playerAction("viral_spiral_initiate", actionPayload);
+        manager.gameState().viralspiral.selectPlayers();
         break;
       case "initiate_cancel":
-        var actionPayload = { game, sender, cardId };
-        await manager.playerAction("initiate_cancel", actionPayload);
+        manager.gameState().cancelVote.showAffinitySelector();
         break;
       default:
         console.log("Unsupported Power");
     }
-  }
-
-  function pickCard() {
-    setShowCard(true);
   }
 
   return (

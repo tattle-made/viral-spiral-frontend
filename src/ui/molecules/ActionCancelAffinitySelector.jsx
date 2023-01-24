@@ -14,6 +14,7 @@ import { useRecoilState } from "recoil";
 import { GameStat, Room } from "../../state";
 import { CenteredPopupLayer } from "../atoms/CenteredPopupLayer";
 import { GameManagerContext } from "../../App";
+import { Messages } from "../../socket";
 
 export function ActionCancelAffinitySelector({ onAction }) {
   const [room] = useRecoilState(Room);
@@ -38,13 +39,23 @@ export function ActionCancelAffinitySelector({ onAction }) {
   async function performInitiateCancel() {
     console.log({ me, roomName, player, selection });
     if (me[0].name && roomName && player && selection) {
-      let payload = {
-        game: roomName,
-        sender: me[0].name,
-        otherId: player,
-        topicId: selection,
-      };
-      await manager.playerAction("initiate_cancel_send_event", payload);
+      manager.notification.add("Initiating Cancel");
+      try {
+        let payload = {
+          game: roomName,
+          sender: me[0].name,
+          otherId: player,
+          topicId: selection,
+        };
+        var message = Messages.make.actionInitiateCancelPlayer(payload);
+        await manager.client.messageWithAck(message);
+        manager.state().hideAffinitySelector();
+      } catch (err) {
+        manger.notification.add("Error Initiating Cancel");
+        setTimeout(() => {
+          this.notification.reset();
+        }, 1500);
+      }
     }
   }
 
