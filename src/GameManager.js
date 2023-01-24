@@ -233,9 +233,11 @@ class GameManager {
           await this.client.messageWithAck(message);
           break;
         case "initiate_cancel":
-          var message = Messages.make.actionInitiateCancelPlayer(actionPayload);
-          var { foo } = await this.client.messageWithAck(message);
           this.gameState().cancelVote.showAffinitySelector();
+          break;
+        case "initiate_cancel_send_event":
+          var message = Messages.make.actionInitiateCancelPlayer(actionPayload);
+          await this.client.messageWithAck(message);
           break;
         case "vote_cancel":
           var message = Messages.make.actionVoteToCancel(actionPayload);
