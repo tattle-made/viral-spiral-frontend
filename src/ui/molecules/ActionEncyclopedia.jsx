@@ -13,9 +13,9 @@ export function ActionEncylopedia({ onAction }) {
 
   return (
     <CenteredPopupLayer>
-      <Box pad={"small"} height={"fit-content"} width={"large"}>
+      <Box pad={"small"} height={"fit-content"} width={"medium"}>
         <Box direction="row">
-          <Heading level={2}>Encyclopaedia</Heading>
+          <Heading level={2}>{payload.author}</Heading>
           <Box flex={"grow"}></Box>
           {/* <Button onClick={closeEncyclopaedia}>X</Button> */}
         </Box>
@@ -24,7 +24,9 @@ export function ActionEncylopedia({ onAction }) {
             payload.title && payload.content ? (
               <Box>
                 <Box>
-                  <Text weight={"bold"}>{payload.title}</Text>
+                  <Text weight={"bold"} margin={{ bottom: "xsmall" }}>
+                    {payload.title}
+                  </Text>
                   <Text>{payload.content}</Text>
                 </Box>
               </Box>

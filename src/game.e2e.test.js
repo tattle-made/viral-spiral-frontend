@@ -19,8 +19,8 @@ async function launchBrowser() {
 async function presetLaunchGameWith4Players() {
   const roomName = `lucky-${randomRoomNum()}`;
   // const roomName = "tabahi-1000";
-  const GAME_URL = "http://localhost:5173/";
-  // const GAME_URL = "https://viralspiral.net/";
+  // const GAME_URL = "http://localhost:5173/";
+  const GAME_URL = "https://viralspiral.net/";
 
   console.log({ roomName });
 
@@ -68,6 +68,12 @@ async function presetLaunchGameWith4Players() {
 
   //   await sleep(5000);
   //   await browser.close();
+
+  // while(condition)
+  // identify who has the card
+  // choose from the following options [keep, pass, discard]
+  // log "player X performed ${action} to ${player Y}"
+  // wait for a while and repeat
 }
 
 async function presetLaunchGameWithTwoPlayers() {

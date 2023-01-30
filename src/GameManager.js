@@ -285,10 +285,10 @@ class GameManager {
       },
       encyclopaedia: {
         show: (message) => {
-          const { title, content } = message;
+          const { title, content, author } = message;
           setMode({
             id: ModeGame.ENCYCLOPEDIA_SEARCH_RESULT,
-            payload: { title, content },
+            payload: { title, content, author },
           });
         },
       },

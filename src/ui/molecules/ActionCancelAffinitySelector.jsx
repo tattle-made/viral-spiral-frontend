@@ -49,9 +49,10 @@ export function ActionCancelAffinitySelector({ onAction }) {
         };
         var message = Messages.make.actionInitiateCancelPlayer(payload);
         await manager.client.messageWithAck(message);
-        manager.state().hideAffinitySelector();
+        manager.gameState().mode.reset();
+        manager.notification.reset();
       } catch (err) {
-        manger.notification.add("Error Initiating Cancel");
+        manager.notification.add("Error Initiating Cancel");
         setTimeout(() => {
           this.notification.reset();
         }, 1500);

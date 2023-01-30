@@ -29,8 +29,9 @@ function voteCancel(stateGame) {
   return (msg) => {
     try {
       console.log("vote cancel");
+      console.log(msg);
       const cancelStatusId = msg.data.pending_vote.id_;
-      const against = msg.data.pending_vote.against.name;
+      const against = msg.data.pending_vote.cancel_status.against.name;
       if (!pendingIds.includes(cancelStatusId)) {
         console.log("showing");
         pendingIds.push(cancelStatusId);
