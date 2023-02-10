@@ -31,9 +31,9 @@ const Home = () => {
 
   async function createRoom({ value }) {
     console.debug({ ROOM: value });
-    const res = await manager.createRoom(value);
-    if (res) {
-      navigate(`/room`);
+    const { game } = await manager.createRoom(value);
+    if (game) {
+      navigate(`/r/${game.name}`);
     }
   }
 
@@ -103,33 +103,26 @@ const Home = () => {
                   <Box>
                     <FormField>
                       <TextInput
-                        className="new-room-game"
-                        name="game"
-                        placeholder={"Room"}
+                        className="new-room-you"
+                        name="userName"
+                        placeholder={"Username"}
                       ></TextInput>
                     </FormField>
+                    <FormField>
+                      <TextInput
+                        className="new-room-player-count"
+                        name="playerCount"
+                        type="number"
+                        placeholder={"Number of Players"}
+                      ></TextInput>
+                    </FormField>
+
                     <FormField>
                       <TextInput
                         className="new-room-password"
                         name="password"
                         type="password"
                         placeholder={"Password"}
-                      ></TextInput>
-                    </FormField>
-
-                    <FormField>
-                      <TextInput
-                        className="new-room-me"
-                        name="me"
-                        placeholder={"Your Username"}
-                      ></TextInput>
-                    </FormField>
-
-                    <FormField>
-                      <TextInput
-                        className="new-room-players"
-                        name="players"
-                        placeholder={"Players"}
                       ></TextInput>
                     </FormField>
                   </Box>

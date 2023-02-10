@@ -26,25 +26,25 @@ const { PlayingArea } = molecules;
 
 function Room({ props }) {
   const manager = useContext(GameManagerContext);
-  const { gameStat, room } = manager.useGameState();
+  const { room } = manager.useGameState();
   const location = useLocation();
   const navigate = useNavigate();
-  const { notification } = useNotification();
 
   useEffect(() => {
+    console.debug("joining room");
     (async function joinRoom() {
       manager.setup();
-      let { name, password, me } = room;
-      if (name === undefined || me === undefined) {
+      let { name, password, user } = room;
+      if (name === undefined || user === undefined) {
         manager.addMessage(
           "No preexisting room in localstorage. Creating from url"
         );
         var params = new URLSearchParams(location.search);
         name = params.get("name");
-        me = params.get("me");
+        user = params.get("me");
       }
 
-      await manager.joinGame({ room: name, username: me });
+      await manager.joinGame({ game: name, username: user });
       manager.pollRoom({ room: name });
     })();
 

@@ -37,8 +37,8 @@ const PlayingArea = () => {
   useEffect(() => {
     const { players } = room;
     if (players) {
-      const me = players.filter((player) => player.name === room.me)[0];
-      const them = players.filter((player) => player.name != room.me);
+      const me = players.filter((player) => player.name === room.room.user)[0];
+      const them = players.filter((player) => player.name != room.room.user);
 
       setMe(me);
       setThem(them);

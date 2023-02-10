@@ -25,7 +25,7 @@ const App = () => {
             <BrowserRouter>
               <Routes>
                 <Route path={`${BASE_URL}`} element={<Home />} />
-                <Route path={`${BASE_URL}room`} element={<Room />} />
+                <Route path={`${BASE_URL}r/:id`} element={<Room />} />
                 <Route path={`${BASE_URL}rules`} element={<Rules />} />
                 <Route path={`${BASE_URL}test`} element={<Test />} />
               </Routes>

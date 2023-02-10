@@ -45,7 +45,7 @@ function voteCancel(stateGame) {
 }
 
 function playCard(playedCards, gameState) {
-  console.log("Play Card", { playedCards, gameState });
+  // console.log("Play Card", { playedCards, gameState });
 
   return (msg) => {
     // console.log(msg);

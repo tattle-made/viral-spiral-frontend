@@ -37,8 +37,8 @@ class GameManager {
   setup() {
     try {
       this.client.connect();
-      console.log(this);
-      console.log(this.gameState());
+      // console.log(this);
+      // console.log(this.gameState());
 
       client.addHandler(
         "connect",
@@ -100,24 +100,21 @@ class GameManager {
     return { gameStat, room, gameConfig, gameMessage, add };
   }
 
-  async createRoom({ game, players, me, password }) {
+  async createRoom({ playerCount, password, userName }) {
     console.log("create room called");
     this.notification.add("Creating Room");
     try {
-      let allPlayers = `${players},${me}`;
-      const message = Messages.make.createGame(game, password, allPlayers);
-      console.log(message);
-      await this.client.messageWithAck(message);
-      this.room.setRoom({
-        id: "abc-def",
-        name: game,
-        password,
-        me,
-        state: undefined,
-      });
+      const message = Messages.make.createGame(playerCount, password);
+      const { game } = await this.client.messageWithAck(message);
       this.notification.reset();
-      return 1;
+      this.room.setRoom({
+        name: game.name,
+        password,
+        user: userName,
+      });
+      return { game };
     } catch (err) {
+      console.error(err);
       this.notification.add("Error Creating Room");
       setTimeout(() => {
         this.notification.reset();
@@ -126,25 +123,23 @@ class GameManager {
     }
   }
 
-  async joinGame({ room, username }) {
-    console.log("join room called");
-    this.notification.add("loading");
+  async joinGame({ game, username }) {
+    console.log("join room called", { game, username });
+    // this.notification.add("loading");
     try {
-      const message = Messages.make.joinGame(room, username);
+      console.log("--->", { game, username });
+      const message = Messages.make.joinGame(game, username);
 
-      // console.log(message);
+      console.log("--->", message);
       const { about } = await this.client.messageWithAck(message);
       // console.log(about);
-      const { players, current, totalGlobalBias, affinities } = adapt(
+      const { players, current, totalGlobalBias, affinities, room } = adapt(
         "about_game",
         about
       );
 
       this.room.setRoom({
-        id: "abc-def",
-        name: room,
-        password: "",
-        me: username,
+        ...this.room,
         state: undefined,
         players,
         current,
@@ -153,6 +148,7 @@ class GameManager {
       });
       this.notification.reset();
     } catch (err) {
+      console.log(err);
       this.notification.add("Error joining Room");
       setTimeout(() => {
         this.notification.reset();
@@ -332,6 +328,7 @@ class GameManager {
         },
       },
       reset: () => {
+        const { gameMessage, setGameMessage } = this.gameMessage;
         setGameMessage(GameStatDefault);
       },
     };

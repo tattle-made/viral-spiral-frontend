@@ -1,12 +1,11 @@
 const make = {
-  createGame: (room, password, players) => ({
+  createGame: (playerCount, password) => ({
     name: "create_game",
     payload: {
-      game: room,
-      password: password,
-      players: players.split(","),
-      topics_filepath: "config_jsons/example1/topics.json",
+      player_count: playerCount,
       colors_filepath: "config_jsons/example1/colors.json",
+      topics_filepath: "config_jsons/example1/topics.json",
+      password: password,
       draw_fn_name: "first",
       cards_filepath: "config_jsons/example1/cards.json",
       encyclopedia_filepath: "config_jsons/example1/articles.json",
