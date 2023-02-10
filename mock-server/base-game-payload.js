@@ -1,4 +1,8 @@
 const aboutGame = {
+  room: {
+    id: "abcdef",
+    password: "pw-abcd",
+  },
   total_global_bias: 10,
   current_drawing_player: {
     id_: "player1",
@@ -44,6 +48,7 @@ const aboutGame = {
     {
       id_: "player1",
       name: "adhiraj",
+      me: true,
       score: 10,
       color: {
         name: "red",
@@ -132,7 +137,12 @@ const aboutGame = {
  */
 const payloads = {
   iCreateGame: {},
-  oCreateGame: { status: 200, data: "Created game" },
+  oCreateGame: {
+    status: 200,
+    game: {
+      name: "abcdef",
+    },
+  },
   iJoinGame: {},
   oJoinGame: {
     status: 200,

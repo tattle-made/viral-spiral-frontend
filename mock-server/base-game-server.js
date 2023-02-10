@@ -3,7 +3,7 @@
  */
 
 import { app, io, httpServer, sleep } from "./server-core.js";
-import { payloads } from "./payloads-super-power.js";
+import { payloads } from "./base-game-payload.js";
 
 app.get("/", (req, res) => {
   res.json({ msg: "ok" });
@@ -36,6 +36,6 @@ io.on("connection", (socket) => {
   });
 });
 
-httpServer.listen(5001, () => {
-  console.log("Listening");
+httpServer.listen(5000, () => {
+  console.log("Listening on 5000");
 });
