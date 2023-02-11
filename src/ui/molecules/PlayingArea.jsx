@@ -37,8 +37,8 @@ const PlayingArea = () => {
   useEffect(() => {
     const { players } = room;
     if (players) {
-      const me = players.filter((player) => player.name === room.room.user)[0];
-      const them = players.filter((player) => player.name != room.room.user);
+      const me = players.filter((player) => player.name === room.user)[0];
+      const them = players.filter((player) => player.name != room.user);
 
       setMe(me);
       setThem(them);
@@ -76,7 +76,7 @@ const PlayingArea = () => {
     try {
       await manager.playerAction("action_discard_card", {
         game: room.name,
-        sender: room.me,
+        sender: room.user,
         cardId: gameStat.card.id,
       });
       // manager.player.player("default").start();
@@ -90,7 +90,7 @@ const PlayingArea = () => {
     try {
       await manager.playerAction("action_keep_card", {
         game: room.name,
-        sender: room.me,
+        sender: room.user,
         cardId: gameStat.card.id,
       });
       // manager.player.player("default").start();
@@ -107,7 +107,7 @@ const PlayingArea = () => {
     try {
       await manager.playerAction("action_pass_card", {
         game: room.name,
-        sender: room.me,
+        sender: room.user,
         receiver,
         cardId: gameStat.card.id,
       });

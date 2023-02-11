@@ -33,19 +33,27 @@ function Room({ props }) {
   useEffect(() => {
     console.debug("joining room");
     (async function joinRoom() {
-      manager.setup();
-      let { name, password, user } = room;
-      if (name === undefined || user === undefined) {
-        manager.addMessage(
-          "No preexisting room in localstorage. Creating from url"
-        );
-        var params = new URLSearchParams(location.search);
-        name = params.get("name");
-        user = params.get("me");
-      }
+      try {
+        manager.setup();
+        let { name, password, user } = room;
+        if (name === undefined || user === undefined) {
+          manager.addMessage(
+            "No preexisting room in localstorage. Creating from url"
+          );
+          var params = new URLSearchParams(location.search);
+          name = params.get("name");
+          user = params.get("me");
+        }
 
-      await manager.joinGame({ game: name, username: user });
-      manager.pollRoom({ room: name });
+        console.debug("joining from local storage user", {
+          game: name,
+          username: user,
+        });
+        await manager.joinGame({ game: name, username: user });
+        manager.pollRoom({ room: name });
+      } catch (err) {
+        console.error(err);
+      }
     })();
 
     return () => {

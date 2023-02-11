@@ -49,7 +49,7 @@ class GameManager {
             if (this.room.room === undefined) {
               this.joinGame({
                 room: this.room.room.name,
-                username: this.room.room.me,
+                username: this.room.room.user,
               });
             }
           };
@@ -66,6 +66,10 @@ class GameManager {
       client.addHandler("text_response", Handlers.textResponseMessageHandler);
       client.addHandler("endgame", Handlers.endGame(this.gameState()));
       client.addHandler("vote_cancel", Handlers.voteCancel(this.gameState()));
+      client.addHandler(
+        "action_performed",
+        Handlers.actionPerformedHandler(this.gameState())
+      );
 
       this.client.enableHandlers();
     } catch (err) {
@@ -127,19 +131,16 @@ class GameManager {
     console.log("join room called", { game, username });
     // this.notification.add("loading");
     try {
-      console.log("--->", { game, username });
       const message = Messages.make.joinGame(game, username);
-
-      console.log("--->", message);
       const { about } = await this.client.messageWithAck(message);
-      // console.log(about);
-      const { players, current, totalGlobalBias, affinities, room } = adapt(
+      console.log(about);
+      const { players, current, totalGlobalBias, affinities } = adapt(
         "about_game",
         about
       );
-
+      console.debug("room", this.room);
       this.room.setRoom({
-        ...this.room,
+        ...this.room.room,
         state: undefined,
         players,
         current,
@@ -148,6 +149,7 @@ class GameManager {
       });
       this.notification.reset();
     } catch (err) {
+      console.debug("could not join room");
       console.log(err);
       this.notification.add("Error joining Room");
       setTimeout(() => {

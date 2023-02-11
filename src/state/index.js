@@ -54,7 +54,7 @@ const Room = atom({
     id: undefined,
     name: undefined,
     password: undefined,
-    me: undefined,
+    user: undefined,
     state: undefined,
   },
   effects_UNSTABLE: [persistAtom],

@@ -29,8 +29,8 @@ export function ActionCancelAffinitySelector({ onAction }) {
   );
   const [selection, setSelection] = useState("");
 
-  const them = room.players.filter((player) => player.name != room.me);
-  const me = room.players.filter((player) => player.name === room.me);
+  const them = room.players.filter((player) => player.name != room.user);
+  const me = room.players.filter((player) => player.name === room.user);
   const themNames = them.map((player) => {
     return { label: player.name, id: player.id, value: player.id };
   });

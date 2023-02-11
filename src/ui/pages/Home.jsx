@@ -45,7 +45,11 @@ const Home = () => {
   function joinRoom({ value }) {
     const { game, me } = value;
     console.log({ game, me });
-    navigate(`/room?name=${game}&me=${me}`);
+    manager.room.setRoom({
+      name: game,
+      user: me,
+    });
+    navigate(`/r/${game}`);
   }
 
   return (

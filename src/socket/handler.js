@@ -4,8 +4,11 @@ function connectionHandler() {
   console.log("connected");
 }
 function disconnectHandler() {
-  console.log("disconnected");
+  return (msg) => {
+    console.log("disconnected");
+  };
 }
+
 function errorHandler(gameState) {
   return (msg) => {
     console.error("error", msg);
@@ -13,9 +16,11 @@ function errorHandler(gameState) {
     gameState.notification.add(`error`);
   };
 }
+
 function textResponseMessageHandler() {
   console.log("message");
 }
+
 function endGame(gameState) {
   return (msg) => {
     console.log("received end game event");
@@ -45,11 +50,7 @@ function voteCancel(stateGame) {
 }
 
 function playCard(playedCards, gameState) {
-  // console.log("Play Card", { playedCards, gameState });
-
   return (msg) => {
-    // console.log(msg);
-
     let card;
 
     try {
@@ -77,6 +78,13 @@ function heartBeatHandler() {
   };
 }
 
+function actionPerformedHandler(gameState) {
+  return (msg) => {
+    console.debug("===ACTION_PERFORMED===");
+    console.debug(msg);
+  };
+}
+
 export default {
   connectionHandler,
   disconnectHandler,
@@ -86,4 +94,5 @@ export default {
   playCard,
   heartBeatHandler,
   voteCancel,
+  actionPerformedHandler,
 };

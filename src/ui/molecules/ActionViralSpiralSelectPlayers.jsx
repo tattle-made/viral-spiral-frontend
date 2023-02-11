@@ -20,8 +20,8 @@ export function ActionViralSpiralSelectPlayers({ onAction, payload }) {
   const [state] = useRecoilState(GameStat);
   const manager = useContext(GameManagerContext);
 
-  const them = room.players.filter((player) => player.name != room.me);
-  const me = room.players.filter((player) => player.name === room.me);
+  const them = room.players.filter((player) => player.name != room.user);
+  const me = room.players.filter((player) => player.name === room.user);
   const roomName = room.name;
   const card = state.card;
 

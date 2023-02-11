@@ -36,14 +36,19 @@ class Client {
   async messageWithAck({ name, payload }) {
     return new Promise((resolve, reject) => {
       console.debug({ type: "outgoing", name, payload });
-      this.socket.emit(name, payload, (arg) => {
-        if (arg.status === 200) {
-          console.debug({ type: "incoming", arg });
-          resolve(arg);
-        } else {
-          reject(arg.message);
-        }
-      });
+      try {
+        this.socket.emit(name, payload, (arg) => {
+          if (arg.status === 200) {
+            console.debug({ type: "incoming", arg });
+            resolve(arg);
+          } else {
+            reject(arg.message);
+          }
+        });
+      } catch (err) {
+        console.error(err);
+        reject("Error Emitting Event");
+      }
     });
   }
 }

@@ -18,7 +18,7 @@ export function ActionCancelVote({ onAction }) {
   const manager = useContext(GameManagerContext);
   const [room] = useRecoilState(Room);
   const [gameStat] = useRecoilState(GameStat);
-  const me = room.players.filter((player) => player.name === room.me);
+  const me = room.players.filter((player) => player.name === room.user);
 
   const [mode] = useRecoilState(StateGameMode);
 

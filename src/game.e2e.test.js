@@ -30,8 +30,8 @@ async function presetLaunchGameWith4Players() {
   await sleep(1000);
   await page.type(".new-room-game", roomName);
   await page.type(".new-room-password", "asdf");
-  await page.type(".new-room-me", "adhiraj");
-  await page.type(".new-room-players", "aman,farah,krys");
+  await page.type(".new-room-you", "adhiraj");
+  await page.type(".new-room-player-count", "4");
   await page.click(".new-room-create");
   await sleep(7000);
   // await page.click(".tab-game-stat");
@@ -121,8 +121,33 @@ async function presetLaunchGameWithOnePlayers() {
   await sleep(5000);
 }
 
+async function presetLaunch4Browsers() {
+  const GAME_URL = "http://localhost:5173/";
+  const browserA = await launchBrowser();
+  const pageA = await browserA.newPage();
+  await pageA.goto(GAME_URL);
+  await sleep(1000);
+
+  const browserB = await launchBrowser();
+  const pageB = await browserB.newPage();
+  await pageB.goto(GAME_URL);
+  await sleep(1000);
+
+  const browserC = await launchBrowser();
+  const pageC = await browserC.newPage();
+  await pageC.goto(GAME_URL);
+  await sleep(1000);
+
+  const browserD = await launchBrowser();
+  const pageD = await browserD.newPage();
+  await pageD.goto(GAME_URL);
+  await sleep(1000);
+}
+
 (async () => {
   // await presetLaunchGameWithTwoPlayers();
-  await presetLaunchGameWith4Players();
+  // await presetLaunchGameWith4Players();
   // await presetLaunchGameWithOnePlayers();
+
+  await presetLaunch4Browsers();
 })();
