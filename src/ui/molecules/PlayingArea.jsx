@@ -175,7 +175,7 @@ const PlayingArea = () => {
         />
       ) : null} */}
       {gameStat.card != undefined ? (
-        <AbsoluteBox x={width / 2 - 400} y={(2 * height) / 3 - 300}>
+        <AbsoluteBox x={width / 2 - 400} y={(2 * height) / 3 - 500}>
           <Box
             width={"medium"}
             pad={"small"}
@@ -187,16 +187,23 @@ const PlayingArea = () => {
             <Box direction={"row"} gap={"large"} alignContent={"center"}>
               <Box
                 pad={"small"}
-                width={"8em"}
-                height={"12em"}
-                justify={"center"}
+                width={"16em"}
+                height={"24em"}
+                justify={"end"}
                 round={"small"}
                 border={{ size: "xsmall", color: "neutral-1" }}
-                overflow={"hidden"}
-                background="accent-4"
+                background="url(/test_card.png)"
               >
-                <Heading level={3}>{gameStat.card.title}</Heading>
-                <Text>{gameStat.card.description}</Text>
+                <Box
+                  height="6em"
+                  background={"#7F7AB033"}
+                  overflow={"scroll"}
+                  pad={"small"}
+                >
+                  <Text size="medium" weight={700} color="white">
+                    {gameStat.card.description}
+                  </Text>
+                </Box>
               </Box>
             </Box>
             <Box>

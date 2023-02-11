@@ -152,6 +152,42 @@ const payloads = {
     status: 200,
     about: aboutGame,
   },
+  oPlayCard: {
+    data: {
+      recipients: ["adhiraj", "krys", "aman"],
+      card_instance: {
+        id_: "4d7105dafc564ce69418c599b5cc718b",
+        card: {
+          id_: "asdfadf",
+          title: "",
+          description:
+            "Smug cat looks on while robbers tie up family steal cash.",
+          fakes: [{ id_: "asdfads" }],
+        },
+      },
+      allowed_actions: [
+        "keep_card",
+        "discard_card",
+        "mark_as_fake",
+        "encyclopedia_search",
+        "pass_card",
+        "viral_spiral",
+        "initiate_cancel",
+        "vote_cancel",
+        "fake_news",
+      ],
+      valid_topics_for_cancel: [
+        {
+          id_: "affin1",
+          name: "cats",
+        },
+        {
+          id_: "affin2",
+          name: "skubs",
+        },
+      ],
+    },
+  },
 };
 
 export { payloads };
