@@ -106,6 +106,16 @@ function Room({ props }) {
               ) : null}
             </Box>
             <Box
+              pad={"small"}
+              round={"small"}
+              background={"accent-3"}
+              height={"fit-content"}
+            >
+              <Heading className={"room-name"} level={4} margin={"none"}>
+                {room.name}
+              </Heading>
+            </Box>
+            <Box
               round={"large"}
               background={"neutral-1"}
               height={"fit-content"}

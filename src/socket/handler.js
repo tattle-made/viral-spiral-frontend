@@ -56,17 +56,17 @@ function playCard(playedCards, gameState) {
     try {
       card = adapt("play_card", msg);
       if (playedCards.includes(card.cardId)) {
-        gameState.notification.add(`🎴 Play Card received again. Ignoring`);
+        // gameState.notification.add(`🎴 Play Card received again. Ignoring`);
       } else {
         console.log("new card");
-        gameState.notification.add(`🎴 Play Card`);
+        gameState.notification.add(`🎴 New Card Received`);
         gameState.card.set(card);
         playedCards.push(card.cardId);
       }
     } catch (err) {
       console.error("error parding play_Card message");
       console.error(err);
-      gameState.notification.add(`🎴 Error Receiving Play Card`);
+      gameState.notification.add(`🎴 Error Receiving New Card`);
     }
   };
 }
@@ -80,8 +80,31 @@ function heartBeatHandler() {
 
 function actionPerformedHandler(gameState) {
   return (msg) => {
+    const { data } = msg;
+    const { action } = data;
+    if (action) {
+      switch (action) {
+        case "action_pass_card":
+          var { player } = data;
+          gameState.notification.add(`🎴 ${player.name} has passed the card`);
+          break;
+        case "action_keep_card":
+          var { player } = data;
+          gameState.notification.add(`🎴 ${player.name} has kept the card`);
+          break;
+        case "action_discard_card":
+          var { player } = data;
+          gameState.notification.add(
+            `🎴 ${player.name} has discarded the card`
+          );
+          break;
+        default:
+          break;
+      }
+    }
     console.debug("===ACTION_PERFORMED===");
     console.debug(msg);
+    // gameState.notification.add(`${player} has passed card`);
   };
 }
 

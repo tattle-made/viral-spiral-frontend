@@ -121,7 +121,7 @@ const PlayingArea = () => {
   }
 
   async function actionEncyclopaediaSearch() {
-    const { name: game, me: sender } = room;
+    const { name: game, user: sender } = room;
     const cardId = gameStat.card.cardId;
     const actionPayload = { game, sender, cardId };
     // console.debug({ actionPayload });
@@ -238,13 +238,13 @@ const PlayingArea = () => {
                         gap={"small"}
                         wrap={true}
                       >
-                        {gameStat.card.allowedActions.includes("fake_news") ? (
+                        {/* {gameStat.card.allowedActions.includes("fake_news") ? (
                           <Button
                             plain
                             onClick={actionFakeNews}
                             label={"Turn into fake news"}
                           ></Button>
-                        ) : null}
+                        ) : null} */}
                         {gameStat.card.allowedActions.includes(
                           "mark_as_fake"
                         ) ? (
