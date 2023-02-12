@@ -23,6 +23,11 @@ class Client {
   enableHandlers() {
     Object.keys(this.handlers).map((handlerName) => {
       this.socket.on(handlerName, this.handlers[handlerName]);
+      this.socket.onAny(m => {
+        console.log("Incoming event:")
+        console.log(m);
+      });
+
     });
   }
 
