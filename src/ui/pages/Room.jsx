@@ -19,6 +19,7 @@ import bgWorld1 from "../../assets/bg-world-1.png";
 import vsLogo from "../../assets/vs-logo.png";
 import { useNotification } from "../../state/notification";
 import { ActionLayer } from "../molecules/ActionLayer";
+import { Background } from "../atoms/Background";
 
 const BASE_URL = "/";
 
@@ -76,7 +77,7 @@ function Room({ props }) {
   }
 
   return (
-    <Box fill background={`url(${bgWorld1})`}>
+    <Background tgb={room.totalGlobalBias}>
       <Box fill justify="center" align="center" full>
         <PlayingArea />
       </Box>
@@ -148,7 +149,7 @@ function Room({ props }) {
       </Layer>
 
       <ActionLayer />
-    </Box>
+    </Background>
   );
 }
 
