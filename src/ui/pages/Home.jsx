@@ -30,7 +30,8 @@ const Home = () => {
   }, [manager]);
 
   async function createRoom({ value }) {
-    console.debug({ ROOM: value });
+    // console.debug({ ROOM: value });
+    value.password = "asdf"; // todo : remove hardcoded value later
     const { game } = await manager.createRoom(value);
     if (game) {
       navigate(`/r/${game.name}`);
@@ -121,14 +122,14 @@ const Home = () => {
                       ></TextInput>
                     </FormField>
 
-                    <FormField>
+                    {/* <FormField>
                       <TextInput
                         className="new-room-password"
                         name="password"
                         type="password"
                         placeholder={"Password"}
                       ></TextInput>
-                    </FormField>
+                    </FormField> */}
                   </Box>
                   <Box>
                     <Button
