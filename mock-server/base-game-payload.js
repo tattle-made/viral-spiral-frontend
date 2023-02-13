@@ -3,7 +3,7 @@ const aboutGame = {
     id: "abcdef",
     password: "pw-abcd",
   },
-  total_global_bias: 10,
+  total_global_bias: 0,
   current_drawing_player: {
     id_: "player1",
     name: "adhiraj",

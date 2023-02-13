@@ -26,7 +26,7 @@ io.on("connection", (socket) => {
     callback(payloads.oJoinGame);
     setInterval(() => {
       socket.emit("play_card", payloads.oPlayCard);
-      socket.emit("vote_cancel");
+      // socket.emit("vote_cancel");
     }, 1000);
   });
 
