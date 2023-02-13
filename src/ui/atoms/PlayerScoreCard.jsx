@@ -46,6 +46,7 @@ const IconWithScore = ({ icon, score }) => (
 );
 
 export default function PlayerScoreCard({ player }) {
+  console.log({ player });
   return (
     <Box
       direction="row"
@@ -81,13 +82,15 @@ export default function PlayerScoreCard({ player }) {
             <Box gap={"xsmall"}>
               <Text weight={"bold"}>Biases</Text>
               <Box direction={"row"} gap={"xsmall"}>
-                {Object.keys(player.bias).map((key, ix) => (
-                  <BiasIndicator
-                    key={ix}
-                    color={key}
-                    value={player.bias[key]}
-                  />
-                ))}
+                {Object.keys(player.bias).map((key, ix) =>
+                  player.color != key ? (
+                    <BiasIndicator
+                      key={ix}
+                      color={key}
+                      value={player.bias[key]}
+                    />
+                  ) : null
+                )}
               </Box>
 
               <Box gap={"xsmall"}>
