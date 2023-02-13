@@ -102,9 +102,32 @@ function actionPerformedHandler(gameState) {
           break;
       }
     }
-    console.debug("===ACTION_PERFORMED===");
-    console.debug(msg);
-    // gameState.notification.add(`${player} has passed card`);
+  };
+}
+
+function roundStartHandler(gameState) {
+  return (msg) => {
+    // console.log("ROUND STARTED");
+    // console.log(msg);
+    const { data } = msg;
+    const { drawing_player } = data;
+    const { name } = drawing_player;
+    if (name) {
+      gameState.notification.add(`🎴 Its ${name}'s turn now.`);
+    }
+  };
+}
+
+function roundEndHandler(gameState) {
+  return (msg) => {
+    // console.log("ROUND ENDED");
+    // console.log(msg);
+    const { data } = msg;
+    const { drawing_player } = data;
+    const { name } = drawing_player;
+    if (name) {
+      gameState.notification.add(`🎴 ${name}'s turn has ended.`);
+    }
   };
 }
 
@@ -118,4 +141,6 @@ export default {
   heartBeatHandler,
   voteCancel,
   actionPerformedHandler,
+  roundStartHandler,
+  roundEndHandler,
 };

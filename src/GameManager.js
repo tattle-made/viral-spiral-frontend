@@ -70,6 +70,14 @@ class GameManager {
         "action_performed",
         Handlers.actionPerformedHandler(this.gameState())
       );
+      client.addHandler(
+        "round_start",
+        Handlers.roundStartHandler(this.gameState())
+      );
+      client.addHandler(
+        "round_end",
+        Handlers.roundEndHandler(this.gameState())
+      );
 
       this.client.enableHandlers();
     } catch (err) {
