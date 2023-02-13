@@ -97,12 +97,18 @@ function Room({ props }) {
             >
               <Image src={vsLogo} fit={"contain"} />
             </Box>
-            <Box pad={"small"} round={"small"} background={"accent-3"}>
-              <Heading level={3} margin={"none"}>
-                Global Bias
-              </Heading>
-              {room && room.totalGlobalBias ? (
-                <Text weight={"bold"}>{room.totalGlobalBias}</Text>
+            <Box
+              pad={"small"}
+              round={"small"}
+              background={"accent-3"}
+              direction={"row"}
+              align={"center"}
+              height={"fit-content"}
+            >
+              {room && typeof room.totalGlobalBias === "number" ? (
+                <Heading level={3} margin={"none"}>
+                  {"Global Bias : " + room.totalGlobalBias}
+                </Heading>
               ) : null}
             </Box>
             <Box
