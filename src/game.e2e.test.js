@@ -129,7 +129,7 @@ async function presetLaunch4Browsers() {
   await pageA.waitForSelector(".new-room-you");
   await pageA.type(".new-room-you", "adhiraj");
   await pageA.type(".new-room-player-count", "4");
-  await pageA.type(".new-room-password", "asdf");
+  // await pageA.type(".new-room-password", "asdf");
   await pageA.click(".new-room-create");
   await pageA.waitForSelector(".room-name");
   const roomName = await pageA.$eval(".room-name", (el) => el.textContent);
