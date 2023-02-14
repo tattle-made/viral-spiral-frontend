@@ -129,7 +129,7 @@ const PlayingArea = () => {
   }
 
   async function actionFakeNews() {
-    const { name: game, me: sender } = room;
+    const { name: game, user: sender } = room;
     const cardId = gameStat.card.id;
     const fakeCardId = gameStat.card.fakeCardId;
 
@@ -138,7 +138,7 @@ const PlayingArea = () => {
   }
 
   async function specialPowers(powerName) {
-    const { name: game, me: sender } = room;
+    const { name: game, user: sender } = room;
     const cardId = gameStat.card.id;
     switch (powerName) {
       case "mark_as_fake":

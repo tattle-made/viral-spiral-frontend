@@ -245,6 +245,7 @@ class GameManager {
         case "mark_as_fake":
           var message = Messages.make.actionMarkAsFake(actionPayload);
           await this.client.messageWithAck(message);
+          this.gameState().card.reset();
           break;
         case "vote_cancel":
           var message = Messages.make.actionVoteToCancel(actionPayload);
