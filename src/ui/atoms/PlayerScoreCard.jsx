@@ -46,7 +46,6 @@ const IconWithScore = ({ icon, score }) => (
 );
 
 export default function PlayerScoreCard({ player }) {
-  console.log({ player });
   return (
     <Box
       direction="row"
