@@ -6,6 +6,7 @@ import { pages } from "./ui";
 import GameManagerInstance from "./GameManager";
 import AppShell from "./ui/atoms/AppShell";
 import Rules from "./ui/pages/Rules";
+import { WaitingRoom } from "./ui/pages/WaitingRoom";
 
 const { Home, Room, Test } = pages;
 
@@ -26,6 +27,7 @@ const App = () => {
               <Routes>
                 <Route path={`${BASE_URL}`} element={<Home />} />
                 <Route path={`${BASE_URL}r/:id`} element={<Room />} />
+                <Route path={`${BASE_URL}w/:id`} element={<WaitingRoom />} />
                 <Route path={`${BASE_URL}rules`} element={<Rules />} />
                 <Route path={`${BASE_URL}test`} element={<Test />} />
               </Routes>
