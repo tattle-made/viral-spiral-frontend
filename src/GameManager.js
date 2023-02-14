@@ -170,35 +170,35 @@ class GameManager {
   }
 
   pollRoom({ room }) {
-    this.pollID = setInterval(async () => {
-      if (window.aboutOngoing) {
-        return;
-      }
-      const { name, payload } = Messages.make.aboutGame(room);
-      window.aboutOngoing = true;
-      const { about } = await client.messageWithAck(name, payload);
-      window.aboutOngoing = false;
-      const { players, current, totalGlobalBias, affinities } = adapt(
-        "about_game",
-        about
-      );
-      // console.log({ players, current, totalGlobalBias });
-      // console.log(about);
-      if (
-        !_.isEqual(this.room.room.players, players) &&
-        !_.isEqual(this.room.room.current, current) &&
-        totalGlobalBias != this.room.room.totalGlobalBias
-      ) {
-        this.room.setRoom({
-          ...this.room.room,
-          players,
-          current,
-          totalGlobalBias,
-          affinities,
-        });
-        this.addMessage(`🎴 its ${current.name}'s turn now`);
-      }
-    }, 2000);
+    // this.pollID = setInterval(async () => {
+    //   if (window.aboutOngoing) {
+    //     return;
+    //   }
+    //   const { name, payload } = Messages.make.aboutGame(room);
+    //   window.aboutOngoing = true;
+    //   const { about } = await client.messageWithAck(name, payload);
+    //   window.aboutOngoing = false;
+    //   const { players, current, totalGlobalBias, affinities } = adapt(
+    //     "about_game",
+    //     about
+    //   );
+    //   // console.log({ players, current, totalGlobalBias });
+    //   // console.log(about);
+    //   if (
+    //     !_.isEqual(this.room.room.players, players) &&
+    //     !_.isEqual(this.room.room.current, current) &&
+    //     totalGlobalBias != this.room.room.totalGlobalBias
+    //   ) {
+    //     this.room.setRoom({
+    //       ...this.room.room,
+    //       players,
+    //       current,
+    //       totalGlobalBias,
+    //       affinities,
+    //     });
+    //     this.addMessage(`🎴 its ${current.name}'s turn now`);
+    //   }
+    // }, 2000);
   }
 
   leaveRoom() {
