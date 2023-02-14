@@ -1,4 +1,5 @@
 import adapt from "./adapter-recoil";
+import _, { isEqual } from "underscore";
 
 function connectionHandler() {
   console.log("connected");
@@ -19,13 +20,6 @@ function errorHandler(gameState) {
 
 function textResponseMessageHandler() {
   console.log("message");
-}
-
-function endGame(gameState) {
-  return (msg) => {
-    console.log("received end game event");
-    gameState.notification.add(`🎴 Game has ended`);
-  };
 }
 
 // todo : replace this global state
@@ -131,16 +125,44 @@ function roundEndHandler(gameState) {
   };
 }
 
+function aboutGameHandler(manager) {
+  return (msg) => {
+    console.debug("about_game");
+    const { data } = msg;
+    console.log(msg);
+    const { players, current, totalGlobalBias, affinities } = adapt(
+      "about_game",
+      data
+    );
+    console.log({ players, current, totalGlobalBias, affinities });
+    manager.room.setRoom({
+      ...manager.room.room,
+      players,
+      current,
+      totalGlobalBias,
+      affinities,
+    });
+  };
+}
+
+function endGame(gameState) {
+  return (msg) => {
+    gameState.notification.add(`🎴 Game has ended`);
+    gameState.mode.setToEnd();
+  };
+}
+
 export default {
   connectionHandler,
   disconnectHandler,
   errorHandler,
   textResponseMessageHandler,
-  endGame,
   playCard,
   heartBeatHandler,
   voteCancel,
   actionPerformedHandler,
   roundStartHandler,
   roundEndHandler,
+  aboutGameHandler,
+  endGame,
 };

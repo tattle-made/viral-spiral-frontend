@@ -41,6 +41,14 @@ const DebugNotification = atom({
   default: [],
 });
 
+const RoomDefault = {
+  id: undefined,
+  name: undefined,
+  password: undefined,
+  user: undefined,
+  state: undefined,
+};
+
 /**
  * id : a uuid returned by the server. same as the room slug in the url
  * name : human friendly name set by the creator of the room
@@ -50,13 +58,7 @@ const DebugNotification = atom({
  */
 const Room = atom({
   key: "room",
-  default: {
-    id: undefined,
-    name: undefined,
-    password: undefined,
-    user: undefined,
-    state: undefined,
-  },
+  default: RoomDefault,
   effects_UNSTABLE: [persistAtom],
 });
 
@@ -76,4 +78,5 @@ export {
   GameConfig,
   GameMessage,
   GameStatDefault,
+  RoomDefault,
 };

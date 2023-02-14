@@ -9,11 +9,12 @@ import {
   GameConfig,
   GameMessage,
   GameStatDefault,
+  RoomDefault,
 } from "./state";
 import adapt from "./socket/adapter-recoil";
 import _, { isEqual } from "underscore";
 import { useNotification } from "./state/notification";
-import { ModeGame, StateGameMode } from "./state/mode";
+import { ModeGame, ModeGameDefault, StateGameMode } from "./state/mode";
 import * as Tone from "tone";
 
 class GameManager {
@@ -78,6 +79,8 @@ class GameManager {
         "round_end",
         Handlers.roundEndHandler(this.gameState())
       );
+      client.addHandler("about_game", Handlers.aboutGameHandler(this));
+      client.addHandler("endgame", Handlers.endGame(this.gameState()));
 
       this.client.enableHandlers();
     } catch (err) {
@@ -288,6 +291,9 @@ class GameManager {
         reset: () => {
           setMode({ id: ModeGame.DEFAULT });
         },
+        setToEnd: () => {
+          setMode({ id: ModeGame.FINISHED });
+        },
       },
       encyclopaedia: {
         show: (message) => {
@@ -336,10 +342,19 @@ class GameManager {
           const { gameMessage, setGameMessage } = this.gameMessage;
           setGameMessage([message, ...gameMessage.slice(0, 50)]);
         },
+        reset: () => {
+          const { gameMessage, setGameMessage } = this.gameMessage;
+          setGameMessage([]);
+        },
       },
       reset: () => {
-        const { gameMessage, setGameMessage } = this.gameMessage;
-        setGameMessage(GameStatDefault);
+        const { gameStat, setGameStat } = this.state;
+        const { room, setRoom } = this.room;
+        const { mode, setMode } = this.mode;
+
+        setGameStat(GameStatDefault);
+        setRoom(RoomDefault);
+        setMode(ModeGameDefault);
       },
     };
   }

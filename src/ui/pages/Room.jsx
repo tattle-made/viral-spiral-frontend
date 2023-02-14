@@ -20,6 +20,7 @@ import vsLogo from "../../assets/vs-logo.png";
 import { useNotification } from "../../state/notification";
 import { ActionLayer } from "../molecules/ActionLayer";
 import { Background } from "../atoms/Background";
+import { EndGameSplashScreen } from "../molecules/EndGameSplashScreen";
 
 const BASE_URL = "/";
 
@@ -149,6 +150,7 @@ function Room({ props }) {
       </Layer>
 
       <ActionLayer />
+      <EndGameSplashScreen />
     </Background>
   );
 }

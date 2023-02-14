@@ -14,6 +14,7 @@ const { persistAtom } = recoilPersist({
 
 const MODES = {
   DEFAULT: "default",
+  FINISHED: "finished",
   ENCYCLOPEDIA_SEARCH_RESULT: "encyclopedia_search_result",
   CANCEL_AFFINITY_SELECTOR: "cancel_affinity_selector",
   CANCEL_VOTE: "cancel_vote",

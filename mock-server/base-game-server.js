@@ -25,10 +25,15 @@ io.on("connection", (socket) => {
     await sleep(550);
     callback(payloads.oJoinGame);
     setInterval(() => {
-      socket.emit("play_card", payloads.oPlayCard);
+      // socket.emit("play_card", payloads.oPlayCard);
       // socket.emit("vote_cancel");
+      // socket.emit("endgame", {});
     }, 1000);
   });
+
+  setTimeout(() => {
+    socket.emit("endgame", {});
+  }, 5000);
 
   socket.on("about_game", (arg, callback) => {
     console.log("about polled");
