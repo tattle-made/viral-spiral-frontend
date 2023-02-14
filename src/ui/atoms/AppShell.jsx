@@ -69,11 +69,10 @@ export default function AppShell({ children }) {
             pad={"medium"}
             margin={"small"}
             round
-            background={"#f3f3f3"}
+            background={"#f3f3f355"}
             alignSelf={"start"}
-            overflow={"scroll"}
           >
-            {/* <Tabs alignSelf="start" alignControls="start">
+            <Tabs alignSelf="start" alignControls="start">
               <Tab className="tab-game-stat" title="state">
                 <GameState gameStat={gameStat} room={room} />
               </Tab>
@@ -82,10 +81,10 @@ export default function AppShell({ children }) {
                   <GameIncomingMessage message={gameMessage} />
                 </Box>
               </Tab>
-            </Tabs> */}
-            <Box width={"100%"} fill={"vertical"} overflow={"scroll"}>
+            </Tabs>
+            {/* <Box width={"100%"} fill={"vertical"}>
               <GameIncomingMessage message={gameMessage} />
-            </Box>
+            </Box> */}
           </Box>
         </Layer>
       </Box>

@@ -5,7 +5,7 @@ const GameIncomingMessage = ({ message }) => {
   return (
     <Box fill>
       <Box height="2em"></Box>
-      <Box flex="grow" overflow={"scroll"}>
+      <Box flex="grow" overflow={"hidden"}>
         {message.map((item, ix) => (
           <Box key={ix} margin={{ bottom: "1em" }}>
             {item}

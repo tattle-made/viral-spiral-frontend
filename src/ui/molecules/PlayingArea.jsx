@@ -175,16 +175,17 @@ const PlayingArea = () => {
         />
       ) : null} */}
       {gameStat.card != undefined ? (
-        <AbsoluteBox x={width / 2 - 400} y={(2 * height) / 3 - 500}>
+        <AbsoluteBox x={250} y={height / 4}>
           <Box
-            width={"medium"}
+            width={"100%"}
             pad={"small"}
             align={"center"}
             alignSelf={"center"}
             alignContent={"center"}
             gap={"medium"}
+            direction={"row"}
           >
-            <Box direction={"row"} gap={"large"} alignContent={"center"}>
+            <Box gap={"large"} alignContent={"center"}>
               <Box
                 pad={"small"}
                 width={"16em"}
@@ -206,7 +207,7 @@ const PlayingArea = () => {
                 </Box>
               </Box>
             </Box>
-            <Box>
+            <Box background={"#EDC9C4"} pad={"large"} round>
               {gameStat.card.recipients.length === 0 ? (
                 <Box>
                   <Button onClick={actionKeepCard}>"Keep "</Button>
