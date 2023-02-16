@@ -92,6 +92,12 @@ function actionPerformedHandler(gameState) {
             `🎴 ${player.name} has discarded the card`
           );
           break;
+        case "action_mark_as_fake":
+          var { player } = data;
+          gameState.notification.add(
+            `🎴 ${player.name} has marked the card as fake`
+          );
+          break;
         default:
           break;
       }
