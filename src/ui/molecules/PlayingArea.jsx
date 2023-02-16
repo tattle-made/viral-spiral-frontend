@@ -210,7 +210,7 @@ const PlayingArea = () => {
             <Box background={"#EDC9C4"} pad={"large"} round>
               {gameStat.card.recipients.length === 0 ? (
                 <Box>
-                  <Button onClick={actionKeepCard}>"Keep "</Button>
+                  <Button onClick={actionKeepCard}>{"Keep "}</Button>
                   {"or "}
                   <Button onClick={actionDiscardCard}>Discard</Button>
                 </Box>
@@ -264,7 +264,7 @@ const PlayingArea = () => {
                             label={"Search"}
                           ></Button>
                         ) : null}
-                        {gameStat.card.allowedActions.includes(
+                        {/* {gameStat.card.allowedActions.includes(
                           "initiate_cancel"
                         ) ? (
                           <Button
@@ -272,7 +272,7 @@ const PlayingArea = () => {
                             label={"Cancel Player"}
                             onClick={() => specialPowers("initiate_cancel")}
                           ></Button>
-                        ) : null}
+                        ) : null} */}
 
                         {gameStat.card.allowedActions.includes(
                           "viral_spiral"
