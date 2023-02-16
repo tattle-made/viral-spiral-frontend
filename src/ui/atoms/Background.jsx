@@ -9,26 +9,28 @@ const mapTgbBg = {
   0: bg00,
   1: bg00,
   2: bg00,
-  3: bg00,
+  3: bg01,
   4: bg01,
-  5: bg01,
-  6: bg01,
-  7: bg01,
-  8: bg02,
-  9: bg02,
-  10: bg02,
-  11: bg02,
-  12: bg03,
-  13: bg03,
-  14: bg03,
+  5: bg02,
+  6: bg02,
+  7: bg03,
+  8: bg03,
+  // 9: bg02,
+  // 10: bg02,
+  // 11: bg02,
+  // 12: bg03,
+  // 13: bg03,
+  // 14: bg03,
 };
+
+const TGB_END_SCORE = 8;
 
 export function Background({ children, tgb }) {
   if (tgb < 0 || tgb === undefined) {
     tgb = 0;
   }
-  if (tgb > 14) {
-    tgb = 14;
+  if (tgb > TGB_END_SCORE) {
+    tgb = TGB_END_SCORE;
   }
   return (
     <Box fill background={`url(${mapTgbBg[tgb]})`}>
