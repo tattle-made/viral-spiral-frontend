@@ -163,10 +163,28 @@ async function presetLaunch4Browsers() {
   await pageD.waitForSelector(".room-name");
 }
 
+const browser = {
+  open: async (url) => {
+    const browser = await launchBrowser();
+    const page = await browser.newPage();
+    await page.goto(url);
+  },
+};
+
+async function presetLaunchEmptyBrowsers() {
+  const GAME_URL = "https://viralspiral.net";
+
+  await browser.open(GAME_URL);
+  await browser.open(GAME_URL);
+  await browser.open(GAME_URL);
+  await browser.open(GAME_URL);
+}
+
 (async () => {
   // await presetLaunchGameWithTwoPlayers();
   // await presetLaunchGameWith4Players();
   // await presetLaunchGameWithOnePlayers();
+  // await presetLaunch4Browsers();
 
-  await presetLaunch4Browsers();
+  await presetLaunchEmptyBrowsers();
 })();
