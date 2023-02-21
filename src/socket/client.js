@@ -1,5 +1,4 @@
 import { io } from "socket.io-client";
-import { reject } from "underscore";
 
 class Client {
   constructor(server, handlers = {}) {
@@ -21,6 +20,22 @@ class Client {
   }
 
   enableHandlers() {
+    /**
+     * These help identify any connection related errors.
+     */
+    this.socket.on("connect", () => {
+      console.log(this.socket.id); // x8WIv7-mJelg7on_ALbx
+    });
+
+    this.socket.on("disconnect", () => {
+      console.log(this.socket.id); // undefined
+    });
+
+    this.socket.on("connect_error", (err) => {
+      console.log("connect error");
+      console.log(err);
+    });
+
     Object.keys(this.handlers).map((handlerName) => {
       this.socket.on(handlerName, this.handlers[handlerName]);
       // this.socket.onAny(m => {
@@ -39,11 +54,11 @@ class Client {
 
   async messageWithAck({ name, payload }) {
     return new Promise((resolve, reject) => {
-      console.debug({ type: "outgoing", name, payload });
+      // console.log({ type: "outgoing", name, payload });
       try {
         this.socket.emit(name, payload, (arg) => {
           if (arg.status === 200) {
-            console.debug({ type: "incoming", arg });
+            // console.log({ type: "incoming", arg });
             resolve(arg);
           } else {
             reject(arg.message);
