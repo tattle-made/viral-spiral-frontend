@@ -65,7 +65,7 @@ class GameManager {
       client.addHandler("disconnect", Handlers.disconnectHandler);
       client.addHandler("connect_error", Handlers.errorHandler);
       client.addHandler("text_response", Handlers.textResponseMessageHandler);
-      client.addHandler("endgame", Handlers.endGame(this.gameState()));
+      // client.addHandler("endgame", Handlers.endGame(this.gameState()));
       client.addHandler("vote_cancel", Handlers.voteCancel(this.gameState()));
       client.addHandler(
         "action_performed",
