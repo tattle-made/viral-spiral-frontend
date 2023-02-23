@@ -8,7 +8,7 @@ class Client {
   }
 
   connect() {
-    this.socket = io(this.server.config.url);
+    this.socket = io(this.server.config.url, { transports: ["websocket"] });
   }
 
   disconnect() {
