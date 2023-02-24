@@ -109,7 +109,7 @@ function Room({ props }) {
             >
               {room && typeof room.totalGlobalBias === "number" ? (
                 <Heading level={3} margin={"none"}>
-                  {"Global Bias : " + room.totalGlobalBias}
+                  {`Chaos :  ${10 - room.totalGlobalBias}`}
                 </Heading>
               ) : null}
             </Box>

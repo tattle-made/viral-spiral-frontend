@@ -193,15 +193,15 @@ const PlayingArea = () => {
                 justify={"end"}
                 round={"small"}
                 border={{ size: "xsmall", color: "neutral-1" }}
-                background="url(/test_card.png)"
+                background="url(/card_empty.png)"
               >
                 <Box
-                  height="6em"
-                  background={"#7F7AB033"}
-                  overflow={"scroll"}
-                  pad={"small"}
+                  height="fit-content"
+                  // background={"#7F7AB033"}
+                  // overflow={"scroll"}
+                  pad={"medium"}
                 >
-                  <Text size="medium" weight={700} color="white">
+                  <Text size="medium" weight={700} color="#589891">
                     {gameStat.card.description}
                   </Text>
                 </Box>
@@ -210,14 +210,18 @@ const PlayingArea = () => {
             <Box background={"#EDC9C4"} pad={"large"} round>
               {gameStat.card.recipients.length === 0 ? (
                 <Box>
-                  <Button onClick={actionKeepCard}>{"Keep "}</Button>
+                  <Button secondary onClick={actionKeepCard}>
+                    {"Keep "}
+                  </Button>
                   {"or "}
-                  <Button onClick={actionDiscardCard}>Discard</Button>
+                  <Button secondary onClick={actionDiscardCard}>
+                    Discard
+                  </Button>
                 </Box>
               ) : (
-                <Box>
-                  <Text>
-                    Pass to{" "}
+                <Box direction="column" gap={"small"}>
+                  <Box direction="row-responsive" align="center" gap="small">
+                    <Text>Pass to{"  "}</Text>
                     {gameStat.card.recipients.map((recipient, ix) => (
                       <Button
                         key={ix}
@@ -225,10 +229,24 @@ const PlayingArea = () => {
                         onClick={() => actionPassCard(recipient)}
                       ></Button>
                     ))}{" "}
-                    or <Button onClick={actionKeepCard}>Keep </Button>
-                    {" or "}
-                    <Button onClick={actionDiscardCard}>Discard</Button>
-                  </Text>
+                  </Box>
+
+                  <Box direction="row-responsive" gap="medium">
+                    <Button
+                      primary
+                      alignSelf="start"
+                      label={"Keep"}
+                      onClick={actionKeepCard}
+                    ></Button>
+
+                    <Button
+                      primary
+                      alignSelf="start"
+                      label={"Discard"}
+                      onClick={actionDiscardCard}
+                    ></Button>
+                  </Box>
+
                   <Box margin={{ top: "small" }}>
                     <Heading level={3} margin={"none"}>
                       Special Powers

@@ -126,6 +126,7 @@ const Home = () => {
               }
             >
               <Button
+                className="create-room-panel"
                 plain
                 hoverIndicator={true}
                 focusIndicator={false}
@@ -181,6 +182,7 @@ const Home = () => {
               background={panel === "JOIN_ROOM" ? "none" : `url(${bgLanding2})`}
             >
               <Button
+                className="join-room-panel"
                 plain
                 hoverIndicator={true}
                 focusIndicator={false}
@@ -266,6 +268,17 @@ const Home = () => {
       <Box width="large" alignSelf="center" pad={"medium"}>
         <Box>
           <Heading level={2}> Walkthrough</Heading>
+        </Box>
+        <Box>
+          <iframe
+            width="100%"
+            height="315"
+            src="https://www.youtube.com/embed/REopj8A9Y7o"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
         </Box>
         <Box>
           <Heading level={2}> Get Involved</Heading>
