@@ -95,8 +95,12 @@ const Home = () => {
 
   return (
     <Box flex={"grow"} overflow={scroll} responsive>
-      <Box height={"100vh"} width={"100vw"} background={`url(${bg00})`}>
-        <Box justify="stretch" align="center">
+      <Box
+        height={{ min: "100vh", max: "fit-content" }}
+        width={"100vw"}
+        background={`url(${bg00})`}
+      >
+        <Box justify="stretch" align="center" pad={"medium"}>
           <Box width={"100%"} height="16em" pad={"medium"}>
             <Image src={vsLogo} fit="contain" />
           </Box>
@@ -113,7 +117,7 @@ const Home = () => {
           >
             <Box
               name="create-room"
-              height="medium"
+              height={{ min: "medium", max: "large" }}
               width="medium"
               border={{ color: "#3e6ff2", size: "medium" }}
               round={"small"}
@@ -170,7 +174,7 @@ const Home = () => {
             </Box>
             <Box
               name="join-room"
-              height="medium"
+              height={{ min: "medium", max: "large" }}
               width="medium"
               border={{ color: "#3e6ff2", size: "medium" }}
               round={"small"}
@@ -226,11 +230,11 @@ const Home = () => {
           </Box>
         </Box>
       </Box>
-      <Box width="large" alignSelf="center">
+      <Box width="large" alignSelf="center" pad={"medium"}>
         <Heading level={2}> Rules</Heading>
       </Box>
 
-      <Box width="large" alignSelf="center">
+      <Box width="large" alignSelf="center" pad={"medium"}>
         <Box margin={{ bottom: "medium" }} alignSelf={"start"}>
           <Box width={"medium"} alignSelf={"center"}>
             <Image src={playerCard}></Image>
@@ -259,7 +263,7 @@ const Home = () => {
           </Box>
         </Box>
       </Box>
-      <Box width="large" alignSelf="center">
+      <Box width="large" alignSelf="center" pad={"medium"}>
         <Box>
           <Heading level={2}> Walkthrough</Heading>
         </Box>
