@@ -53,7 +53,7 @@ function playCard(playedCards, gameState) {
         // gameState.notification.add(`🎴 Play Card received again. Ignoring`);
       } else {
         console.log("new card");
-        gameState.notification.add(`🎴 New Card Received`);
+        // gameState.notification.add(`🎴 New Card Received`);
         gameState.card.set(card);
         playedCards.push(card.cardId);
       }
