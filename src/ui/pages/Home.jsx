@@ -311,8 +311,10 @@ const Home = () => {
               href="https://github.com/sponsors/tattle-made"
               taget="_blank"
             >
-              here
+              here,{" "}
             </Anchor>
+            or email us at{" "}
+            <a href="mailto:denny@tattle.co.in">denny@tattle.co.in</a>
           </Text>
         </Box>
         <Box>
