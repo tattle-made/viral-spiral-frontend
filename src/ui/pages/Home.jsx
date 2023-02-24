@@ -15,7 +15,7 @@ import {
 } from "grommet";
 import { Link, useNavigate } from "react-router-dom";
 import { GameManagerContext } from "../../App";
-import vsLogo from "../../assets/vs-logo.png";
+import vsLogo from "../../assets/vs-logo-badge.png";
 import bgLanding1 from "../../assets/bg-landing-01.png";
 import bgLanding2 from "../../assets/bg-landing-02.png";
 import playerCard from "../../assets/player-card.png";
@@ -94,15 +94,15 @@ const Home = () => {
   }
 
   return (
-    <Box flex={"grow"} overflow={scroll}>
+    <Box flex={"grow"} overflow={scroll} responsive>
       <Box height={"100vh"} width={"100vw"} background={`url(${bg00})`}>
-        <Box>
-          <Box width={"100%"} height="20em">
+        <Box justify="stretch" align="center">
+          <Box width={"100%"} height="16em" pad={"medium"}>
             <Image src={vsLogo} fit="contain" />
           </Box>
           <Box width={"100%"} align="center" margin={{ bottom: "large" }}>
             <Text size="xlarge">
-              a multiplayer game about sharing cards on the internet
+              a multiplayer card game about sharing news on the internet
             </Text>
           </Box>
           <Box
@@ -226,30 +226,35 @@ const Home = () => {
           </Box>
         </Box>
       </Box>
-
-      <Box width="xlarge" alignSelf="center">
+      <Box width="large" alignSelf="center">
         <Heading level={2}> Rules</Heading>
+      </Box>
+
+      <Box width="large" alignSelf="center">
+        <Box margin={{ bottom: "medium" }} alignSelf={"start"}>
+          <Box width={"medium"} alignSelf={"center"}>
+            <Image src={playerCard}></Image>
+          </Box>
+          <Box width={"medium"} alignSelf={"center"}>
+            <Text size={"small"}>
+              A sample score card from the game. They belong to the red
+              community (A), have a clout point (B) of 5 and an anti blue bias
+              (C) of 3. They have an affinity of -2 for socks (D) and +4 for
+              houseboats (E)
+            </Text>
+          </Box>
+        </Box>
         <Box direction={"row-responsive"} gap={"small"}>
           <Box width="large">
             <Box gap={"small"}>
               {rules.map((rule, ix) => (
-                <Box direction="row-responsive" gap="medium" align="center">
-                  <Text size="large">{ix + 1}</Text>
+                <Box direction="row-responsive" gap="medium" align="start">
+                  <Text size="large" weight="bold">
+                    {ix + 1}
+                  </Text>
                   <Text> {rule}</Text>
                 </Box>
               ))}
-            </Box>
-          </Box>
-          <Box>
-            <Box width={"medium"} alignSelf={"center"}>
-              <Image src={playerCard}></Image>
-            </Box>
-            <Box width={"medium"} alignSelf={"center"}>
-              <Text size={"small"}>
-                A sample score card. They belong to the red community (A), have
-                a clout point (B) of 5 and an anti blue bias (C) of 3. They have
-                an affinity of -2 for socks (D) and +4 for houseboats (E)
-              </Text>
             </Box>
           </Box>
         </Box>
