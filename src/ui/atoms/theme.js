@@ -32,6 +32,7 @@ export const Theme = {
         dark: "#edc9c4",
         light: "#293241",
       },
+      placeholder: "#C3268A",
     },
     focus: {
       border: {
