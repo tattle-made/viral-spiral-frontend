@@ -22,8 +22,8 @@ const App = () => {
     <React.StrictMode>
       <RecoilRoot>
         <GameManagerContext.Provider value={GameManagerInstance}>
-          <AppShell>
-            <BrowserRouter>
+          <BrowserRouter>
+            <AppShell>
               <Routes>
                 <Route path={`${BASE_URL}`} element={<Home />} />
                 <Route path={`${BASE_URL}r/:id`} element={<Room />} />
@@ -31,8 +31,8 @@ const App = () => {
                 <Route path={`${BASE_URL}rules`} element={<Rules />} />
                 <Route path={`${BASE_URL}test`} element={<Test />} />
               </Routes>
-            </BrowserRouter>
-          </AppShell>
+            </AppShell>
+          </BrowserRouter>
         </GameManagerContext.Provider>
       </RecoilRoot>
     </React.StrictMode>

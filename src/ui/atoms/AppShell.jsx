@@ -1,16 +1,22 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Grommet, Box, Tabs, Tab, Stack, Layer, Spinner, Text } from "grommet";
 import { Theme } from "./theme";
 import molecules from "../molecules";
 const { GameState, GameIncomingMessage } = molecules;
 import { GameManagerContext } from "../../App";
 import { useNotification } from "../../state/notification";
+import { useLocation } from "react-router-dom";
 
 export default function AppShell({ children }) {
   const manager = useContext(GameManagerContext);
   const { gameStat, room, gameMessage } = manager.useGameState();
   const env = import.meta.env.MODE;
   const { notification } = useNotification();
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(location);
+  });
 
   // console.log({ env });
 
@@ -55,24 +61,25 @@ export default function AppShell({ children }) {
           </Layer>
         ) : null}
 
-        <Layer
-          modal={false}
-          background={{ color: "#ffffff00" }}
-          position={"right"}
-          margin={"small"}
-          animation={false}
-          full={"vertical"}
-        >
-          <Box
-            width={"medium"}
-            fill={"vertical"}
-            pad={"medium"}
+        {location.pathname.search("/r/") === 0 ? (
+          <Layer
+            modal={false}
+            background={{ color: "#ffffff00" }}
+            position={"right"}
             margin={"small"}
-            round
-            background={"#f3f3f355"}
-            alignSelf={"start"}
+            animation={false}
+            full={"vertical"}
           >
-            {/* <Tabs alignSelf="start" alignControls="start">
+            <Box
+              width={"medium"}
+              fill={"vertical"}
+              pad={"medium"}
+              margin={"small"}
+              round
+              background={"#f3f3f355"}
+              alignSelf={"start"}
+            >
+              {/* <Tabs alignSelf="start" alignControls="start">
               <Tab className="tab-game-stat" title="state">
                 <GameState gameStat={gameStat} room={room} />
               </Tab>
@@ -82,11 +89,12 @@ export default function AppShell({ children }) {
                 </Box>
               </Tab>
             </Tabs> */}
-            <Box width={"100%"} fill={"vertical"}>
-              <GameIncomingMessage message={gameMessage} />
+              <Box width={"100%"} fill={"vertical"}>
+                <GameIncomingMessage message={gameMessage} />
+              </Box>
             </Box>
-          </Box>
-        </Layer>
+          </Layer>
+        ) : null}
       </Box>
     </Grommet>
   );
