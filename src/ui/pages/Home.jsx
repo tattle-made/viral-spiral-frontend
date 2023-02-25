@@ -230,8 +230,22 @@ const Home = () => {
               ) : null}
             </Box>
           </Box>
+          <Box margin={{ top: "medium" }}>
+            <Text>
+              If you have trouble playing the game, please sign up{" "}
+              <Button>
+                <Anchor
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSeqA61r5WQLz0G0XQGO58AnkRqLfBOB6liSDBaD6r-u_h74Kg/viewform"
+                  target={"blank"}
+                >
+                  here
+                </Anchor>
+              </Button>
+            </Text>
+          </Box>
         </Box>
       </Box>
+
       <Box width="large" alignSelf="center" pad={"medium"}>
         <Heading level={2}> Rules</Heading>
       </Box>
