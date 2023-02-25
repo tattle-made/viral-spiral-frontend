@@ -141,7 +141,7 @@ const Home = () => {
               {panel === "CREATE_ROOM" ? (
                 <Box pad={"medium"}>
                   <Form
-                    className="plausible-event-name=CreateNewRoom"
+                    // className="plausible-event-name=CreateNewRoom"
                     onSubmit={createRoom}
                   >
                     <Box gap={"medium"}>
