@@ -196,6 +196,7 @@ const PlayingArea = () => {
                 background="url(/card_empty.png)"
               >
                 <Box
+                  className = "card-text"
                   height="fit-content"
                   // background={"#7F7AB033"}
                   // overflow={"scroll"}
