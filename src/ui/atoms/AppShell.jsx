@@ -61,7 +61,7 @@ export default function AppShell({ children }) {
           </Layer>
         ) : null}
 
-        {location.pathname.search("/r/") === 0 ? (
+        {true ? (
           <Layer
             modal={false}
             background={{ color: "#ffffff00" }}
@@ -71,13 +71,14 @@ export default function AppShell({ children }) {
             full={"vertical"}
           >
             <Box
-              width={"medium"}
-              fill={"vertical"}
+              width={"fit-content"}
+              height={"4em"}
               pad={"medium"}
               margin={"small"}
               round
-              background={"#f3f3f355"}
+              background={"#7C804ECC"}
               alignSelf={"start"}
+              overflow="hidden"
             >
               {/* <Tabs alignSelf="start" alignControls="start">
               <Tab className="tab-game-stat" title="state">
@@ -89,7 +90,7 @@ export default function AppShell({ children }) {
                 </Box>
               </Tab>
             </Tabs> */}
-              <Box width={"100%"} fill={"vertical"}>
+              <Box width={"100%"} height={"20em"}>
                 <GameIncomingMessage message={gameMessage} />
               </Box>
             </Box>

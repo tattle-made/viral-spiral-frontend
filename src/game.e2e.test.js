@@ -123,13 +123,15 @@ async function presetLaunchGameWithOnePlayers() {
 
 async function presetLaunch4Browsers() {
   const GAME_URL = "http://localhost:5173/";
+  // const GAME_URL = "https://viralspiral.net/";
   const browserA = await launchBrowser();
   const pageA = await browserA.newPage();
   await pageA.goto(GAME_URL);
+  await pageA.waitForSelector(".create-room-panel");
+  await pageA.click(".create-room-panel");
   await pageA.waitForSelector(".new-room-you");
   await pageA.type(".new-room-you", "adhiraj");
   await pageA.type(".new-room-player-count", "4");
-  // await pageA.type(".new-room-password", "asdf");
   await pageA.click(".new-room-create");
   await pageA.waitForSelector(".room-name");
   const roomName = await pageA.$eval(".room-name", (el) => el.textContent);
@@ -138,7 +140,8 @@ async function presetLaunch4Browsers() {
   const browserB = await launchBrowser();
   const pageB = await browserB.newPage();
   await pageB.goto(GAME_URL);
-  await pageB.waitForSelector(".new-room-you");
+  await pageB.waitForSelector(".join-room-panel");
+  await pageB.click(".join-room-panel");
   await pageB.type(".join-room-game", roomName);
   await pageB.type(".join-room-me", "aman");
   await pageB.click(".join-room-join");
@@ -147,7 +150,8 @@ async function presetLaunch4Browsers() {
   const browserC = await launchBrowser();
   const pageC = await browserC.newPage();
   await pageC.goto(GAME_URL);
-  await pageC.waitForSelector(".new-room-you");
+  await pageC.waitForSelector(".join-room-panel");
+  await pageC.click(".join-room-panel");
   await pageC.type(".join-room-game", roomName);
   await pageC.type(".join-room-me", "farah");
   await pageC.click(".join-room-join");
@@ -156,7 +160,8 @@ async function presetLaunch4Browsers() {
   const browserD = await launchBrowser();
   const pageD = await browserD.newPage();
   await pageD.goto(GAME_URL);
-  await pageD.waitForSelector(".new-room-you");
+  await pageD.waitForSelector(".join-room-panel");
+  await pageD.click(".join-room-panel");
   await pageD.type(".join-room-game", roomName);
   await pageD.type(".join-room-me", "krys");
   await pageD.click(".join-room-join");
@@ -172,7 +177,8 @@ const browser = {
 };
 
 async function presetLaunchEmptyBrowsers() {
-  const GAME_URL = "https://viralspiral.net";
+  // const GAME_URL = "https://viralspiral.net";
+  const GAME_URL = "http://localhost:5173/";
 
   await browser.open(GAME_URL);
   await browser.open(GAME_URL);
@@ -184,7 +190,7 @@ async function presetLaunchEmptyBrowsers() {
   // await presetLaunchGameWithTwoPlayers();
   // await presetLaunchGameWith4Players();
   // await presetLaunchGameWithOnePlayers();
-  // await presetLaunch4Browsers();
+  await presetLaunch4Browsers();
 
-  await presetLaunchEmptyBrowsers();
+  // await presetLaunchEmptyBrowsers();
 })();
