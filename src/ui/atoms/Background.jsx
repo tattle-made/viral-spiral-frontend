@@ -23,7 +23,7 @@ const mapTgbBg = {
   14: bg03,
 };
 
-const TGB_END_SCORE = 8;
+const TGB_END_SCORE = 14;
 
 export function Background({ children, tgb }) {
   if (tgb < 0 || tgb === undefined) {
