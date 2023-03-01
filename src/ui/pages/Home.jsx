@@ -279,6 +279,18 @@ const Home = () => {
                 </Box>
               ))}
             </Box>
+            <Link to="/rules">
+              {" "}
+              <Box
+                width={"fit-content"}
+                margin={{ top: "medium" }}
+                round={"xsmall"}
+                pad={"small"}
+                background="accent-3"
+              >
+                Read more
+              </Box>
+            </Link>
           </Box>
         </Box>
       </Box>

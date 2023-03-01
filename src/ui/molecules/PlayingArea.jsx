@@ -196,7 +196,7 @@ const PlayingArea = () => {
                 background="url(/card_empty.png)"
               >
                 <Box
-                  className = "card-text"
+                  className="card-text"
                   height="fit-content"
                   // background={"#7F7AB033"}
                   // overflow={"scroll"}
@@ -280,7 +280,7 @@ const PlayingArea = () => {
                           <Button
                             plain
                             onClick={actionEncyclopaediaSearch}
-                            label={"Search"}
+                            label={"Check Source"}
                           ></Button>
                         ) : null}
                         {/* {gameStat.card.allowedActions.includes(

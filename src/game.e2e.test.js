@@ -122,8 +122,8 @@ async function presetLaunchGameWithOnePlayers() {
 }
 
 async function presetLaunch4Browsers() {
-  const GAME_URL = "http://localhost:5173/";
-  // const GAME_URL = "https://viralspiral.net/";
+  // const GAME_URL = "http://localhost:5173/";
+  const GAME_URL = "https://viralspiral.net/";
   const browserA = await launchBrowser();
   const pageA = await browserA.newPage();
   await pageA.goto(GAME_URL);
