@@ -13,7 +13,9 @@ export function ActionEncylopedia({ onAction }) {
 
   return (
     <CenteredPopupLayer>
-      <Box pad={"small"} height={"fit-content"} width={"medium"}>
+      <Box pad={"small"} height={"fit-content"} width={"medium"}
+        className = "encyclopedia-box"
+      >
         <Box direction="row">
           <Heading level={2}>{payload.author}</Heading>
           <Box flex={"grow"}></Box>
