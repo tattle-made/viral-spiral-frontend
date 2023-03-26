@@ -158,6 +158,12 @@ function endGame(gameState) {
   };
 }
 
+function createRoomProgress(gameState) {
+  return (msg) => {
+    gameState.notification.add(msg.payload);
+  };
+}
+
 export default {
   connectionHandler,
   disconnectHandler,
@@ -171,4 +177,5 @@ export default {
   roundEndHandler,
   aboutGameHandler,
   endGame,
+  createRoomProgress,
 };
