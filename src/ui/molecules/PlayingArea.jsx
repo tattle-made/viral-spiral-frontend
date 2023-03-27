@@ -265,7 +265,7 @@ const PlayingArea = () => {
                             label={"Turn into fake news"}
                           ></Button>
                         ) : null} */}
-                        {/* {gameStat.card.allowedActions.includes(
+                        {gameStat.card.allowedActions.includes(
                           "mark_as_fake"
                         ) ? (
                           <Button
@@ -273,7 +273,7 @@ const PlayingArea = () => {
                             label={"Mark as fake"}
                             onClick={() => specialPowers("mark_as_fake")}
                           ></Button>
-                        ) : null} */}
+                        ) : null}
                         {gameStat.card.allowedActions.includes(
                           "encyclopedia_search"
                         ) ? (
