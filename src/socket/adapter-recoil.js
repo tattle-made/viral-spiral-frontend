@@ -57,12 +57,14 @@ function playCardMessage(message) {
       cardId,
       cardInstanceId,
       title: data.card_instance.card.title,
+      image: data.card_instance.card.image,
       description: data.card_instance.card.description,
       recipients: data.recipients,
       allowedActions: data.allowed_actions,
       fakeCardId: fakes.length === 0 ? "undefined-id" : fakes[0].id_,
       validTopicsForCancel: data.valid_topics_for_cancel,
     };
+
     return card;
   } catch (err) {
     console.error("Could not parse play_card message");

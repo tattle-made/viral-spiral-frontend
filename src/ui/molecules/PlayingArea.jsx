@@ -193,7 +193,11 @@ const PlayingArea = () => {
                 justify={"end"}
                 round={"small"}
                 border={{ size: "xsmall", color: "neutral-1" }}
-                background="url(/card_empty.png)"
+                background={
+                  gameStat.card.image === ""
+                    ? "url(/card_empty.png)"
+                    : `url(https://s3.ap-south-1.amazonaws.com/media.viralspiral.net/${gameStat.card.image})`
+                }
               >
                 <Box
                   className="card-text"
@@ -201,8 +205,9 @@ const PlayingArea = () => {
                   // background={"#7F7AB033"}
                   // overflow={"scroll"}
                   pad={"medium"}
+                  background={"#EDC9C444"}
                 >
-                  <Text size="medium" weight={700} color="#589891">
+                  <Text size="medium" weight={700} color="#ffffff">
                     {gameStat.card.description}
                   </Text>
                 </Box>
