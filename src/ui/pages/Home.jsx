@@ -346,7 +346,7 @@ const Home = () => {
           <Text>
             Track the project's progress as we build this in public{" "}
             <Anchor
-              href="https://github.com/orgs/tattle-made/projects/26"
+              href="https://github.com/orgs/tattle-made/projects/26/views/3"
               taget="_blank"
             >
               here
