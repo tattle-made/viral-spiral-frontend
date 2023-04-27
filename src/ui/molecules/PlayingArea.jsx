@@ -365,6 +365,15 @@ const PlayingArea = () => {
                             onClick={() => specialPowers("initiate_cancel")}
                           ></Button>
                         ) : null}
+                        {gameStat.card.allowedActions.includes(
+                          "fake_news"
+                        ) ? (
+                          <Button
+                            plain
+                            label={"Turn to Fake"}
+                            onClick={actionFakeNews}
+                          ></Button>
+                        ) : null}
 
                         {/* {gameStat.card.allowedActions.includes(
                           "viral_spiral"
