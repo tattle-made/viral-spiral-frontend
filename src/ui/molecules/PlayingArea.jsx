@@ -193,7 +193,11 @@ const PlayingArea = () => {
                 justify={"end"}
                 round={"small"}
                 border={{ size: "xsmall", color: "neutral-1" }}
-                background="url(/card_empty.png)"
+                background={
+                  gameStat.card.image === ""
+                    ? "url(/card_empty.png)"
+                    : `url(https://s3.ap-south-1.amazonaws.com/media.viralspiral.net/${gameStat.card.image})`
+                }
               >
                 <Box
                   className="card-text"
@@ -201,8 +205,9 @@ const PlayingArea = () => {
                   // background={"#7F7AB033"}
                   // overflow={"scroll"}
                   pad={"medium"}
+                  background={"#EDC9C444"}
                 >
-                  <Text size="medium" weight={700} color="#589891">
+                  <Text size="medium" weight={700} color="#ffffff">
                     {gameStat.card.description}
                   </Text>
                 </Box>
@@ -211,13 +216,81 @@ const PlayingArea = () => {
             <Box background={"#EDC9C4"} pad={"large"} round>
               {gameStat.card.recipients.length === 0 ? (
                 <Box>
-                  <Button secondary onClick={actionKeepCard}>
-                    {"Keep "}
-                  </Button>
-                  {"or "}
-                  <Button secondary onClick={actionDiscardCard}>
-                    Discard
-                  </Button>
+                  <Box direction="row-responsive" gap="medium">
+                    <Button
+                      primary
+                      alignSelf="start"
+                      label={"Keep"}
+                      onClick={actionKeepCard}
+                    ></Button>
+
+                    <Button
+                      primary
+                      alignSelf="start"
+                      label={"Discard"}
+                      onClick={actionDiscardCard}
+                    ></Button>
+                  </Box>
+
+                  <Box margin={{ top: "small" }}>
+                    <Heading level={3} margin={"none"}>
+                      Special Powers
+                    </Heading>
+                    {gameStat.card.allowedActions ? (
+                      <Box
+                        direction={"row-responsive"}
+                        gap={"small"}
+                        wrap={true}
+                      >
+                        {/* {gameStat.card.allowedActions.includes("fake_news") ? (
+                          <Button
+                            plain
+                            onClick={actionFakeNews}
+                            label={"Turn into fake news"}
+                          ></Button>
+                        ) : null} */}
+                        {gameStat.card.allowedActions.includes(
+                          "mark_as_fake"
+                        ) ? (
+                          <Button
+                            plain
+                            label={"Mark as fake"}
+                            onClick={() => specialPowers("mark_as_fake")}
+                          ></Button>
+                        ) : null}
+                        {gameStat.card.allowedActions.includes(
+                          "encyclopedia_search"
+                        ) ? (
+                          <Button
+                            plain
+                            onClick={actionEncyclopaediaSearch}
+                            label={"Check Source"}
+                          ></Button>
+                        ) : null}
+                        {/* {gameStat.card.allowedActions.includes(
+                          "initiate_cancel"
+                        ) ? (
+                          <Button
+                            plain
+                            label={"Cancel Player"}
+                            onClick={() => specialPowers("initiate_cancel")}
+                          ></Button>
+                        ) : null} */}
+
+                        {/* {gameStat.card.allowedActions.includes(
+                          "viral_spiral"
+                        ) ? (
+                          <Button
+                            plain
+                            label={"Viral Spiral"}
+                            onClick={() =>
+                              specialPowers("viral_spiral_initiate")
+                            }
+                          ></Button>
+                        ) : null} */}
+                      </Box>
+                    ) : null}
+                  </Box>
                 </Box>
               ) : (
                 <Box direction="column" gap={"small"}>
@@ -265,7 +338,7 @@ const PlayingArea = () => {
                             label={"Turn into fake news"}
                           ></Button>
                         ) : null} */}
-                        {/* {gameStat.card.allowedActions.includes(
+                        {gameStat.card.allowedActions.includes(
                           "mark_as_fake"
                         ) ? (
                           <Button
@@ -273,7 +346,7 @@ const PlayingArea = () => {
                             label={"Mark as fake"}
                             onClick={() => specialPowers("mark_as_fake")}
                           ></Button>
-                        ) : null} */}
+                        ) : null}
                         {gameStat.card.allowedActions.includes(
                           "encyclopedia_search"
                         ) ? (
@@ -283,7 +356,7 @@ const PlayingArea = () => {
                             label={"Check Source"}
                           ></Button>
                         ) : null}
-                        {/* {gameStat.card.allowedActions.includes(
+                        {gameStat.card.allowedActions.includes(
                           "initiate_cancel"
                         ) ? (
                           <Button
@@ -291,7 +364,16 @@ const PlayingArea = () => {
                             label={"Cancel Player"}
                             onClick={() => specialPowers("initiate_cancel")}
                           ></Button>
-                        ) : null} */}
+                        ) : null}
+                        {gameStat.card.allowedActions.includes(
+                          "fake_news"
+                        ) ? (
+                          <Button
+                            plain
+                            label={"Turn to Fake"}
+                            onClick={actionFakeNews}
+                          ></Button>
+                        ) : null}
 
                         {/* {gameStat.card.allowedActions.includes(
                           "viral_spiral"

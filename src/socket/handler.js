@@ -29,7 +29,7 @@ function voteCancel(stateGame) {
     try {
       console.log("vote cancel");
       console.log(msg);
-      const cancelStatusId = msg.data.pending_vote.id_;
+      const cancelStatusId = msg.data.pending_vote.cancel_status.id_;
       const against = msg.data.pending_vote.cancel_status.against.name;
       if (!pendingIds.includes(cancelStatusId)) {
         console.log("showing");
@@ -158,6 +158,12 @@ function endGame(gameState) {
   };
 }
 
+function createRoomProgress(gameState) {
+  return (msg) => {
+    gameState.notification.add(msg.payload);
+  };
+}
+
 export default {
   connectionHandler,
   disconnectHandler,
@@ -171,4 +177,5 @@ export default {
   roundEndHandler,
   aboutGameHandler,
   endGame,
+  createRoomProgress,
 };
