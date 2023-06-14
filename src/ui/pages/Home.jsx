@@ -75,22 +75,18 @@ const Home = () => {
 
   function createRoomPanel() {
     var newValue;
-    if (panel === "CREATE_ROOM") {
-      newValue = "NONE";
-    } else {
+    if (panel != "CREATE_ROOM") {
       newValue = "CREATE_ROOM";
+      setPanel(newValue);
     }
-    setPanel(newValue);
   }
 
   function joinRoomPanel() {
     var newValue;
-    if (panel === "JOIN_ROOM") {
-      newValue = "NONE";
-    } else {
+    if (panel != "JOIN_ROOM") {
       newValue = "JOIN_ROOM";
+      setPanel(newValue);
     }
-    setPanel(newValue);
   }
 
   return (
@@ -115,123 +111,126 @@ const Home = () => {
             alignSelf="center"
             gap={"large"}
           >
-            <Box
-              name="create-room"
-              height={{ min: "medium", max: "large" }}
-              width="medium"
-              border={{ color: "#3e6ff2", size: "medium" }}
-              round={"small"}
-              background={
-                panel === "CREATE_ROOM" ? "none" : `url(${bgLanding1})`
-              }
+            <Button
+              className="create-room-panel"
+              plain
+              hoverIndicator={true}
+              focusIndicator={false}
+              onClick={createRoomPanel}
             >
-              <Button
-                className="create-room-panel"
-                plain
-                hoverIndicator={true}
-                focusIndicator={false}
-                onClick={createRoomPanel}
+              <Box
+                name="create-room"
+                height={{ min: "medium", max: "large" }}
+                width="medium"
+                border={{ color: "#3e6ff2", size: "medium" }}
+                round={"small"}
+                background={
+                  panel === "CREATE_ROOM" ? "none" : `url(${bgLanding1})`
+                }
               >
                 <Box pad={"medium"}>
                   <Heading level={3} color={"#3e6ff2"}>
                     Create Room
                   </Heading>
                 </Box>
-              </Button>
-              {panel === "CREATE_ROOM" ? (
-                <Box pad={"medium"}>
-                  <Form
-                    // className="plausible-event-name=CreateNewRoom"
-                    onSubmit={createRoom}
-                  >
-                    <Box gap={"medium"}>
-                      <Box>
-                        <FormField>
-                          <TextInput
-                            className="new-room-you"
-                            name="userName"
-                            placeholder={"Username"}
-                          ></TextInput>
-                        </FormField>
-                        <FormField>
-                          <TextInput
-                            className="new-room-player-count"
-                            name="playerCount"
-                            type="number"
-                            placeholder={"Number of Players"}
-                          ></TextInput>
-                        </FormField>
+
+                {panel === "CREATE_ROOM" ? (
+                  <Box pad={"medium"}>
+                    <Form
+                      // className="plausible-event-name=CreateNewRoom"
+                      onSubmit={createRoom}
+                    >
+                      <Box gap={"medium"}>
+                        <Box>
+                          <FormField>
+                            <TextInput
+                              className="new-room-you"
+                              name="userName"
+                              placeholder={"Username"}
+                            ></TextInput>
+                          </FormField>
+                          <FormField>
+                            <TextInput
+                              className="new-room-player-count"
+                              name="playerCount"
+                              type="number"
+                              placeholder={"Number of Players"}
+                            ></TextInput>
+                          </FormField>
+                        </Box>
+                        <Box>
+                          <Button
+                            primary
+                            color="#589891"
+                            className="new-room-create"
+                            type="submit"
+                            label={"Create"}
+                          ></Button>
+                        </Box>
                       </Box>
-                      <Box>
-                        <Button
-                          primary
-                          color="#589891"
-                          className="new-room-create"
-                          type="submit"
-                          label={"Create"}
-                        ></Button>
-                      </Box>
-                    </Box>
-                  </Form>
-                </Box>
-              ) : null}
-            </Box>
-            <Box
-              name="join-room"
-              height={{ min: "medium", max: "large" }}
-              width="medium"
-              border={{ color: "#3e6ff2", size: "medium" }}
-              round={"small"}
-              background={panel === "JOIN_ROOM" ? "none" : `url(${bgLanding2})`}
+                    </Form>
+                  </Box>
+                ) : null}
+              </Box>
+            </Button>
+            <Button
+              className="join-room-panel"
+              plain
+              hoverIndicator={true}
+              focusIndicator={false}
+              onClick={joinRoomPanel}
             >
-              <Button
-                className="join-room-panel"
-                plain
-                hoverIndicator={true}
-                focusIndicator={false}
-                onClick={joinRoomPanel}
+              <Box
+                name="join-room"
+                height={{ min: "medium", max: "large" }}
+                width="medium"
+                border={{ color: "#3e6ff2", size: "medium" }}
+                round={"small"}
+                background={
+                  panel === "JOIN_ROOM" ? "none" : `url(${bgLanding2})`
+                }
               >
                 <Box pad={"medium"}>
                   <Heading level={3} color={"#3e6ff2"}>
                     Join Room
                   </Heading>
                 </Box>
-              </Button>
 
-              {panel === "JOIN_ROOM" ? (
-                <Box pad="medium">
-                  <Form onSubmit={joinRoom}>
-                    <Box gap={"medium"}>
-                      <Box>
-                        <FormField name="game">
-                          <TextInput
-                            className="join-room-game"
-                            name="game"
-                            placeholder={"Room"}
-                          ></TextInput>
-                        </FormField>
-                        <FormField name="me">
-                          <TextInput
-                            className="join-room-me"
-                            name="me"
-                            placeholder={"Username"}
-                          ></TextInput>
-                        </FormField>
+                {panel === "JOIN_ROOM" ? (
+                  <Box pad="medium">
+                    <Form onSubmit={joinRoom}>
+                      <Box gap={"medium"}>
+                        <Box>
+                          <FormField name="game">
+                            <TextInput
+                              className="join-room-game"
+                              name="game"
+                              placeholder={"Room"}
+                            ></TextInput>
+                          </FormField>
+                          <FormField name="me">
+                            <TextInput
+                              className="join-room-me"
+                              name="me"
+                              placeholder={"Username"}
+                            ></TextInput>
+                          </FormField>
+                        </Box>
+                        <Box>
+                          <Button
+                            primary
+                            color="#589891"
+                            className="join-room-join"
+                            type="submit"
+                            label={"Join"}
+                          ></Button>
+                        </Box>
                       </Box>
-                      <Box>
-                        <Button
-                          primary
-                          color="#589891"
-                          className="join-room-join"
-                          type="submit"
-                          label={"Join"}
-                        ></Button>
-                      </Box>
-                    </Box>
-                  </Form>
-                </Box>
-              ) : null}
-            </Box>
+                    </Form>
+                  </Box>
+                ) : null}
+              </Box>
+            </Button>
           </Box>
           <Box margin={{ top: "medium" }}>
             <Text>
