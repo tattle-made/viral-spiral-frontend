@@ -72,7 +72,6 @@ const PlayingArea = () => {
       mainDeck: mainDeckPosition,
       discardPile: discardPilePosition,
     });
-    // manager.addMessage(JSON.stringify({ width, height }));
   }, [width, height]);
 
   async function actionDiscardCard() {
@@ -102,7 +101,7 @@ const PlayingArea = () => {
       manager.gameState().card.reset();
     } catch (err) {
       console.error(`Error : keeping card`, err);
-      manager.addMessage(`Error : keeping card`);
+      manager.gameState().notification.add("Error Keeping Card");
     }
   }
 
@@ -120,7 +119,7 @@ const PlayingArea = () => {
       manager.gameState().card.reset();
     } catch (err) {
       console.error(`Error : passing card`, err);
-      manager.addMessage(`Error : passing card`);
+      manager.gameState().notification.add("Error Passing Card");
     }
   }
 
