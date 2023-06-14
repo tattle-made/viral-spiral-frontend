@@ -42,7 +42,7 @@ class GameManager {
         "connect",
         (() => {
           return (msg) => {
-            this.addMessage(`🔌 connected`);
+            this.gameState().notification.add("🔌 connected");
             const { room } = this.room;
             const { name, user } = room;
             if (name && user) {
@@ -229,7 +229,7 @@ class GameManager {
           break;
         default:
           console.debug("Unsupported Action");
-          this.addMessage(`⚠️ Unsupported Action`);
+          this.gameState().notification.add("⚠️ Unsupported Action");
       }
       this.notification.reset();
     } catch (err) {
