@@ -38,19 +38,17 @@ class GameManager {
   setup() {
     try {
       this.client.connect();
-      // console.log(this);
-      // console.log(this.gameState());
-
       client.addHandler(
         "connect",
         (() => {
           return (msg) => {
-            console.debug("connected", msg);
             this.addMessage(`🔌 connected`);
-            if (this.room.room === undefined) {
+            const { room } = this.room;
+            const { name, user } = room;
+            if (name && user) {
               this.joinGame({
-                room: this.room.room.name,
-                username: this.room.room.user,
+                game: name,
+                username: user,
               });
             }
           };
@@ -173,38 +171,6 @@ class GameManager {
         this.notification.reset();
       }, 1500);
     }
-  }
-
-  pollRoom({ room }) {
-    // this.pollID = setInterval(async () => {
-    //   if (window.aboutOngoing) {
-    //     return;
-    //   }
-    //   const { name, payload } = Messages.make.aboutGame(room);
-    //   window.aboutOngoing = true;
-    //   const { about } = await client.messageWithAck(name, payload);
-    //   window.aboutOngoing = false;
-    //   const { players, current, totalGlobalBias, affinities } = adapt(
-    //     "about_game",
-    //     about
-    //   );
-    //   // console.log({ players, current, totalGlobalBias });
-    //   // console.log(about);
-    //   if (
-    //     !_.isEqual(this.room.room.players, players) &&
-    //     !_.isEqual(this.room.room.current, current) &&
-    //     totalGlobalBias != this.room.room.totalGlobalBias
-    //   ) {
-    //     this.room.setRoom({
-    //       ...this.room.room,
-    //       players,
-    //       current,
-    //       totalGlobalBias,
-    //       affinities,
-    //     });
-    //     this.addMessage(`🎴 its ${current.name}'s turn now`);
-    //   }
-    // }, 2000);
   }
 
   leaveRoom() {
@@ -348,6 +314,9 @@ class GameManager {
         add: (message) => {
           const { gameMessage, setGameMessage } = this.gameMessage;
           setGameMessage([message, ...gameMessage.slice(0, 50)]);
+          setTimeout(() => {
+            setGameMessage([]);
+          }, 1500);
         },
         reset: () => {
           const { gameMessage, setGameMessage } = this.gameMessage;

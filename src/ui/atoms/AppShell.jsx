@@ -14,12 +14,6 @@ export default function AppShell({ children }) {
   const { notification } = useNotification();
   const location = useLocation();
 
-  useEffect(() => {
-    console.log(location);
-  });
-
-  // console.log({ env });
-
   return (
     <Grommet theme={Theme} full>
       <Box fill direction="row">
@@ -70,17 +64,18 @@ export default function AppShell({ children }) {
             animation={false}
             full={"vertical"}
           >
-            <Box
-              width={"fit-content"}
-              height={"4em"}
-              pad={"medium"}
-              margin={"small"}
-              round
-              background={"#7C804ECC"}
-              alignSelf={"start"}
-              overflow="hidden"
-            >
-              {/* <Tabs alignSelf="start" alignControls="start">
+            {gameMessage.length != 0 ? (
+              <Box
+                width={"25vw"}
+                height={"4em"}
+                pad={"medium"}
+                margin={"small"}
+                round
+                background={"#7C804ECC"}
+                alignSelf={"start"}
+                overflow="hidden"
+              >
+                {/* <Tabs alignSelf="start" alignControls="start">
               <Tab className="tab-game-stat" title="state">
                 <GameState gameStat={gameStat} room={room} />
               </Tab>
@@ -90,10 +85,11 @@ export default function AppShell({ children }) {
                 </Box>
               </Tab>
             </Tabs> */}
-              <Box width={"100%"} height={"20em"}>
-                <GameIncomingMessage message={gameMessage} />
+                <Box width={"100%"} height={"20em"}>
+                  <GameIncomingMessage message={gameMessage} />
+                </Box>
               </Box>
-            </Box>
+            ) : null}
           </Layer>
         ) : null}
       </Box>

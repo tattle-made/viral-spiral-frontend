@@ -21,10 +21,11 @@ import PlayerScoreCard from "../atoms/PlayerScoreCard";
 const PlayingArea = () => {
   // game room variables
   const manager = useContext(GameManagerContext);
-  const { gameStat, room } = manager.useGameState();
+  const { gameStat } = manager.useGameState();
   const [me, setMe] = useState(undefined);
   const [them, setThem] = useState(undefined);
   const { notification, add } = useNotification();
+  const [room, setRoom] = useRecoilState(Room);
 
   // layout variables
   const playArea = useRef(null);
@@ -42,6 +43,9 @@ const PlayingArea = () => {
 
       setMe(me);
       setThem(them);
+    } else {
+      setMe(undefined);
+      setThem(undefined);
     }
   }, [room]);
 
@@ -365,9 +369,7 @@ const PlayingArea = () => {
                             onClick={() => specialPowers("initiate_cancel")}
                           ></Button>
                         ) : null}
-                        {gameStat.card.allowedActions.includes(
-                          "fake_news"
-                        ) ? (
+                        {gameStat.card.allowedActions.includes("fake_news") ? (
                           <Button
                             plain
                             label={"Turn to Fake"}
