@@ -19,7 +19,7 @@ import { createWriteStream } from "fs";
 
 import { io } from "socket.io-client";
 
-const GAME_COUNT = 10;
+const GAME_COUNT = 1;
 
 (async function main() {
   outputFileStream = createWriteStream("load-tester/out.txt");
@@ -48,84 +48,84 @@ const GAME_COUNT = 10;
       });
 
       players[player].client.addHandler("play_card", async (msg) => {
-        // const card = adapt("play_card", msg);
-        // const { recipients, allowedActions, cardInstanceId: cardId } = card;
-        // const allowedActionsOfInterest = allowedActions.filter((action) =>
-        //   ["keep_card", "pass_card", "discard_card"].includes(action)
-        // );
-        // const choice = Math.floor(
-        //   Math.random() * allowedActionsOfInterest.length
-        // );
-        // const scheduledAction = allowedActionsOfInterest[choice];
-        // if (!players[player].playedCards.includes(cardId)) {
-        //   players[player].playedCards.push(cardId);
-        //   // log incoming play_card message
-        //   outputFileStream.write(
-        //     makePayload(id, "incoming", 200, "play_card", {})
-        //   );
-        //   console.log("card received by ", player);
-        //   console.log("scheduled action : ", scheduledAction);
-        //   let message;
-        //   switch (scheduledAction) {
-        //     case "keep_card":
-        //       message = Messages.make.actionKeepCard({
-        //         game: roomName,
-        //         sender: player,
-        //         cardId,
-        //       });
-        //       break;
-        //     case "pass_card":
-        //       const receiver =
-        //         recipients[Math.floor(Math.random() * recipients.length)];
-        //       message = Messages.make.actionPassCard({
-        //         game: roomName,
-        //         sender: player,
-        //         receiver,
-        //         cardId,
-        //       });
-        //       break;
-        //     case "discard_card":
-        //       message = Messages.make.actionDiscardCard({
-        //         game: roomName,
-        //         sender: player,
-        //         cardId,
-        //       });
-        //       break;
-        //     default:
-        //       break;
-        //   }
-        //   (async () => {
-        //     try {
-        //       let tsPA = performance.now();
-        //       console.log(message);
-        //       await players[player].client.messageWithAck(message);
-        //       let dPA = performance.now() - tsPA;
-        //       outputFileStream.write(
-        //         makePayload(
-        //           id,
-        //           "incoming",
-        //           200,
-        //           message.payload.action,
-        //           message,
-        //           dPA
-        //         )
-        //       );
-        //     } catch (err) {
-        //       console.log(err);
-        //       let dPA = performance.now() - tsPA;
-        //       outputFileStream.write(
-        //         makePayload(
-        //           id,
-        //           "incoming",
-        //           500,
-        //           message.payload.action,
-        //           {},
-        //           dPA
-        //         )
-        //       );
-        //     }
-        //   })();
-        // }
+        const card = adapt("play_card", msg);
+        const { recipients, allowedActions, cardInstanceId: cardId } = card;
+        const allowedActionsOfInterest = allowedActions.filter((action) =>
+          ["keep_card", "pass_card", "discard_card"].includes(action)
+        );
+        const choice = Math.floor(
+          Math.random() * allowedActionsOfInterest.length
+        );
+        const scheduledAction = allowedActionsOfInterest[choice];
+        if (!players[player].playedCards.includes(cardId)) {
+          players[player].playedCards.push(cardId);
+          // log incoming play_card message
+          outputFileStream.write(
+            makePayload(id, "incoming", 200, "play_card", {})
+          );
+          console.log("card received by ", player);
+          console.log("scheduled action : ", scheduledAction);
+          let message;
+          switch (scheduledAction) {
+            case "keep_card":
+              message = Messages.make.actionKeepCard({
+                game: roomName,
+                sender: player,
+                cardId,
+              });
+              break;
+            case "pass_card":
+              const receiver =
+                recipients[Math.floor(Math.random() * recipients.length)];
+              message = Messages.make.actionPassCard({
+                game: roomName,
+                sender: player,
+                receiver,
+                cardId,
+              });
+              break;
+            case "discard_card":
+              message = Messages.make.actionDiscardCard({
+                game: roomName,
+                sender: player,
+                cardId,
+              });
+              break;
+            default:
+              break;
+          }
+          (async () => {
+            try {
+              let tsPA = performance.now();
+              console.log(message);
+              await players[player].client.messageWithAck(message);
+              let dPA = performance.now() - tsPA;
+              outputFileStream.write(
+                makePayload(
+                  id,
+                  "incoming",
+                  200,
+                  message.payload.action,
+                  message,
+                  dPA
+                )
+              );
+            } catch (err) {
+              console.log(err);
+              let dPA = performance.now() - tsPA;
+              outputFileStream.write(
+                makePayload(
+                  id,
+                  "incoming",
+                  500,
+                  message.payload.action,
+                  {},
+                  dPA
+                )
+              );
+            }
+          })();
+        }
       });
 
       players[player].client.addHandler("endgame", async function* (msg) {
@@ -181,7 +181,7 @@ const GAME_COUNT = 10;
       );
     }
   });
-});
+})();
 
 (async function testPing() {
   let ts = performance.now();
@@ -193,4 +193,4 @@ const GAME_COUNT = 10;
       console.log(`client ${id} connected `);
     });
   });
-})();
+});

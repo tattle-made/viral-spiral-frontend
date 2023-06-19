@@ -190,7 +190,7 @@ async function presetLaunchEmptyBrowsers() {
   // await presetLaunchGameWithTwoPlayers();
   // await presetLaunchGameWith4Players();
   // await presetLaunchGameWithOnePlayers();
-  await presetLaunch4Browsers();
+  // await presetLaunch4Browsers();
 
-  // await presetLaunchEmptyBrowsers();
+  await presetLaunchEmptyBrowsers();
 })();

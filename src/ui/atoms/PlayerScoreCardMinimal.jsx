@@ -36,25 +36,14 @@ const affinityIcons = {
   houseboats: affinity5,
 };
 
-const IconWithScore = ({ icon, score }) => (
-  <Stack anchor="top-right">
-    <Box width="2.4em" round={"small"}>
-      <Image src={icon} />
-    </Box>
-    <Box round background={"accent-1"} width={"1em"} align={"center"}>
-      <Text size={"small"}>{score}</Text>
-    </Box>
-  </Stack>
-);
-
-export default function PlayerScoreCard({ player, minimal }) {
+export default function PlayerScoreCardMinimal({ player, minimal }) {
   const size = useContext(ResponsiveContext);
   return (
     <Box
       direction="row-responsive"
       wrap={true}
       gap={"small"}
-      width={isSmall(size) ? "12em" : "12em"}
+      width={isSmall(size) ? "fit-content" : "fit-content"}
       height={"fit-content"}
       background={{ color: "neutral-3" }}
       pad={"xsmall"}
@@ -74,6 +63,8 @@ export default function PlayerScoreCard({ player, minimal }) {
             <Image fit={"cover"} src={avatars[0]} />
           </Box>
         </Box>
+      </Box>
+      <Box>
         <Box pad={"xxsmall"}>
           <Box>
             <Box gap={"xsmall"}>
@@ -86,29 +77,50 @@ export default function PlayerScoreCard({ player, minimal }) {
             <Text size={"small"}>{`Clout : ${player.score}`}</Text>
           </Box>
         </Box>
-      </Box>
-      <Box>
-        <Box direction="row" align="center" gap={"medium"}>
-          {!minimal ? <Text size={"small"}>Biases</Text> : null}
-          <Box direction={"row"} gap={"xsmall"}>
-            {Object.keys(player.bias).map((key, ix) =>
-              player.color != key ? (
-                <BiasIndicator key={ix} color={key} value={player.bias[key]} />
-              ) : null
-            )}
-          </Box>
-        </Box>
 
-        <Box direction="row" align="center" gap={"medium"}>
-          {!minimal ? <Text size={"small"}>Affinites</Text> : null}
-          <Box direction={"row"}>
-            {Object.keys(player.affinity).map((key, ix) => (
-              <IconWithScore
-                key={ix}
-                icon={affinityIcons[key]}
-                score={player.affinity[key]}
-              />
-            ))}
+        <Box direction="row-responsive">
+          <Box direction="row" align="center" gap={"medium"}>
+            {!minimal ? <Text size={"small"}>Biases</Text> : null}
+            <Box direction={"row"} gap={"xsmall"}>
+              {Object.keys(player.bias).map((key, ix) =>
+                player.color != key ? (
+                  <Box
+                    key={ix}
+                    background={pallette[key].dark}
+                    round={"xlarge"}
+                    width={"1em"}
+                    height={"1em"}
+                    pad={"xsmall"}
+                    justify="center"
+                    alignContent="center"
+                    align="center"
+                  >
+                    <Text size={"small"}>{player.bias[key]}</Text>
+                  </Box>
+                ) : null
+              )}
+            </Box>
+          </Box>
+
+          <Box direction="row" align="center">
+            {!minimal ? <Text size={"small"}>Affinites</Text> : null}
+            <Box direction={"row"}>
+              {Object.keys(player.affinity).map((key, ix) => (
+                <Stack anchor="top-right" key={ix}>
+                  <Box width="2.4em" round={"small"}>
+                    <Image src={affinityIcons[key]} />
+                  </Box>
+                  <Box
+                    round
+                    background={"accent-1"}
+                    width={"1em"}
+                    align={"center"}
+                  >
+                    <Text size={"small"}>{player.affinity[key]}</Text>
+                  </Box>
+                </Stack>
+              ))}
+            </Box>
           </Box>
         </Box>
       </Box>
