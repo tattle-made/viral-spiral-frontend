@@ -212,7 +212,7 @@ class GameManager {
         case "fake_news":
           var message = Messages.make.actionFakeNews(actionPayload);
           var { card } = await this.client.messageWithAck(message);
-          this.gameState().card.changeText(card.fake_headline);
+          // this.gameState().card.changeText(card.fake_headline);
           break;
         case "mark_as_fake":
           var message = Messages.make.actionMarkAsFake(actionPayload);

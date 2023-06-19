@@ -198,79 +198,8 @@ const PlayingArea = () => {
                 flex={"grow"}
                 height={"fit-content"}
               >
-                {gameStat.card.recipients.length === 0 ? (
-                  <Box>
-                    <Box gap="medium">
-                      <Button
-                        plain
-                        alignSelf="start"
-                        label={"Keep"}
-                        onClick={actionKeepCard}
-                      ></Button>
-
-                      <Button
-                        plain
-                        alignSelf="start"
-                        label={"Discard"}
-                        onClick={actionDiscardCard}
-                      ></Button>
-                    </Box>
-
-                    <Box margin={{ top: "small" }}>
-                      {gameStat.card.allowedActions ? (
-                        <Box gap={"small"}>
-                          {/* {gameStat.card.allowedActions.includes("fake_news") ? (
-                          <Button
-                            plain
-                            onClick={actionFakeNews}
-                            label={"Turn into fake news"}
-                          ></Button>
-                        ) : null} */}
-                          {gameStat.card.allowedActions.includes(
-                            "mark_as_fake"
-                          ) ? (
-                            <Button
-                              plain
-                              label={"Mark as fake"}
-                              onClick={() => specialPowers("mark_as_fake")}
-                            ></Button>
-                          ) : null}
-                          {gameStat.card.allowedActions.includes(
-                            "encyclopedia_search"
-                          ) ? (
-                            <Button
-                              plain
-                              onClick={actionEncyclopaediaSearch}
-                              label={"Check Source"}
-                            ></Button>
-                          ) : null}
-                          {/* {gameStat.card.allowedActions.includes(
-                          "initiate_cancel"
-                        ) ? (
-                          <Button
-                            plain
-                            label={"Cancel Player"}
-                            onClick={() => specialPowers("initiate_cancel")}
-                          ></Button>
-                        ) : null} */}
-
-                          {/* {gameStat.card.allowedActions.includes(
-                          "viral_spiral"
-                        ) ? (
-                          <Button
-                            plain
-                            label={"Viral Spiral"}
-                            onClick={() =>
-                              specialPowers("viral_spiral_initiate")
-                            }
-                          ></Button>
-                        ) : null} */}
-                        </Box>
-                      ) : null}
-                    </Box>
-                  </Box>
-                ) : (
-                  <Box direction="column" gap={"small"} width={"small"}>
+                <Box direction="column" gap={"small"} width={"small"}>
+                  {gameStat.card.recipients.length != 0 ? (
                     <Box direction="row-responsive" align="center" gap="small">
                       <Text>
                         Pass to{" "}
@@ -290,71 +219,64 @@ const PlayingArea = () => {
                         ))}
                       </Text>
                     </Box>
+                  ) : null}
 
-                    <Box gap="small">
-                      <Button
-                        plain
-                        alignSelf="start"
-                        label={"Keep"}
-                        onClick={actionKeepCard}
-                      ></Button>
+                  <Box gap="small">
+                    <Button
+                      plain
+                      alignSelf="start"
+                      label={"Keep"}
+                      onClick={actionKeepCard}
+                    ></Button>
 
-                      <Button
-                        plain
-                        alignSelf="start"
-                        label={"Discard"}
-                        onClick={actionDiscardCard}
-                      ></Button>
-                    </Box>
+                    <Button
+                      plain
+                      alignSelf="start"
+                      label={"Discard"}
+                      onClick={actionDiscardCard}
+                    ></Button>
+                  </Box>
 
-                    <Box margin={{ top: "small" }}>
-                      {gameStat.card.allowedActions ? (
-                        <Box gap={"small"}>
-                          {/* {gameStat.card.allowedActions.includes("fake_news") ? (
+                  <Box margin={{ top: "small" }}>
+                    {gameStat.card.allowedActions ? (
+                      <Box gap={"small"}>
+                        {gameStat.card.allowedActions.includes(
+                          "mark_as_fake"
+                        ) ? (
                           <Button
                             plain
-                            onClick={actionFakeNews}
-                            label={"Turn into fake news"}
+                            label={"Mark as fake"}
+                            onClick={() => specialPowers("mark_as_fake")}
                           ></Button>
-                        ) : null} */}
-                          {gameStat.card.allowedActions.includes(
-                            "mark_as_fake"
-                          ) ? (
-                            <Button
-                              plain
-                              label={"Mark as fake"}
-                              onClick={() => specialPowers("mark_as_fake")}
-                            ></Button>
-                          ) : null}
-                          {gameStat.card.allowedActions.includes(
-                            "encyclopedia_search"
-                          ) ? (
-                            <Button
-                              plain
-                              onClick={actionEncyclopaediaSearch}
-                              label={"Check Source"}
-                            ></Button>
-                          ) : null}
-                          {gameStat.card.allowedActions.includes(
-                            "initiate_cancel"
-                          ) ? (
-                            <Button
-                              plain
-                              label={"Cancel Player"}
-                              onClick={() => specialPowers("initiate_cancel")}
-                            ></Button>
-                          ) : null}
-                          {gameStat.card.allowedActions.includes(
-                            "fake_news"
-                          ) ? (
-                            <Button
-                              plain
-                              label={"Turn to Fake"}
-                              onClick={actionFakeNews}
-                            ></Button>
-                          ) : null}
+                        ) : null}
+                        {gameStat.card.allowedActions.includes(
+                          "encyclopedia_search"
+                        ) ? (
+                          <Button
+                            plain
+                            onClick={actionEncyclopaediaSearch}
+                            label={"Check Source"}
+                          ></Button>
+                        ) : null}
+                        {gameStat.card.allowedActions.includes(
+                          "initiate_cancel"
+                        ) ? (
+                          <Button
+                            plain
+                            label={"Cancel Player"}
+                            onClick={() => specialPowers("initiate_cancel")}
+                          ></Button>
+                        ) : null}
+                        {gameStat.card.allowedActions.includes("fake_news") &&
+                        gameStat.card.fakeCardId != "undefined-id" ? (
+                          <Button
+                            plain
+                            label={"Turn to Fake"}
+                            onClick={actionFakeNews}
+                          ></Button>
+                        ) : null}
 
-                          {/* {gameStat.card.allowedActions.includes(
+                        {/* {gameStat.card.allowedActions.includes(
                           "viral_spiral"
                         ) ? (
                           <Button
@@ -365,11 +287,10 @@ const PlayingArea = () => {
                             }
                           ></Button>
                         ) : null} */}
-                        </Box>
-                      ) : null}
-                    </Box>
+                      </Box>
+                    ) : null}
                   </Box>
-                )}
+                </Box>
               </Box>
             </Box>
           </Box>
