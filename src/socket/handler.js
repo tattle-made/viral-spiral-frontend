@@ -79,8 +79,11 @@ function actionPerformedHandler(gameState) {
     if (action) {
       switch (action) {
         case "action_pass_card":
-          var { player } = data;
-          gameState.notification.add(`🎴 ${player.name} has passed the card`);
+          var { player, result } = data;
+          console.log({ result });
+          gameState.notification.add(
+            `🎴 ${player.name} has passed the card to ${result.passed_to.name}`
+          );
           break;
         case "action_keep_card":
           var { player } = data;
@@ -133,14 +136,14 @@ function roundEndHandler(gameState) {
 
 function aboutGameHandler(manager) {
   return (msg) => {
-    console.debug("about_game");
+    // console.debug("about_game");
     const { data } = msg;
-    console.log(msg);
+    // console.log(msg);
     const { players, current, totalGlobalBias, affinities } = adapt(
       "about_game",
       data
     );
-    console.log({ players, current, totalGlobalBias, affinities });
+    // console.log({ players, current, totalGlobalBias, affinities });
     manager.room.setRoom({
       ...manager.room.room,
       players,
