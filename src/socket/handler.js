@@ -75,30 +75,30 @@ function heartBeatHandler() {
 function actionPerformedHandler(gameState) {
   return (msg) => {
     const { data } = msg;
-    const { action } = data;
+    const { player, result, action } = data;
     if (action) {
       switch (action) {
         case "action_pass_card":
-          var { player, result } = data;
-          console.log({ result });
           gameState.notification.add(
             `🎴 ${player.name} has passed the card to ${result.passed_to.name}`
           );
           break;
         case "action_keep_card":
-          var { player } = data;
           gameState.notification.add(`🎴 ${player.name} has kept the card`);
           break;
         case "action_discard_card":
-          var { player } = data;
           gameState.notification.add(
             `🎴 ${player.name} has discarded the card`
           );
           break;
         case "action_mark_as_fake":
-          var { player } = data;
           gameState.notification.add(
             `🎴 ${player.name} has marked the card as fake`
+          );
+          break;
+        case "action_initiate_cancel":
+          gameState.notification.add(
+            `⚡ ${result.against.name} has been cancelled`
           );
           break;
         default:
