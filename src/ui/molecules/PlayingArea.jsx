@@ -20,6 +20,8 @@ import PlayerScoreCard from "../atoms/PlayerScoreCard";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import PlayerScoreCardMinimal from "../atoms/PlayerScoreCardMinimal";
+import { Stage, Layer, Rect, Circle, Image as KonvaImage } from "react-konva";
+import useImage from "use-image";
 
 const PlayingArea = () => {
   // game room variables
@@ -29,6 +31,15 @@ const PlayingArea = () => {
   const [them, setThem] = useState(undefined);
   const { notification, add } = useNotification();
   const [room, setRoom] = useRecoilState(Room);
+
+  const [image, setImage] = useState(new window.Image());
+
+  useEffect(() => {
+    const img = new window.Image();
+    img.src =
+      "https://images.unsplash.com/photo-1531804055935-76f44d7c3621?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80";
+    setImage(img);
+  }, []);
 
   // layout variables
   const [positions, setPositions] = useState(undefined);
@@ -136,8 +147,8 @@ const PlayingArea = () => {
   }
 
   return (
-    <Box pad={"small"}>
-      <Box overflow={"scroll"} direction={"row"}>
+    <Box flex={"grow"} pad={"small"}>
+      <Box overflow={"scroll"} direction={"row"} flex={"grow"}>
         <Box width={"12em"} flex={"grow"}>
           {them ? (
             <Box gap={"medium"} pad={"small"} overflow={"scroll"}>
@@ -151,7 +162,6 @@ const PlayingArea = () => {
             </Box>
           ) : null}
         </Box>
-
         {gameStat.card != undefined ? (
           <Box>
             <Box width={"100%"} gap={"medium"} direction={"row"} flex={"grow"}>
@@ -296,7 +306,19 @@ const PlayingArea = () => {
           </Box>
         ) : null}
       </Box>
-      <Box align="end" pad={"small"} flex={"grow"}>
+
+      <Box align="end">
+        {/* <Box flex={"grow"}></Box> */}
+        {/* <Stage width={500} height={200}>
+          <Layer>
+            <Circle x={200} y={200} stroke="black" radius={50} />
+            <Circle x={0} y={0} stroke="black" radius={2} />
+            <Circle x={500} y={0} stroke="black" radius={2} />
+            <Circle x={0} y={200} stroke="black" radius={2} />
+            <Circle x={500} y={200} stroke="black" radius={2} />
+            <Image x={0} y={0} image={image} />
+          </Layer>
+        </Stage> */}
         {me ? <PlayerScoreCard player={me} /> : null}
       </Box>
     </Box>

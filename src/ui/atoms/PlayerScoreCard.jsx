@@ -60,7 +60,6 @@ export default function PlayerScoreCard({ player, minimal }) {
       pad={"xsmall"}
       overflow={"hidden"}
       round={"small"}
-      flex={"grow"}
     >
       <Box direction={"row"} gap={"small"}>
         <Box>

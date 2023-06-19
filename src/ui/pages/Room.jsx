@@ -66,12 +66,13 @@ function Room({ props }) {
   return (
     <Background tgb={room.totalGlobalBias}>
       <Box fill gap={"large"}>
-        <Box gap={"medium"}>
+        <Box direction={"row-responsive"} pad={"small"}>
           <Box
-            fill={"vertical"}
+            flex={"grow"}
             overflow={"hidden"}
             direction={"row"}
             gap={"medium"}
+            align="center"
           >
             <Box
               round={"large"}
@@ -81,6 +82,36 @@ function Room({ props }) {
             >
               <Image src={vsLogo} fit={"contain"} />
             </Box>
+            {room && room.name ? (
+              <Button
+                plain
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.href);
+                  manager
+                    .gameState()
+                    .notification.add(
+                      "Room Url copied to clipboard. Please share with your friends to invite them"
+                    );
+                }}
+              >
+                <Box
+                  pad={"small"}
+                  round={"small"}
+                  background={"accent-4"}
+                  height={"fit-content"}
+                  width={"fit-content"}
+                  align="center"
+                  direction="row"
+                  gap={"small"}
+                >
+                  <Heading className={"room-name"} level={4} margin={"none"}>
+                    {room.name}
+                  </Heading>
+
+                  <Share2 size={16} />
+                </Box>
+              </Button>
+            ) : null}
             <Box direction={"row"} gap={"medium"} align="center">
               <Box
                 round={"large"}
@@ -110,52 +141,21 @@ function Room({ props }) {
               </Box>
             </Box>
           </Box>
+          <Box flex={"grow"}></Box>
           <Box gap={"small"}>
             {room && typeof room.totalGlobalBias === "number" ? (
               <Box
                 pad={"medium"}
                 round={"small"}
-                background={"accent-3"}
+                background={"status-error"}
                 direction={"row"}
                 align={"center"}
                 height={"fit-content"}
                 width={"fit-content"}
               >
                 <Heading level={3} margin={"none"}>
-                  {`Countdown to Chaos :  ${15 - room.totalGlobalBias}`}
+                  {`Chaos Countdown :  ${15 - room.totalGlobalBias}`}
                 </Heading>
-              </Box>
-            ) : null}
-            {room && room.name ? (
-              <Box
-                pad={"medium"}
-                round={"small"}
-                background={"accent-3"}
-                height={"fit-content"}
-                width={"fit-content"}
-                align="center"
-                direction="row"
-                gap={"small"}
-              >
-                <Heading className={"room-name"} level={4} margin={"none"}>
-                  {room.name}
-                </Heading>
-                <Button
-                  plain
-                  icon={
-                    <Share2
-                      size={16}
-                      onClick={() => {
-                        navigator.clipboard.writeText(window.location.href);
-                        manager
-                          .gameState()
-                          .notification.add(
-                            "Room Url copied to clipboard. Please share with your friends to invite them"
-                          );
-                      }}
-                    />
-                  }
-                />
               </Box>
             ) : null}
           </Box>

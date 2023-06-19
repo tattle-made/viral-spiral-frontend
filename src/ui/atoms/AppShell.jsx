@@ -23,21 +23,18 @@ function GameMessages({ gameMessage }) {
     <Layer
       modal={false}
       background={{ color: "#ffffff00" }}
-      position={"right"}
-      margin={"small"}
+      position={"left"}
       animation={false}
-      full={"vertical"}
+      full={true}
     >
       <Box
-        width={size == "small" || size == "xsmall" ? "100%" : "25vw"}
-        height={"4em"}
+        width={size == "small" || size == "xsmall" ? "100%" : "fit-content"}
+        height={"fit-content"}
         pad={"medium"}
         margin={"small"}
         round
         background={"#7C804E"}
-        alignSelf={"start"}
         overflow="hidden"
-        responsive={true}
       >
         {/* <Tabs alignSelf="start" alignControls="start">
         <Tab className="tab-game-stat" title="state">
@@ -49,9 +46,8 @@ function GameMessages({ gameMessage }) {
           </Box>
         </Tab>
       </Tabs> */}
-        <Box width={"100%"} height={"20em"}>
-          <GameIncomingMessage message={gameMessage} />
-        </Box>
+
+        <GameIncomingMessage message={gameMessage} />
       </Box>
     </Layer>
   ) : null;
