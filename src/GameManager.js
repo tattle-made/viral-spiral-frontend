@@ -173,6 +173,16 @@ class GameManager {
     }
   }
 
+  async getHand({ game, player }) {
+    try {
+      const message = Messages.make.playerHand(game, player);
+      const { hand } = await this.client.messageWithAck(message);
+      return hand;
+    } catch (err) {
+      this.gameState().notification.add("Error getting Player Cards");
+    }
+  }
+
   leaveRoom() {
     this.room.setRoom({
       id: undefined,

@@ -148,10 +148,10 @@ const PlayingArea = () => {
 
   return (
     <Box flex={"grow"} pad={"small"}>
-      <Box overflow={"scroll"} direction={"row"} flex={"grow"}>
+      <Box overflow={"auto"} direction={"row"} flex={"grow"}>
         <Box width={"12em"} flex={"grow"}>
           {them ? (
-            <Box gap={"medium"} pad={"small"} overflow={"scroll"}>
+            <Box gap={"medium"} pad={"small"} overflow={"auto"}>
               {them.map((player, ix) => (
                 <PlayerScoreCardMinimal
                   key={ix}
@@ -268,15 +268,7 @@ const PlayingArea = () => {
                             label={"Check Source"}
                           ></Button>
                         ) : null}
-                        {gameStat.card.allowedActions.includes(
-                          "initiate_cancel"
-                        ) ? (
-                          <Button
-                            plain
-                            label={"Cancel Player"}
-                            onClick={() => specialPowers("initiate_cancel")}
-                          ></Button>
-                        ) : null}
+
                         {gameStat.card.allowedActions.includes("fake_news") &&
                         gameStat.card.fakeCardId != "undefined-id" ? (
                           <Button
@@ -285,18 +277,6 @@ const PlayingArea = () => {
                             onClick={actionFakeNews}
                           ></Button>
                         ) : null}
-
-                        {/* {gameStat.card.allowedActions.includes(
-                          "viral_spiral"
-                        ) ? (
-                          <Button
-                            plain
-                            label={"Viral Spiral"}
-                            onClick={() =>
-                              specialPowers("viral_spiral_initiate")
-                            }
-                          ></Button>
-                        ) : null} */}
                       </Box>
                     ) : null}
                   </Box>
@@ -319,7 +299,37 @@ const PlayingArea = () => {
             <Image x={0} y={0} image={image} />
           </Layer>
         </Stage> */}
-        {me ? <PlayerScoreCard player={me} /> : null}
+        {me ? (
+          <Box gap={"small"} direction="row-responsive">
+            <Box gap={"medium"}>
+              {gameStat.card != undefined ? (
+                <Box gap={"small"}>
+                  <Box background={"neutral-4"} pad={"small"} round="small">
+                    {gameStat.card.allowedActions.includes(
+                      "initiate_cancel"
+                    ) ? (
+                      <Button
+                        plain
+                        label={"Cancel Player"}
+                        onClick={() => specialPowers("initiate_cancel")}
+                      ></Button>
+                    ) : null}
+                  </Box>
+                  <Box background={"neutral-4"} pad={"small"} round="small">
+                    {gameStat.card.allowedActions.includes("viral_spiral") ? (
+                      <Button
+                        plain
+                        label={"Viral Spiral"}
+                        onClick={() => specialPowers("viral_spiral_initiate")}
+                      ></Button>
+                    ) : null}
+                  </Box>
+                </Box>
+              ) : null}
+            </Box>
+            <PlayerScoreCard player={me} />
+          </Box>
+        ) : null}
       </Box>
     </Box>
   );

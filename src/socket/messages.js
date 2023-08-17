@@ -18,6 +18,13 @@ const make = {
       player,
     },
   }),
+  playerHand: (game, player) => ({
+    name: "player_hand",
+    payload: {
+      game,
+      player,
+    },
+  }),
   aboutGame: (game) => ({
     name: "about_game",
     payload: {

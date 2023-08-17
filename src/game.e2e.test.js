@@ -122,8 +122,8 @@ async function presetLaunchGameWithOnePlayers() {
 }
 
 async function presetLaunch4Browsers() {
-  // const GAME_URL = "http://localhost:5173/";
-  const GAME_URL = "https://viralspiral.net/";
+  const GAME_URL = "http://localhost:5173/";
+  // const GAME_URL = "https://viralspiral.net/";
   const browserA = await launchBrowser();
   const pageA = await browserA.newPage();
   await pageA.goto(GAME_URL);
@@ -139,33 +139,31 @@ async function presetLaunch4Browsers() {
 
   const browserB = await launchBrowser();
   const pageB = await browserB.newPage();
-  await pageB.goto(GAME_URL);
-  await pageB.waitForSelector(".join-room-panel");
-  await pageB.click(".join-room-panel");
-  await pageB.type(".join-room-game", roomName);
-  await pageB.type(".join-room-me", "aman");
-  await pageB.click(".join-room-join");
+  await pageB.goto(`${GAME_URL}r/${roomName}`);
+  await pageB.waitForSelector(".username");
+  await pageB.type(".username", "aman");
+  await pageB.click(".join-room-btn");
   await pageB.waitForSelector(".room-name");
 
-  const browserC = await launchBrowser();
-  const pageC = await browserC.newPage();
-  await pageC.goto(GAME_URL);
-  await pageC.waitForSelector(".join-room-panel");
-  await pageC.click(".join-room-panel");
-  await pageC.type(".join-room-game", roomName);
-  await pageC.type(".join-room-me", "farah");
-  await pageC.click(".join-room-join");
-  await pageC.waitForSelector(".room-name");
+  // const browserC = await launchBrowser();
+  // const pageC = await browserC.newPage();
+  // await pageC.goto(GAME_URL);
+  // await pageC.waitForSelector(".join-room-panel");
+  // await pageC.click(".join-room-panel");
+  // await pageC.type(".join-room-game", roomName);
+  // await pageC.type(".join-room-me", "farah");
+  // await pageC.click(".join-room-join");
+  // await pageC.waitForSelector(".room-name");
 
-  const browserD = await launchBrowser();
-  const pageD = await browserD.newPage();
-  await pageD.goto(GAME_URL);
-  await pageD.waitForSelector(".join-room-panel");
-  await pageD.click(".join-room-panel");
-  await pageD.type(".join-room-game", roomName);
-  await pageD.type(".join-room-me", "krys");
-  await pageD.click(".join-room-join");
-  await pageD.waitForSelector(".room-name");
+  // const browserD = await launchBrowser();
+  // const pageD = await browserD.newPage();
+  // await pageD.goto(GAME_URL);
+  // await pageD.waitForSelector(".join-room-panel");
+  // await pageD.click(".join-room-panel");
+  // await pageD.type(".join-room-game", roomName);
+  // await pageD.type(".join-room-me", "krys");
+  // await pageD.click(".join-room-join");
+  // await pageD.waitForSelector(".room-name");
 }
 
 const browser = {
@@ -190,7 +188,7 @@ async function presetLaunchEmptyBrowsers() {
   // await presetLaunchGameWithTwoPlayers();
   // await presetLaunchGameWith4Players();
   // await presetLaunchGameWithOnePlayers();
-  // await presetLaunch4Browsers();
 
+  // await presetLaunch4Browsers();
   await presetLaunchEmptyBrowsers();
 })();

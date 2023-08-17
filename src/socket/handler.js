@@ -52,7 +52,7 @@ function playCard(playedCards, gameState) {
       if (playedCards.includes(card.cardId)) {
         // gameState.notification.add(`🎴 Play Card received again. Ignoring`);
       } else {
-        console.log("new card");
+        console.log("new card", card);
         // gameState.notification.add(`🎴 New Card Received`);
         gameState.card.set(card);
         playedCards.push(card.cardId);

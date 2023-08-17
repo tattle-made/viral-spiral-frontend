@@ -68,11 +68,16 @@ export function UsernameModal() {
               <Text weight={700}>{` ${roomName}`}</Text>
             </Text>
             <TextInput
+              className="username"
               placeholder={"Choose your username"}
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
-            <Button label={"Select"} onClick={clickSelect} />
+            <Button
+              className={"join-room-btn"}
+              label={"Select"}
+              onClick={clickSelect}
+            />
           </Box>
         </Layer>
       ) : null}
