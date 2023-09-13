@@ -49,14 +49,16 @@ function playCard(playedCards, gameState) {
 
     try {
       card = adapt("play_card", msg);
-      if (playedCards.includes(card.cardId)) {
-        // gameState.notification.add(`🎴 Play Card received again. Ignoring`);
-      } else {
-        console.log("new card", card);
-        // gameState.notification.add(`🎴 New Card Received`);
-        gameState.card.set(card);
-        playedCards.push(card.cardId);
-      }
+      // if (playedCards.includes(card.cardId)) {
+      //   // gameState.notification.add(`🎴 Play Card received again. Ignoring`);
+      // } else {
+      //   console.log("new card", card);
+      //   // gameState.notification.add(`🎴 New Card Received`);
+      //   gameState.card.set(card);
+      //   playedCards.push(card.cardId);
+      // }
+      gameState.card.set(card);
+      playedCards.push(card.cardId);
     } catch (err) {
       console.error("error parding play_Card message");
       console.error(err);

@@ -63,6 +63,13 @@ function playCardMessage(message) {
       allowedActions: data.allowed_actions,
       fakeCardId: fakes.length === 0 ? "undefined-id" : fakes[0].id_,
       validTopicsForCancel: data.valid_topics_for_cancel,
+      affinityTowards: data.card_instance.card.affinity_towards
+        ? data.card_instance.card.affinity_towards.name
+        : undefined,
+      affinityCount: data.card_instance.card.affinity_count,
+      biasAgainst: data.card_instance.card.bias_against
+        ? data.card_instance.card.bias_against.name
+        : undefined,
     };
 
     return card;

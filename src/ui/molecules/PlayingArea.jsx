@@ -22,6 +22,30 @@ import { Carousel } from "react-responsive-carousel";
 import PlayerScoreCardMinimal from "../atoms/PlayerScoreCardMinimal";
 import { Stage, Layer, Rect, Circle, Image as KonvaImage } from "react-konva";
 import useImage from "use-image";
+import affinity1 from "../../assets/affinity-01.png";
+import affinity2 from "../../assets/affinity-02.png";
+import affinity3 from "../../assets/affinity-03.png";
+import affinity4 from "../../assets/affinity-04.png";
+import affinity5 from "../../assets/affinity-05.png";
+
+const affinityIcons = {
+  skub: affinity1,
+  cats: affinity2,
+  socks: affinity3,
+  high_fives: affinity4,
+  houseboats: affinity5,
+};
+
+const IconWithScore = ({ icon, score }) => (
+  <Stack anchor="top-right">
+    <Box width="2.4em" round={"small"}>
+      <Image src={icon} />
+    </Box>
+    <Box round background={"accent-1"} width={"1em"} align={"center"}>
+      <Text size={"small"}>{score}</Text>
+    </Box>
+  </Stack>
+);
 
 const PlayingArea = () => {
   // game room variables
@@ -166,38 +190,62 @@ const PlayingArea = () => {
           <Box>
             <Box width={"100%"} gap={"medium"} direction={"row"} flex={"grow"}>
               <Box flex={"grow"}>
-                <Stack anchor="bottom">
-                  <Box width={"16em"} height={"24em"} round={"small"}>
-                    <Image
-                      fit="contain"
-                      src={
-                        gameStat.card.image === ""
-                          ? "/card_empty.png"
-                          : `https://s3.ap-south-1.amazonaws.com/media.viralspiral.net/${gameStat.card.image}`
-                      }
-                    />
-                  </Box>
-                  <Box
-                    flex={"grow"}
-                    width={"16em"}
-                    height="fit-content"
-                    background={"#46464688"}
-                    pad={"small"}
-                    round={"small"}
-                    overflow={"hidden"}
-                  >
-                    <Box
-                      margin={{
-                        top: "small",
-                        bottom: "small",
-                        left: "medium",
-                        right: "medium",
-                      }}
-                    >
-                      <Text size="medium" weight={700} color="#ffffff">
-                        {gameStat.card.description}
-                      </Text>
+                <Stack anchor={"top-left"}>
+                  <Stack anchor="bottom">
+                    <Box width={"16em"} height={"24em"} round={"small"}>
+                      <Image
+                        fit="contain"
+                        src={
+                          gameStat.card.image === ""
+                            ? "/card_empty.png"
+                            : `https://s3.ap-south-1.amazonaws.com/media.viralspiral.net/${gameStat.card.image}`
+                        }
+                      />
                     </Box>
+                    <Box
+                      flex={"grow"}
+                      width={"16em"}
+                      height="fit-content"
+                      background={"#46464688"}
+                      pad={"small"}
+                      overflow={"hidden"}
+                    >
+                      <Box
+                        margin={{
+                          top: "small",
+                          bottom: "small",
+                          left: "medium",
+                          right: "medium",
+                        }}
+                      >
+                        <Text size="medium" weight={700} color="#ffffff">
+                          {gameStat.card.description}
+                        </Text>
+                      </Box>
+                    </Box>
+                  </Stack>
+                  <Box
+                    pad={"xsmall"}
+                    round={"xsmall"}
+                    direction="row"
+                    gap={"small"}
+                    background={"#FFF8DD"}
+                    margin={"xsmall"}
+                  >
+                    {gameStat.card.affinityTowards ? (
+                      <IconWithScore
+                        key={0}
+                        icon={affinityIcons[gameStat.card.affinityTowards]}
+                        score={gameStat.card.affinityCount}
+                      />
+                    ) : null}
+                    {gameStat.card.biasAgainst ? (
+                      <BiasIndicator
+                        key={1}
+                        color={gameStat.card.biasAgainst}
+                        value={1}
+                      />
+                    ) : null}
                   </Box>
                 </Stack>
               </Box>
@@ -304,26 +352,24 @@ const PlayingArea = () => {
             <Box gap={"medium"}>
               {gameStat.card != undefined ? (
                 <Box gap={"small"}>
-                  <Box background={"neutral-4"} pad={"small"} round="small">
-                    {gameStat.card.allowedActions.includes(
-                      "initiate_cancel"
-                    ) ? (
+                  {gameStat.card.allowedActions.includes("initiate_cancel") ? (
+                    <Box background={"neutral-4"} pad={"small"} round="small">
                       <Button
                         plain
                         label={"Cancel Player"}
                         onClick={() => specialPowers("initiate_cancel")}
                       ></Button>
-                    ) : null}
-                  </Box>
-                  <Box background={"neutral-4"} pad={"small"} round="small">
-                    {gameStat.card.allowedActions.includes("viral_spiral") ? (
+                    </Box>
+                  ) : null}
+                  {gameStat.card.allowedActions.includes("viral_spiral") ? (
+                    <Box background={"neutral-4"} pad={"small"} round="small">
                       <Button
                         plain
                         label={"Viral Spiral"}
                         onClick={() => specialPowers("viral_spiral_initiate")}
                       ></Button>
-                    ) : null}
-                  </Box>
+                    </Box>
+                  ) : null}
                 </Box>
               ) : null}
             </Box>
