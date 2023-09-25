@@ -239,13 +239,13 @@ const PlayingArea = () => {
                         score={gameStat.card.affinityCount}
                       />
                     ) : null}
-                    {/* {gameStat.card.biasAgainst ? (
+                    {gameStat.card.biasAgainst ? (
                       <BiasIndicator
                         key={1}
                         color={gameStat.card.biasAgainst}
-                        value={1}
+                        value={""}
                       />
-                    ) : null} */}
+                    ) : null}
                   </Box>
                 </Stack>
               </Box>
