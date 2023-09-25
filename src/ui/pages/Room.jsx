@@ -154,7 +154,7 @@ function Room({ props }) {
                 width={"fit-content"}
               >
                 <Heading level={3} margin={"none"}>
-                  {`Chaos Countdown :  ${15 - room.totalGlobalBias}`}
+                  {`Chaos Countdown :  ${10 - room.totalGlobalBias}`}
                 </Heading>
               </Box>
             ) : null}
