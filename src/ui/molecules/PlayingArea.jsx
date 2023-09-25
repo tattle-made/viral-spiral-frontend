@@ -41,9 +41,9 @@ const IconWithScore = ({ icon, score }) => (
     <Box width="2.4em" round={"small"}>
       <Image src={icon} />
     </Box>
-    <Box round background={"accent-1"} width={"1em"} align={"center"}>
+    {/* <Box round background={"accent-1"} width={"1em"} align={"center"}>
       <Text size={"small"}>{score}</Text>
-    </Box>
+    </Box> */}
   </Stack>
 );
 
@@ -239,13 +239,13 @@ const PlayingArea = () => {
                         score={gameStat.card.affinityCount}
                       />
                     ) : null}
-                    {gameStat.card.biasAgainst ? (
+                    {/* {gameStat.card.biasAgainst ? (
                       <BiasIndicator
                         key={1}
                         color={gameStat.card.biasAgainst}
                         value={1}
                       />
-                    ) : null}
+                    ) : null} */}
                   </Box>
                 </Stack>
               </Box>

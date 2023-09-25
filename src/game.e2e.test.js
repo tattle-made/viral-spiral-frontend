@@ -122,8 +122,8 @@ async function presetLaunchGameWithOnePlayers() {
 }
 
 async function presetLaunch4Browsers() {
-  const GAME_URL = "http://localhost:5173/";
-  // const GAME_URL = "https://viralspiral.net/";
+  // const GAME_URL = "http://localhost:5173/";
+  const GAME_URL = "https://viralspiral.net/";
   const browserA = await launchBrowser();
   const pageA = await browserA.newPage();
   await pageA.goto(GAME_URL);
@@ -175,8 +175,8 @@ const browser = {
 };
 
 async function presetLaunchEmptyBrowsers() {
-  // const GAME_URL = "https://viralspiral.net";
-  const GAME_URL = "http://localhost:5173/";
+  const GAME_URL = "https://viralspiral.net";
+  // const GAME_URL = "http://localhost:5173/";
 
   await browser.open(GAME_URL);
   await browser.open(GAME_URL);
@@ -186,8 +186,8 @@ async function presetLaunchEmptyBrowsers() {
 
 async function presetCreateManyRooms() {
   for (var i = 0; i < 10000; i++) {
-    const GAME_URL = "http://localhost:5173/";
-    // const GAME_URL = "https://viralspiral.net/";
+    // const GAME_URL = "http://localhost:5173/";
+    const GAME_URL = "https://viralspiral.net/";
     const browserA = await launchBrowser();
     const pageA = await browserA.newPage();
     await pageA.goto(GAME_URL);
@@ -213,6 +213,6 @@ async function presetCreateManyRooms() {
   // await presetLaunchGameWith4Players();
   // await presetLaunchGameWithOnePlayers();
   // await presetLaunch4Browsers();
-  // await presetLaunchEmptyBrowsers();
-  await presetCreateManyRooms();
+  await presetLaunchEmptyBrowsers();
+  // await presetCreateManyRooms();
 })();
