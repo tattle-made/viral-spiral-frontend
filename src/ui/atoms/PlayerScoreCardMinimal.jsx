@@ -83,13 +83,13 @@ export default function PlayerScoreCardMinimal({ player, minimal }) {
             {!minimal ? <Text size={"small"}>Biases</Text> : null}
             <Box direction={"row"} gap={"xsmall"}>
               {Object.keys(player.bias).map((key, ix) =>
-                player.color != key ? (
+                key != "yellow" ? (
                   <Box
                     key={ix}
                     background={pallette[key].dark}
                     round={"xlarge"}
-                    width={"1em"}
-                    height={"1em"}
+                    width={"1.5em"}
+                    height={"1.5em"}
                     pad={"xsmall"}
                     justify="center"
                     alignContent="center"

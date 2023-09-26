@@ -175,8 +175,8 @@ const browser = {
 };
 
 async function presetLaunchEmptyBrowsers() {
-  const GAME_URL = "https://viralspiral.net";
-  // const GAME_URL = "http://localhost:5173/";
+  // const GAME_URL = "https://viralspiral.net";
+  const GAME_URL = "http://localhost:5173/";
 
   await browser.open(GAME_URL);
   await browser.open(GAME_URL);

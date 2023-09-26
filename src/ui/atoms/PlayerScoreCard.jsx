@@ -49,6 +49,7 @@ const IconWithScore = ({ icon, score }) => (
 
 export default function PlayerScoreCard({ player, minimal }) {
   const size = useContext(ResponsiveContext);
+
   return (
     <Box
       direction="row-responsive"
@@ -91,7 +92,7 @@ export default function PlayerScoreCard({ player, minimal }) {
           {!minimal ? <Text size={"small"}>Biases</Text> : null}
           <Box direction={"row"} gap={"xsmall"}>
             {Object.keys(player.bias).map((key, ix) =>
-              player.color != key ? (
+              key != "yellow" ? (
                 <BiasIndicator key={ix} color={key} value={player.bias[key]} />
               ) : null
             )}
