@@ -351,10 +351,7 @@ const PlayingArea = () => {
               <Box background={"neutral-4"} pad={"small"} round>
                 <Text>{`${gameStat.showCard.player} is holding`}</Text>
                 <Box height={"0.2em"} />
-                <Card
-                  image={gameStat.showCard.image}
-                  text={gameStat.showCard.description}
-                />
+                <Card image={gameStat.showCard.image} text={""} />
               </Box>
             ) : null}
           </Box>
