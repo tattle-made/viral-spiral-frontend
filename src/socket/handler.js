@@ -98,19 +98,23 @@ function actionPerformedHandler(gameState) {
           gameState.notification.add(
             `🎴 ${player.name} has passed the card to ${result.passed_to.name}`
           );
+          gameState.showCard.reset();
           break;
         case "action_keep_card":
           gameState.notification.add(`🎴 ${player.name} has kept the card`);
+          gameState.showCard.reset();
           break;
         case "action_discard_card":
           gameState.notification.add(
             `🎴 ${player.name} has discarded the card`
           );
+          gameState.showCard.reset();
           break;
         case "action_mark_as_fake":
           gameState.notification.add(
             `🎴 ${player.name} has marked the card as fake`
           );
+          gameState.showCard.reset();
           break;
         case "action_initiate_cancel":
           gameState.notification.add(

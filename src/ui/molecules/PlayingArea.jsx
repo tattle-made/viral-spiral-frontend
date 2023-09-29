@@ -72,9 +72,9 @@ const PlayingArea = () => {
   // card and player action options
   // const [showCard, setShowCard] = useState(false);
 
-  useEffect(() => {
-    console.log(gameStat);
-  }, [gameStat]);
+  // useEffect(() => {
+  //   console.log(gameStat);
+  // }, [gameStat]);
 
   useEffect(() => {
     const { players } = room;
@@ -200,8 +200,8 @@ const PlayingArea = () => {
             </Box>
           ) : null}
         </Box>
-        <Box direction={"row"}>
-          {/* <Box>
+        <Box direction={"row"} gap={"xlarge"}>
+          <Box>
             {otherCard.card ? (
               <Box background={"neutral-4"} pad={"small"} round>
                 <Text>{`${otherCard.card.player} is holding`}</Text>
@@ -209,7 +209,7 @@ const PlayingArea = () => {
                 <Card size={"small"} image={otherCard.card.image} text={""} />
               </Box>
             ) : null}
-          </Box> */}
+          </Box>
           {gameStat.card ? (
             <Box>
               <Box
@@ -357,7 +357,7 @@ const PlayingArea = () => {
                           gameStat.card.fakeCardId != "undefined-id" ? (
                             <Button
                               plain
-                              label={"Turn to Fake"}
+                              label={"Manufacture Fake News"}
                               onClick={actionFakeNews}
                             ></Button>
                           ) : null}

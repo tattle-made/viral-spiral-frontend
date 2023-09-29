@@ -48,6 +48,13 @@ export function ActionViralSpiralSelectPlayers({ onAction, payload }) {
   }, []);
 
   async function performViralSpiral(to) {
+    // let payload = {
+    //   game: roomName,
+    //   sender: me[0].name,
+    //   cardId: selectedCard,
+    //   players,
+    // };
+    // console.log(payload);
     if ((to && me[0].name && roomName, selectedCard)) {
       let payload = {
         game: roomName,
