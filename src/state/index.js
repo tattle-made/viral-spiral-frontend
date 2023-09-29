@@ -16,6 +16,14 @@ const GameStat = atom({
   default: GameStatDefault,
 });
 
+/** this keeps track of the card help by other players */
+const OtherCard = atom({
+  key: "otherCard",
+  default: {
+    card: undefined,
+  },
+});
+
 const GameMessage = atom({
   key: "gameMessage",
   default: [],
@@ -72,6 +80,7 @@ const GameConfig = atom({
 
 export {
   GameStat,
+  OtherCard,
   GameNotification,
   DebugNotification,
   Room,

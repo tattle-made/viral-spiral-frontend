@@ -10,6 +10,7 @@ import {
   GameMessage,
   GameStatDefault,
   RoomDefault,
+  OtherCard,
 } from "./state";
 import adapt from "./socket/adapter-recoil";
 import _, { isEqual } from "underscore";
@@ -107,6 +108,7 @@ class GameManager {
 
   useGameState() {
     const [gameStat, setGameStat] = useRecoilState(GameStat);
+    const [otherCard, setOtherCard] = useRecoilState(OtherCard);
     const [room, setRoom] = useRecoilState(Room);
     const [gameConfig, setGameConfig] = useRecoilState(GameConfig);
     const [gameMessage, setGameMessage] = useRecoilState(GameMessage);
@@ -114,13 +116,14 @@ class GameManager {
     const { notification, add, reset } = useNotification();
 
     this.state = { gameStat, setGameStat };
+    this.otherCard = { otherCard, setOtherCard };
     this.room = { room, setRoom };
     this.gameConfig = { gameConfig, setGameConfig };
     this.gameMessage = { gameMessage, setGameMessage };
     this.notification = { notification, add, reset };
     this.mode = { mode, setMode };
 
-    return { gameStat, room, gameConfig, gameMessage, add };
+    return { gameStat, otherCard, room, gameConfig, gameMessage, add };
   }
 
   async createRoom({ playerCount, password, userName }) {
@@ -271,6 +274,7 @@ class GameManager {
    */
   gameState() {
     const { gameStat, setGameStat } = this.state;
+    const { otherCard, setOtherCard } = this.otherCard;
     const { setMode } = this.mode;
 
     return {
@@ -307,10 +311,10 @@ class GameManager {
       },
       showCard: {
         set: (card) => {
-          setGameStat({ ...gameStat, showCard: card });
+          setOtherCard({ ...otherCard, card: card });
         },
         reset: () => {
-          setGameStat({ ...gameStat, showCard: undefined });
+          setOtherCard({ ...otherCard, card: undefined });
         },
       },
       cancelVote: {

@@ -51,7 +51,7 @@ const IconWithScore = ({ icon, score }) => (
 const PlayingArea = () => {
   // game room variables
   const manager = useContext(GameManagerContext);
-  const { gameStat } = manager.useGameState();
+  const { gameStat, otherCard } = manager.useGameState();
   const [me, setMe] = useState(undefined);
   const [them, setThem] = useState(undefined);
   const { notification, add } = useNotification();
@@ -70,7 +70,11 @@ const PlayingArea = () => {
   const [positions, setPositions] = useState(undefined);
 
   // card and player action options
-  const [showCard, setShowCard] = useState(false);
+  // const [showCard, setShowCard] = useState(false);
+
+  useEffect(() => {
+    console.log(gameStat);
+  }, [gameStat]);
 
   useEffect(() => {
     const { players } = room;
@@ -196,166 +200,176 @@ const PlayingArea = () => {
             </Box>
           ) : null}
         </Box>
-        {gameStat.card != undefined ? (
+        <Box direction={"row"}>
           <Box>
-            <Box width={"100%"} gap={"medium"} direction={"row"} flex={"grow"}>
-              <Box flex={"grow"}>
-                <Stack anchor={"top-left"}>
-                  <Stack anchor="bottom">
-                    <Box width={"16em"} height={"24em"} round={"small"}>
-                      <Image
-                        fit="contain"
-                        src={
-                          gameStat.card.image === ""
-                            ? "/card_empty.png"
-                            : `https://s3.ap-south-1.amazonaws.com/media.viralspiral.net/${gameStat.card.image}`
-                        }
-                      />
-                    </Box>
-                    <Box
-                      flex={"grow"}
-                      width={"16em"}
-                      height="fit-content"
-                      background={"#46464688"}
-                      pad={"small"}
-                      overflow={"hidden"}
-                    >
-                      <Box
-                        margin={{
-                          top: "small",
-                          bottom: "small",
-                          left: "medium",
-                          right: "medium",
-                        }}
-                      >
-                        <Text size="medium" weight={700} color="#ffffff">
-                          {gameStat.card.description}
-                        </Text>
+            {otherCard.card ? (
+              <Box background={"neutral-4"} pad={"small"} round>
+                <Text>{`${otherCard.card.player} is holding`}</Text>
+                <Box height={"0.2em"} />
+                <Card size={"small"} image={otherCard.card.image} text={""} />
+              </Box>
+            ) : null}
+          </Box>
+          {gameStat.card ? (
+            <Box>
+              <Box
+                width={"100%"}
+                gap={"medium"}
+                direction={"row"}
+                flex={"grow"}
+              >
+                <Box flex={"grow"}>
+                  <Stack anchor={"top-left"}>
+                    <Stack anchor="bottom">
+                      <Box width={"16em"} height={"24em"} round={"small"}>
+                        <Image
+                          fit="contain"
+                          src={
+                            gameStat.card.image === ""
+                              ? "/card_empty.png"
+                              : `https://s3.ap-south-1.amazonaws.com/media.viralspiral.net/${gameStat.card.image}`
+                          }
+                        />
                       </Box>
+                      <Box
+                        flex={"grow"}
+                        width={"16em"}
+                        height="fit-content"
+                        background={"#46464688"}
+                        pad={"small"}
+                        overflow={"hidden"}
+                      >
+                        <Box
+                          margin={{
+                            top: "small",
+                            bottom: "small",
+                            left: "medium",
+                            right: "medium",
+                          }}
+                        >
+                          <Text size="medium" weight={700} color="#ffffff">
+                            {gameStat.card.description}
+                          </Text>
+                        </Box>
+                      </Box>
+                    </Stack>
+                    <Box
+                      pad={"xsmall"}
+                      round={"xsmall"}
+                      direction="row"
+                      gap={"small"}
+                      background={"#FFF8DD"}
+                      margin={"xsmall"}
+                    >
+                      {gameStat.card.affinityTowards ? (
+                        <IconWithScore
+                          key={0}
+                          icon={affinityIcons[gameStat.card.affinityTowards]}
+                          score={gameStat.card.affinityCount}
+                        />
+                      ) : null}
+                      {gameStat.card.biasAgainst ? (
+                        <BiasIndicator
+                          key={1}
+                          color={gameStat.card.biasAgainst}
+                          value={"*"}
+                        />
+                      ) : null}
                     </Box>
                   </Stack>
-                  <Box
-                    pad={"xsmall"}
-                    round={"xsmall"}
-                    direction="row"
-                    gap={"small"}
-                    background={"#FFF8DD"}
-                    margin={"xsmall"}
-                  >
-                    {gameStat.card.affinityTowards ? (
-                      <IconWithScore
-                        key={0}
-                        icon={affinityIcons[gameStat.card.affinityTowards]}
-                        score={gameStat.card.affinityCount}
-                      />
-                    ) : null}
-                    {gameStat.card.biasAgainst ? (
-                      <BiasIndicator
-                        key={1}
-                        color={gameStat.card.biasAgainst}
-                        value={"*"}
-                      />
-                    ) : null}
-                  </Box>
-                </Stack>
-              </Box>
-              <Box
-                background={"neutral-4"}
-                pad={"large"}
-                round
-                flex={"grow"}
-                height={"fit-content"}
-              >
-                <Box direction="column" gap={"small"} width={"small"}>
-                  {gameStat.card.recipients.length != 0 ? (
-                    <Box direction="row-responsive" align="center" gap="small">
-                      <Text>
-                        Pass to{" "}
-                        {gameStat.card.recipients.map((recipient, ix) => (
-                          <Text>
-                            <Button
-                              plain
-                              pad="small"
-                              key={ix}
-                              onClick={() => actionPassCard(recipient)}
-                            >
-                              <Text style={{ textDecoration: "underline" }}>
-                                {recipient}
-                              </Text>
-                            </Button>
-                            {ix != gameStat.card.recipients.length - 1
-                              ? `, `
-                              : ""}
-                          </Text>
-                        ))}
-                      </Text>
-                    </Box>
-                  ) : null}
-
-                  <Box gap="small">
-                    <Button
-                      plain
-                      alignSelf="start"
-                      label={"Keep"}
-                      onClick={actionKeepCard}
-                    ></Button>
-
-                    <Button
-                      plain
-                      alignSelf="start"
-                      label={"Discard"}
-                      onClick={actionDiscardCard}
-                    ></Button>
-                  </Box>
-
-                  <Box margin={{ top: "large" }}>
-                    {gameStat.card.allowedActions ? (
-                      <Box gap={"small"}>
-                        {gameStat.card.allowedActions.includes(
-                          "mark_as_fake"
-                        ) ? (
-                          <Button
-                            plain
-                            label={"Mark as fake"}
-                            onClick={() => specialPowers("mark_as_fake")}
-                          ></Button>
-                        ) : null}
-                        {gameStat.card.allowedActions.includes(
-                          "encyclopedia_search"
-                        ) ? (
-                          <Button
-                            plain
-                            onClick={actionEncyclopaediaSearch}
-                            label={"Check Source"}
-                          ></Button>
-                        ) : null}
-
-                        {gameStat.card.allowedActions.includes("fake_news") &&
-                        gameStat.card.fakeCardId != "undefined-id" ? (
-                          <Button
-                            plain
-                            label={"Turn to Fake"}
-                            onClick={actionFakeNews}
-                          ></Button>
-                        ) : null}
+                </Box>
+                <Box
+                  background={"neutral-4"}
+                  pad={"large"}
+                  round
+                  flex={"grow"}
+                  height={"fit-content"}
+                >
+                  <Box direction="column" gap={"small"} width={"small"}>
+                    {gameStat.card.recipients.length != 0 ? (
+                      <Box
+                        direction="row-responsive"
+                        align="center"
+                        gap="small"
+                      >
+                        <Text>
+                          Pass to{" "}
+                          {gameStat.card.recipients.map((recipient, ix) => (
+                            <Text>
+                              <Button
+                                plain
+                                pad="small"
+                                key={ix}
+                                onClick={() => actionPassCard(recipient)}
+                              >
+                                <Text style={{ textDecoration: "underline" }}>
+                                  {recipient}
+                                </Text>
+                              </Button>
+                              {ix != gameStat.card.recipients.length - 1
+                                ? `, `
+                                : ""}
+                            </Text>
+                          ))}
+                        </Text>
                       </Box>
                     ) : null}
+
+                    <Box gap="small">
+                      <Button
+                        plain
+                        alignSelf="start"
+                        label={"Keep"}
+                        onClick={actionKeepCard}
+                      ></Button>
+
+                      <Button
+                        plain
+                        alignSelf="start"
+                        label={"Discard"}
+                        onClick={actionDiscardCard}
+                      ></Button>
+                    </Box>
+
+                    <Box margin={{ top: "large" }}>
+                      {gameStat.card.allowedActions ? (
+                        <Box gap={"small"}>
+                          {gameStat.card.allowedActions.includes(
+                            "mark_as_fake"
+                          ) ? (
+                            <Button
+                              plain
+                              label={"Mark as fake"}
+                              onClick={() => specialPowers("mark_as_fake")}
+                            ></Button>
+                          ) : null}
+                          {gameStat.card.allowedActions.includes(
+                            "encyclopedia_search"
+                          ) ? (
+                            <Button
+                              plain
+                              onClick={actionEncyclopaediaSearch}
+                              label={"Check Source"}
+                            ></Button>
+                          ) : null}
+
+                          {gameStat.card.allowedActions.includes("fake_news") &&
+                          gameStat.card.fakeCardId != "undefined-id" ? (
+                            <Button
+                              plain
+                              label={"Turn to Fake"}
+                              onClick={actionFakeNews}
+                            ></Button>
+                          ) : null}
+                        </Box>
+                      ) : null}
+                    </Box>
                   </Box>
                 </Box>
               </Box>
             </Box>
-          </Box>
-        ) : (
-          <Box>
-            {gameStat.showCard ? (
-              <Box background={"neutral-4"} pad={"small"} round>
-                <Text>{`${gameStat.showCard.player} is holding`}</Text>
-                <Box height={"0.2em"} />
-                <Card image={gameStat.showCard.image} text={""} />
-              </Box>
-            ) : null}
-          </Box>
-        )}
+          ) : null}
+        </Box>
       </Box>
 
       <Box align="end">

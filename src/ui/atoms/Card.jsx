@@ -1,10 +1,23 @@
 import React from "react";
 import { Stack, Box, Text, Image } from "grommet";
 
-export default function Card({ image, text }) {
+const SIZES = {
+  small: {
+    width: "8em",
+    height: "12em",
+  },
+  default: {
+    width: "16em",
+    height: "24em",
+  },
+};
+
+export default function Card({ image, text, size }) {
+  size = size ? size : "default";
+  const cardSize = SIZES[size];
   return (
     <Stack anchor="bottom">
-      <Box width={"16em"} height={"24em"} round={"small"}>
+      <Box width={cardSize.width} height={cardSize.height} round={"small"}>
         <Image
           fit="contain"
           src={
@@ -16,7 +29,7 @@ export default function Card({ image, text }) {
       </Box>
       <Box
         flex={"grow"}
-        width={"16em"}
+        width={cardSize.width}
         height="fit-content"
         background={"#46464688"}
         pad={"small"}
