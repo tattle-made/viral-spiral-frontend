@@ -27,6 +27,7 @@ import affinity2 from "../../assets/affinity-02.png";
 import affinity3 from "../../assets/affinity-03.png";
 import affinity4 from "../../assets/affinity-04.png";
 import affinity5 from "../../assets/affinity-05.png";
+import Card from "../atoms/Card";
 
 const affinityIcons = {
   skub: affinity1,
@@ -177,11 +178,20 @@ const PlayingArea = () => {
           {them ? (
             <Box gap={"medium"} pad={"small"} overflow={"auto"}>
               {them.map((player, ix) => (
-                <PlayerScoreCardMinimal
-                  key={ix}
-                  player={player}
-                  minimal={true}
-                />
+                <Box direction={"row"}>
+                  <Box width={"medium"}>
+                    <PlayerScoreCardMinimal
+                      key={ix}
+                      player={player}
+                      minimal={true}
+                    />
+                  </Box>
+                  {/* {gameStat &&
+                  gameStat.showCard &&
+                  gameStat.showCard.player == player.name ? (
+                    <Text>show here</Text>
+                  ) : null} */}
+                </Box>
               ))}
             </Box>
           ) : null}
@@ -243,7 +253,7 @@ const PlayingArea = () => {
                       <BiasIndicator
                         key={1}
                         color={gameStat.card.biasAgainst}
-                        value={""}
+                        value={"*"}
                       />
                     ) : null}
                   </Box>
@@ -267,9 +277,12 @@ const PlayingArea = () => {
                               plain
                               pad="small"
                               key={ix}
-                              label={recipient}
                               onClick={() => actionPassCard(recipient)}
-                            ></Button>
+                            >
+                              <Text style={{ textDecoration: "underline" }}>
+                                {recipient}
+                              </Text>
+                            </Button>
                             {ix != gameStat.card.recipients.length - 1
                               ? `, `
                               : ""}
@@ -295,7 +308,7 @@ const PlayingArea = () => {
                     ></Button>
                   </Box>
 
-                  <Box margin={{ top: "small" }}>
+                  <Box margin={{ top: "large" }}>
                     {gameStat.card.allowedActions ? (
                       <Box gap={"small"}>
                         {gameStat.card.allowedActions.includes(
@@ -332,7 +345,20 @@ const PlayingArea = () => {
               </Box>
             </Box>
           </Box>
-        ) : null}
+        ) : (
+          <Box>
+            {gameStat.showCard ? (
+              <Box background={"neutral-4"} pad={"small"} round>
+                <Text>{`${gameStat.showCard.player} is holding`}</Text>
+                <Box height={"0.2em"} />
+                <Card
+                  image={gameStat.showCard.image}
+                  text={gameStat.showCard.description}
+                />
+              </Box>
+            ) : null}
+          </Box>
+        )}
       </Box>
 
       <Box align="end">

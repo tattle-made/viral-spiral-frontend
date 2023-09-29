@@ -79,12 +79,38 @@ function playCardMessage(message) {
   }
 }
 
+function showCardMessage(message) {
+  let card;
+  try {
+    const { data } = message;
+    const cardInstanceId = data.card_instance.id_;
+    const cardId = data.card_instance.card.id_;
+
+    card = {
+      id: cardInstanceId,
+      cardId,
+      cardInstanceId,
+      title: data.card_instance.card.title,
+      image: data.card_instance.card.image,
+      description: data.card_instance.card.description,
+      player: data.card_instance.player.name,
+    };
+
+    return card;
+  } catch (err) {
+    console.error("Could not parse show_card message");
+    throw "Could not parse show_card message";
+  }
+}
+
 function adapt(type, message) {
   switch (type) {
     case "about_game":
       return aboutGameMessage(message);
     case "play_card":
       return playCardMessage(message);
+    case "show_card":
+      return showCardMessage(message);
     default:
       return {};
   }

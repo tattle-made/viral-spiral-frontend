@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Box,
   Layer,
@@ -9,6 +9,7 @@ import {
   RadioButtonGroup,
   Button,
   CheckBoxGroup,
+  Paragraph,
 } from "grommet";
 import { useRecoilState } from "recoil";
 import { GameStat, Room } from "../../state";
@@ -22,10 +23,13 @@ export function ActionCancelAffinitySelector({ onAction }) {
   const { affinities: affinities = undefined } = room;
   const roomName = room.name;
 
+  console.log({ affinities });
+
   const [affinity, setAffinity] = useState(
     Object.keys(affinities).map((affinity) => {
       return { id: affinity, label: affinities[affinity], value: affinity };
     })
+    // .filter((affinity) => affinity.value >= 0)
   );
   const [selection, setSelection] = useState("");
 
@@ -36,9 +40,21 @@ export function ActionCancelAffinitySelector({ onAction }) {
   });
   const [player, setPlayer] = useState("");
 
+  useEffect(() => {
+    (async function cancelMetadata() {
+      let payload = {
+        game: roomName,
+        sender: me[0].name,
+      };
+      let message = Messages.make.metadataCancel(payload);
+      const metadata = await manager.client.messageWithAck(message);
+      console.log(metadata);
+    })();
+  }, []);
+
   async function performInitiateCancel() {
     console.log({ me, roomName, player, selection });
-    if (me[0].name && roomName && player && selection) {
+    if (me[0].name && roomName && player) {
       manager.notification.add("Initiating Cancel");
       try {
         let payload = {
@@ -64,7 +80,12 @@ export function ActionCancelAffinitySelector({ onAction }) {
     <CenteredPopupLayer>
       <Box pad={"small"} height={"fit-content"} width={"large"}>
         <Box direction="column">
-          <Heading level={2}>Action Cancel Affinity Selector</Heading>
+          <Heading level={2} margin={"none"}>
+            Cancel Someone
+          </Heading>
+          <Paragraph fill={true} margin={"none"}>
+            When you cancel a player, they lose a turn
+          </Paragraph>
           <Box flex={"grow"}></Box>
           {affinities ? (
             <Form

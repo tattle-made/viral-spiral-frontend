@@ -148,6 +148,14 @@ const make = {
       },
     },
   }),
+
+  metadataCancel: ({ game, sender }) => ({
+    name: "metadata_cancel",
+    payload: {
+      game,
+      player: sender,
+    },
+  }),
 };
 
 export default { make };

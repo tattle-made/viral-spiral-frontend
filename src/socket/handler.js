@@ -67,6 +67,20 @@ function playCard(playedCards, gameState) {
   };
 }
 
+function showCardHandler(gameState) {
+  return (msg) => {
+    let card;
+    try {
+      card = adapt("show_card", msg);
+      gameState.showCard.set(card);
+    } catch (err) {
+      console.error("Error parsing show_card message");
+      console.error(err);
+      gameState.notification.add(`🎴 Error Showing Other's Card`);
+    }
+  };
+}
+
 function heartBeatHandler() {
   return (msg) => {
     console.log("received end game event");
@@ -175,6 +189,7 @@ export default {
   errorHandler,
   textResponseMessageHandler,
   playCard,
+  showCardHandler,
   heartBeatHandler,
   voteCancel,
   actionPerformedHandler,

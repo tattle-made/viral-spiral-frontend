@@ -59,6 +59,10 @@ class GameManager {
         "play_card",
         Handlers.playCard(this.played_cards, this.gameState())
       );
+      client.addHandler(
+        "show_card",
+        Handlers.showCardHandler(this.gameState())
+      );
       client.addHandler("heartbeat", Handlers.heartBeatHandler());
       client.addHandler("disconnect", Handlers.disconnectHandler);
       client.addHandler("connect_error", Handlers.errorHandler);
@@ -299,6 +303,14 @@ class GameManager {
             ...gameStat,
             card: { ...gameStat.card, description: newText },
           });
+        },
+      },
+      showCard: {
+        set: (card) => {
+          setGameStat({ ...gameStat, showCard: card });
+        },
+        reset: () => {
+          setGameStat({ ...gameStat, showCard: undefined });
         },
       },
       cancelVote: {
