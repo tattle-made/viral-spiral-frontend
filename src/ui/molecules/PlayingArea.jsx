@@ -201,7 +201,7 @@ const PlayingArea = () => {
           ) : null}
         </Box>
         <Box direction={"row"}>
-          <Box>
+          {/* <Box>
             {otherCard.card ? (
               <Box background={"neutral-4"} pad={"small"} round>
                 <Text>{`${otherCard.card.player} is holding`}</Text>
@@ -209,7 +209,7 @@ const PlayingArea = () => {
                 <Card size={"small"} image={otherCard.card.image} text={""} />
               </Box>
             ) : null}
-          </Box>
+          </Box> */}
           {gameStat.card ? (
             <Box>
               <Box
