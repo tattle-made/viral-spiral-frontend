@@ -293,7 +293,7 @@ const PlayingArea = () => {
                         gap="small"
                       >
                         <Text>
-                          Pass to{" "}
+                          Share with{" "}
                           {gameStat.card.recipients.map((recipient, ix) => (
                             <Text>
                               <Button

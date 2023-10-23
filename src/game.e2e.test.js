@@ -181,7 +181,7 @@ async function presetLaunchEmptyBrowsers() {
   await browser.open(GAME_URL);
   await browser.open(GAME_URL);
   await browser.open(GAME_URL);
-  await browser.open(GAME_URL);
+  // await browser.open(GAME_URL);
 }
 
 async function presetCreateManyRooms() {
