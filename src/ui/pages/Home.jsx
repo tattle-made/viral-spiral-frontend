@@ -92,6 +92,30 @@ const Home = () => {
   return (
     <Box flex={"grow"} overflow={scroll} responsive>
       <Box
+        background="linear-gradient(90deg, #614385 0%, #516395 100%)"
+        pad={{ horizontal: 'medium', vertical: 'small' }}
+        align="center"
+      >
+        <Text weight="bold" size="xlarge" textAlign="center" color="white" margin={{
+          bottom: 'small'
+        }}>
+          ViralSpiral has temporarily moved!
+        </Text>
+        <Text textAlign="center" color="white">
+          We're currently hosted at <Anchor
+            href="https://viralspiral.tattle.co.in"
+            target="_blank"
+            label="viralspiral.tattle.co.in"
+            color="white"
+            weight="bold"
+            style={{
+              textDecoration: 'underline',
+              textShadow: '0px 1px 2px rgba(0,0,0,0.2)'
+            }}
+          />
+        </Text>
+      </Box>
+      <Box
         height={{ min: "100vh", max: "fit-content" }}
         width={"100vw"}
         background={`url(${bg00})`}
